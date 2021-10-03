@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Alexander](https://up.htmlacademy.ru/react/8/user/1811791).
-* Наставник: `Неизвестно`.
+* Наставник: [Николай Карастелев](https://htmlacademy.ru/profile/bini1988).
 
 ---
 
