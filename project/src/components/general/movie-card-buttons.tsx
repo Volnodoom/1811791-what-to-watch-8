@@ -1,4 +1,9 @@
-function MovieCardButtons(isInMyList: boolean, hasAddReview: boolean): JSX.Element {
+type MovieCardButtonsProps = {
+  isInMyList: boolean,
+  hasAddReview: boolean,
+}
+
+function MovieCardButtons({isInMyList, hasAddReview}: MovieCardButtonsProps): JSX.Element {
   function ButtonPlay(): JSX.Element {
     return (
       <button className="btn btn--play film-card__button" type="button">
