@@ -1,4 +1,4 @@
-import { filmTs } from '../const/const';
+import { MovieProps } from '../const/const';
 
 const GenreState = {
   Active: 'catalog__genres-item catalog__genres-item--active',
@@ -54,7 +54,7 @@ const genreFilterFrames = [
 ];
 
 
-function MainGenreFilters(film: filmTs):JSX.Element {
+function MainGenreFilters(film: MovieProps):JSX.Element {
   const {isGenreActive} = film.privateInfoWeb;
 
   function filterTemplate({filterGenre, filterUrl}: filterTemplateProps, keyId: number):JSX.Element {

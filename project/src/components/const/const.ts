@@ -5,7 +5,7 @@ export const Poster = {
   SmallHeight: 175,
 };
 
-export type filmTs = {
+export type MovieProps = {
   poster: string,
   altPoster: string,
   title: string,

@@ -1,27 +1,13 @@
-import { filmTs, Poster } from '../const/const';
+import { MovieProps, Poster } from '../const/const';
 import MovieCardButtons from '../general/movie-card-buttons';
 import TopCover from '../general/top-cover';
-
-const filmData = {
-  poster: 'img/bg-the-grand-budapest-hotel.jpg',
-  altPoster:'The Grand Budapest Hotel poster',
-  title: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  year: 2014,
-  urlMovie: 'film-page.html',
-  privateInfoWeb: {
-    isInMyList: false,
-    hasAddReview: false,
-    isGenreActive: false,
-  },
-};
 
 const TopCoverValues = {
   wtwHidden: true,
   isLogged: true,
 };
 
-function MainMovieFrame(film: filmTs): JSX.Element {
+function MainMovieFrame(film: MovieProps): JSX.Element {
   const {
     poster,
     altPoster,

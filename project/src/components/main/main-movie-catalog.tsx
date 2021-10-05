@@ -1,6 +1,6 @@
-import { filmTs, Poster } from '../const/const';
+import { MovieProps, Poster } from '../const/const';
 
-function MovieCatalog(film:filmTs): JSX.Element {
+function MovieCatalog(film:MovieProps, keyInd: number): JSX.Element {
   const {
     poster,
     altPoster,
@@ -9,7 +9,7 @@ function MovieCatalog(film:filmTs): JSX.Element {
   } = film;
 
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" key={keyInd}>
       <div className="small-film-card__image">
         <img src={poster} alt={altPoster} width={Poster.SmallWidth} height={Poster.SmallHeight} />
       </div>
