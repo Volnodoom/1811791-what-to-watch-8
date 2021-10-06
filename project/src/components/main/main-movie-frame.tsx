@@ -1,32 +1,27 @@
-import { MovieProps, Poster } from '../const/const';
+import { KindOfButton, Poster, WTWHiddenLine } from '../const/const';
+import { MovieInfo } from '../const/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import TopCover from '../general/top-cover';
 
-const TopCoverValues = {
-  wtwHidden: true,
-  isLogged: true,
-};
-
-function MainMovieFrame(film: MovieProps): JSX.Element {
+function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
   const {
     poster,
     altPoster,
     title,
     genre,
     year,
-  } = film;
+  } = props.film;
 
   const {
     isInMyList,
-    hasAddReview,
-  } = film.privateInfoWeb;
+  } = props.film.privateInfoWeb;
 
   return (
     <section className="film-card">
       <div className="film-card__bg">
         <img src={poster} alt={altPoster} />
       </div>
-      {TopCover(TopCoverValues)}
+      <TopCover film= {props.film} wtwHidden = {WTWHiddenLine.MainPage.wtwHidden} />
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
@@ -38,7 +33,10 @@ function MainMovieFrame(film: MovieProps): JSX.Element {
               <span className="film-card__genre">{genre}</span>
               <span className="film-card__year">{year}</span>
             </p>
-            {MovieCardButtons({isInMyList, hasAddReview})}
+            <div className="film-card__buttons">
+              <MovieCardButtons buttonKind= {KindOfButton.Play} />
+              <MovieCardButtons buttonKind= {isInMyList ? KindOfButton.InMyList : KindOfButton.AddToMyList} />
+            </div>
           </div>
         </div>
       </div>

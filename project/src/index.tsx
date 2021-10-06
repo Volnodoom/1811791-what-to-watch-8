@@ -1,25 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+import { FilmData } from './components/const/mockup';
 
-const filmData = {
-  poster: 'img/bg-the-grand-budapest-hotel.jpg',
-  altPoster:'The Grand Budapest Hotel poster',
-  title: 'The Grand Budapest Hotel',
-  genre: 'Drama',
-  year: 2014,
-  urlMovie: 'film-page.html',
-  privateInfoWeb: {
-    isInMyList: false,
-    hasAddReview: false,
-    isGenreActive: false,
-  },
-};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      film = {filmData}
-    />
+    <App film= {FilmData}/>;
   </React.StrictMode>,
   document.getElementById('root'));

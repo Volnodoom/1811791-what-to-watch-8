@@ -1,22 +1,15 @@
 import Avatar from './avatar';
+import { MovieInfo } from '../const/types';
 import Logo from './logo';
 
-type TopCoverProps = {
-  wtwHidden: boolean,
-  isLogged: boolean,
-}
 
-function TopCover({wtwHidden, isLogged} : TopCoverProps): JSX.Element {
-  function WTWHiddenState() {
-    return <h1 className="visually-hidden">WTW</h1>;
-  }
-
+function TopCover(props: {film: MovieInfo, wtwHidden:boolean}): JSX.Element {
   return (
     <>
-      {wtwHidden && WTWHiddenState()}
+      {props.wtwHidden && <h1 className="visually-hidden">WTW</h1>}
       <header className="page-header film-card__head">
-        {Logo()}
-        {Avatar(isLogged)}
+        <Logo />
+        <Avatar film = {props.film} />
       </header>
     </>
   );

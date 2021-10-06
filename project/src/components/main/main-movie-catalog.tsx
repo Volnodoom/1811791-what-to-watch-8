@@ -1,15 +1,16 @@
-import { MovieProps, Poster } from '../const/const';
+import { Poster } from '../const/const';
+import { MovieInfo } from '../const/types';
 
-function MovieCatalog(film:MovieProps, keyInd: number): JSX.Element {
+function MainMovieCatalog(props:{film:MovieInfo}): JSX.Element {
   const {
     poster,
     altPoster,
     title,
     urlMovie,
-  } = film;
+  } = props.film;
 
   return (
-    <article className="small-film-card catalog__films-card" key={keyInd}>
+    <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">
         <img src={poster} alt={altPoster} width={Poster.SmallWidth} height={Poster.SmallHeight} />
       </div>
@@ -20,4 +21,4 @@ function MovieCatalog(film:MovieProps, keyInd: number): JSX.Element {
   );
 }
 
-export default MovieCatalog;
+export default MainMovieCatalog;

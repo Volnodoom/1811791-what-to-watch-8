@@ -1,10 +1,10 @@
-import { MovieProps } from '../const/const';
-import PageContent from '../main/main-page-content';
 
-function App(film: MovieProps): JSX.Element {
+import { MovieInfo } from '../const/types';
+import Main from '../main/main';
+
+export default function App(props: {film: MovieInfo}): JSX.Element {
   return (
-    <PageContent film = {film} />
+    <Main film= {props.film} />
   );
 }
 
-export default App;

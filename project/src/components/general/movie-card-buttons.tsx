@@ -1,52 +1,34 @@
-type MovieCardButtonsProps = {
-  isInMyList: boolean,
-  hasAddReview: boolean,
-}
+import { KindOfButton, KindOfMovieCardButtons } from '../const/const';
 
-function MovieCardButtons({isInMyList, hasAddReview}: MovieCardButtonsProps): JSX.Element {
-  function ButtonPlay(): JSX.Element {
+function MovieCardButtons(props: {buttonKind: string}): JSX.Element {
+  const {buttonKind} = props;
+  function buttonsTemplate(ClassName:string, ViewBox:string, Use:string, Snap:string, Width:number, Height: number) {
     return (
-      <button className="btn btn--play film-card__button" type="button">
-        <svg viewBox="0 0 19 19" width="19" height="19">
-          <use xlinkHref="#play-s"></use>
+      <button className={ClassName} type="button">
+        <svg viewBox={ViewBox}  width={Width}  height={Height} >
+          <use xlinkHref= {Use}></use>
         </svg>
-        <span>Play</span>
-      </button>
-    );
-  }
-
-  function ButtonAddToMyList() {
-    return (
-      <button className="btn btn--list film-card__button" type="button">
-        <svg viewBox="0 0 19 20" width="19" height="20">
-          <use xlinkHref="#add"></use>
-        </svg>
-        <span>My list</span>
+        <span>{Snap}</span>
       </button>);
   }
 
-  function ButtonInMyList() {
-    return(
-      <button className="btn btn--list film-card__button" type="button">
-        <svg viewBox="0 0 18 14" width="18" height="14">
-          <use xlinkHref="#in-list"></use>
-        </svg>
-        <span>My list</span>
-      </button>
-    );
+  switch (buttonKind) {
+    case KindOfButton.Play: {
+      const {ClassName, ViewBox, Use, Snap, Width, Height} = KindOfMovieCardButtons.Play;
+      return buttonsTemplate(ClassName, ViewBox, Use, Snap, Width, Height);
+    }
+    case KindOfButton.AddToMyList: {
+      const {ClassName, ViewBox, Use, Snap, Width, Height} = KindOfMovieCardButtons.AddToMyList;
+      return buttonsTemplate(ClassName, ViewBox, Use, Snap, Width, Height);
+    }
+    case KindOfButton.InMyList: {
+      const {ClassName, ViewBox, Use, Snap, Width, Height} = KindOfMovieCardButtons.InMyList;
+      return buttonsTemplate(ClassName, ViewBox, Use, Snap, Width, Height);
+    }
+    default: {
+      throw Error ('It is not possible to find this kind of Button in const');
+    }
   }
-
-  function ButtonAddReview() {
-    return <a href="add-review.html" className="btn film-card__button">Add review</a>;
-  }
-
-  return (
-    <div className="film-card__buttons">
-      {ButtonPlay()}
-      {isInMyList ? ButtonInMyList() : ButtonAddToMyList()}
-      {hasAddReview ? ButtonAddReview() : ''}
-    </div>
-  );
 }
 
 export default MovieCardButtons;
