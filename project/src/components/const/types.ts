@@ -12,4 +12,8 @@ export type MovieInfo = {
   }
 };
 
+export type LogoProps = {
+  Main: string,
+  SignIn: string,
+};
 

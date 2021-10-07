@@ -1,4 +1,4 @@
-import { KindOfButton, Poster, WTWHiddenLine } from '../const/const';
+import { KindOfButton, LogoUrl, Poster, WTWHiddenLine } from '../const/const';
 import { MovieInfo } from '../const/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import TopCover from '../general/top-cover';
@@ -21,7 +21,7 @@ function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
       <div className="film-card__bg">
         <img src={poster} alt={altPoster} />
       </div>
-      <TopCover film= {props.film} wtwHidden = {WTWHiddenLine.MainPage.wtwHidden} />
+      <TopCover film= {props.film} wtwHidden = {WTWHiddenLine.MainPage.wtwHidden} logoUrl= {LogoUrl.Main}/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">

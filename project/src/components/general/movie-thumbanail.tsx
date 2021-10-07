@@ -1,7 +1,7 @@
 import { Poster } from '../const/const';
 import { MovieInfo } from '../const/types';
 
-function MainMovieCatalog(props:{film:MovieInfo}): JSX.Element {
+function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
   const {
     poster,
     altPoster,
@@ -21,4 +21,4 @@ function MainMovieCatalog(props:{film:MovieInfo}): JSX.Element {
   );
 }
 
-export default MainMovieCatalog;
+export default MovieThumbnails;

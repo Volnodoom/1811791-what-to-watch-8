@@ -5,6 +5,9 @@ export const Poster = {
   SmallHeight: 175,
 } as const;
 
+export const LOGO_TOP = true;
+export const LOGO_BOTTOM = false;
+
 export const AvatarAdjustment = {
   Img: 'img/avatar.jpg',
   AltImg: 'User avatar',
@@ -14,7 +17,11 @@ export const AvatarAdjustment = {
   UrlSingOut: 'sign-in.html',
 } as const;
 
-export const LOGO_URL = 'sign-in.html';
+export const LogoUrl = {
+  Main: 'sign-in.html',
+  SignIn: 'main.html',
+  Mylist: 'main.html',
+};
 
 export const KindOfMovieCardButtons = {
   Play: {
