@@ -2,14 +2,13 @@ import { LogoUrl, LOGO_BOTTOM } from '../const/const';
 import Copyright from '../general/copyright';
 import Logo from '../general/logo';
 
-
-function SignInFooter(): JSX.Element {
+function Footer(): JSX.Element {
   return (
     <footer className="page-footer">
-      <Logo logoUrl= {LogoUrl.Main} isTop= {LOGO_BOTTOM}/>
+      <Logo logoUrl={LogoUrl.Main} isTop= {LOGO_BOTTOM}/>
       <Copyright />
     </footer>
   );
 }
 
-export default SignInFooter;
+export default Footer;

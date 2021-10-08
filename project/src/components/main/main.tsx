@@ -27,7 +27,7 @@ function Main(props: {film: MovieInfo}): JSX.Element {
           </div>
         </section>
         <footer className="page-footer">
-          <Logo logoUrl = {LogoUrl.Main} isTop= {LOGO_BOTTOM}/>
+          <Logo logoUrl = {LogoUrl.SignIn} isTop= {LOGO_BOTTOM}/>
           <div className="copyright">
             <p>{COPYRIGHT}</p>
           </div>

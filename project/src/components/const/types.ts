@@ -5,6 +5,12 @@ export type MovieInfo = {
   genre: string,
   urlMovie: string,
   year: number,
+  ratingAbsolute: number | string,
+  ratingRelative: string,
+  ratingCount: number,
+  description: string,
+  director: string,
+  actors: string,
   privateInfoWeb: {
     isInMyList: boolean,
     hasAddReview: boolean,

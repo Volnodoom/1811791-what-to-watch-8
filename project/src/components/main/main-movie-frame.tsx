@@ -1,7 +1,8 @@
 import { KindOfButton, LogoUrl, Poster, WTWHiddenLine } from '../const/const';
 import { MovieInfo } from '../const/types';
 import MovieCardButtons from '../general/movie-card-buttons';
-import TopCover from '../general/top-cover';
+import Header from '../general/header';
+import BigPicture from '../general/big-picture';
 
 function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
   const {
@@ -21,12 +22,10 @@ function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
       <div className="film-card__bg">
         <img src={poster} alt={altPoster} />
       </div>
-      <TopCover film= {props.film} wtwHidden = {WTWHiddenLine.MainPage.wtwHidden} logoUrl= {LogoUrl.Main}/>
+      <Header film= {props.film} wtwHidden = {WTWHiddenLine.True} logoUrl= {LogoUrl.SignIn}/>
       <div className="film-card__wrap">
         <div className="film-card__info">
-          <div className="film-card__poster">
-            <img src={poster} alt={altPoster} width={Poster.BigWidth} height={Poster.BigHeight} />
-          </div>
+          <BigPicture film={props.film} class={Poster.Class.Main} />
           <div className="film-card__desc">
             <h2 className="film-card__title">{title}</h2>
             <p className="film-card__meta">

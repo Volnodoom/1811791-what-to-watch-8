@@ -2,15 +2,16 @@ import { LogoUrl, LOGO_TOP } from '../const/const';
 import { MovieInfo } from '../const/types';
 import Avatar from '../general/avatar';
 import Logo from '../general/logo';
+import Breadcrumbs from './breadcrumbs';
 
-function MylistHeader(props: {film: MovieInfo}): JSX.Element {
+function AddReviewHeader(props:{film: MovieInfo}):JSX.Element {
   return(
-    <header className="page-header user-page__head">
+    <header className="page-header">
       <Logo logoUrl={LogoUrl.Main} isTop={LOGO_TOP}/>
-      <h1 className="page-title user-page__title">My list</h1>
-      <Avatar film={props.film} />
+      <Breadcrumbs film={props.film} />
+      <Avatar film={props.film}/>
     </header>
   );
 }
 
-export default MylistHeader;
+export default AddReviewHeader;

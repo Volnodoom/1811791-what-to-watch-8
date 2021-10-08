@@ -3,7 +3,7 @@ import { MovieInfo } from '../const/types';
 import Logo from './logo';
 import { LOGO_TOP } from '../const/const';
 
-function TopCover(props: {film: MovieInfo, wtwHidden:boolean, logoUrl: string}): JSX.Element {
+function Header(props: {film: MovieInfo, wtwHidden:boolean, logoUrl: string}): JSX.Element {
   return (
     <>
       {props.wtwHidden && <h1 className="visually-hidden">WTW</h1>}
@@ -15,4 +15,4 @@ function TopCover(props: {film: MovieInfo, wtwHidden:boolean, logoUrl: string}):
   );
 }
 
-export default TopCover;
+export default Header;

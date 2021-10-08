@@ -7,7 +7,7 @@ function SignInHeader (): JSX.Element {
   return (
 
     <header className="page-header film-card__head">
-      <Logo logoUrl= {LogoUrl.SignIn} isTop={LOGO_TOP} />
+      <Logo logoUrl= {LogoUrl.Main} isTop={LOGO_TOP} />
       <h1 className="page-title user-page__title">Sign in</h1>
     </header>
   );

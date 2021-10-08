@@ -1,4 +1,9 @@
 export const Poster = {
+  Class: {
+    Main: 'film-card__poster',
+    MovieCard: 'film-card__poster film-card__poster--big',
+    AddReview: 'film-card__poster film-card__poster--small',
+  },
   BigWidth: 218,
   BigHeight: 327,
   SmallWidth: 280,
@@ -18,9 +23,8 @@ export const AvatarAdjustment = {
 } as const;
 
 export const LogoUrl = {
-  Main: 'sign-in.html',
-  SignIn: 'main.html',
-  Mylist: 'main.html',
+  Main: 'main.html',
+  SignIn: 'sign-in.html',
 };
 
 export const KindOfMovieCardButtons = {
@@ -111,9 +115,19 @@ export const genreFilterFrames = [
 ];
 
 export const WTWHiddenLine = {
-  MainPage: {
-    wtwHidden: true,
-  },
+  True: true,
+  False: false,
 } as const;
 
-
+export const AddReviewRatingStars = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+];
