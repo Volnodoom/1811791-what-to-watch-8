@@ -1,4 +1,4 @@
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 
 function BasicDescriptionPoster(props: {film: MovieInfo}):JSX.Element {
   const {

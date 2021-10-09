@@ -1,4 +1,4 @@
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 
 function MovieOverview(props: {film: MovieInfo}):JSX.Element {
   const {
@@ -23,7 +23,6 @@ function MovieOverview(props: {film: MovieInfo}):JSX.Element {
       <div className="film-card__text">
         <p>{description}</p>
         <p className="film-card__director"><strong>Director: {director}</strong></p>
-
         <p className="film-card__starring"><strong>Starring: {actors} and other</strong></p>
       </div>
     </>

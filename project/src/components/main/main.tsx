@@ -1,12 +1,8 @@
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 import MainGenreFilters from './main-genre-filters';
 import MovieThumbnails from '../general/movie-thumbanail';
-import Logo from '../general/logo';
 import MainMovieFrame from './main-movie-frame';
-import { LogoUrl, LOGO_BOTTOM } from '../const/const';
-
-const CATALOG = 'Catalog';
-const COPYRIGHT = '© 2019 What to watch Ltd.';
+import Footer from '../general/footer';
 
 function Main(props: {film: MovieInfo}): JSX.Element {
   return(
@@ -14,7 +10,7 @@ function Main(props: {film: MovieInfo}): JSX.Element {
       <MainMovieFrame film ={props.film} />
       <div className="page-content">
         <section className="catalog">
-          <h2 className="catalog__title visually-hidden">{CATALOG}</h2>
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
           <MainGenreFilters />
           <div className="catalog__films-list">
             {new Array(20)
@@ -26,12 +22,7 @@ function Main(props: {film: MovieInfo}): JSX.Element {
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
-        <footer className="page-footer">
-          <Logo logoUrl = {LogoUrl.SignIn} isTop= {LOGO_BOTTOM}/>
-          <div className="copyright">
-            <p>{COPYRIGHT}</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

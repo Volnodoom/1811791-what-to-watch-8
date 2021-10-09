@@ -1,15 +1,14 @@
-import { Poster } from '../const/const';
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 
-function BigPicture(props: {film: MovieInfo, class:string}):JSX.Element {
+function BigPicture(props: {film: MovieInfo, className:string}):JSX.Element {
   const {
     poster,
     altPoster,
   } = props.film;
 
   return (
-    <div className= {props.class}>
-      <img src={poster} alt={altPoster} width={Poster.BigWidth} height={Poster.BigHeight} />
+    <div className= {props.className}>
+      <img src={poster} alt={altPoster} width="218" height="327" />
     </div>
   );
 }

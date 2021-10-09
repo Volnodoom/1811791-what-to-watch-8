@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { AddReviewRatingStars, Poster } from '../const/const';
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 import BackgroundPoster from '../general/background-poster';
 import BigPicture from '../general/big-picture';
 import AddReviewHeader from './add-review-header';
@@ -14,7 +14,7 @@ function AddReview(props: {film: MovieInfo}):JSX.Element {
         <BackgroundPoster film= {props.film}/>
         <h1 className="visually-hidden">WTW</h1>
         <AddReviewHeader film= {props.film}/>
-        <BigPicture film= {props.film} class={Poster.Class.AddReview}/>
+        <BigPicture film= {props.film} className={Poster.Class.AddReview}/>
       </div>
 
       <div className="add-review">
@@ -23,7 +23,7 @@ function AddReview(props: {film: MovieInfo}):JSX.Element {
           <div className="rating">
             <div className="rating__stars">
               {AddReviewRatingStars
-                .map((number, index) => <AddReviewRating rating= {number} key={index}/>)}
+                .map((number, index) => <AddReviewRating rating= {number} key={`itemStarRating-${index}`}/>)}
             </div>
           </div>
 

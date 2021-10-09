@@ -1,5 +1,5 @@
-import { KindOfButton, LogoUrl, Poster, WTWHiddenLine } from '../const/const';
-import { MovieInfo } from '../const/types';
+import { KindOfButton, LogoUrl, Poster } from '../const/const';
+import { MovieInfo } from '../types/types';
 import BigPicture from '../general/big-picture';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -21,7 +21,7 @@ function MovieCard(props: {film: MovieInfo}):JSX.Element {
             <img src={poster} alt={altPoster} />
           </div>
 
-          <Header film= {props.film} wtwHidden={WTWHiddenLine.True} logoUrl= {LogoUrl.Main} />
+          <Header film= {props.film} wtwHidden logoUrl= {LogoUrl.Main} />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -37,7 +37,7 @@ function MovieCard(props: {film: MovieInfo}):JSX.Element {
 
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
-            <BigPicture film={props.film} class= {Poster.Class.MovieCard}/>
+            <BigPicture film={props.film} className= {Poster.Class.MovieCard}/>
             <div className="film-card__desc">
               <MovieNavigation />
               <MovieOverview film={props.film} />

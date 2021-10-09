@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 
 function Breadcrumbs(props: {film: MovieInfo}):JSX.Element {
   const {title} = props.film;

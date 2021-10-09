@@ -10,18 +10,6 @@ export const Poster = {
   SmallHeight: 175,
 } as const;
 
-export const LOGO_TOP = true;
-export const LOGO_BOTTOM = false;
-
-export const AvatarAdjustment = {
-  Img: 'img/avatar.jpg',
-  AltImg: 'User avatar',
-  Width: 63,
-  Height: 63,
-  UrlSingIn: 'sign-in.html',
-  UrlSingOut: 'sign-in.html',
-} as const;
-
 export const LogoUrl = {
   Main: 'main.html',
   SignIn: 'sign-in.html',
@@ -65,7 +53,6 @@ export const genreFilterFrames = [
     filterGenre: 'All filterGenres',
     filterUrl: 'null',
     isGenreActive: true,
-
   },
   {
     filterGenre: 'Comedies',
@@ -113,11 +100,6 @@ export const genreFilterFrames = [
     isGenreActive: false,
   },
 ];
-
-export const WTWHiddenLine = {
-  True: true,
-  False: false,
-} as const;
 
 export const AddReviewRatingStars = [
   1,

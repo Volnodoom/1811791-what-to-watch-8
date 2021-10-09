@@ -1,4 +1,4 @@
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 
 function BackgroundPoster(props: {film: MovieInfo}):JSX.Element {
   const {poster, altPoster} = props.film;

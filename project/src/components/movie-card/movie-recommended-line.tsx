@@ -1,4 +1,4 @@
-import { MovieInfo } from '../const/types';
+import { MovieInfo } from '../types/types';
 import MovieThumbnails from '../general/movie-thumbanail';
 
 function MovieRecommendedLine(props: {film:MovieInfo}):JSX.Element {

@@ -1,12 +1,13 @@
-import { LogoUrl, LOGO_BOTTOM } from '../const/const';
-import Copyright from '../general/copyright';
+import { LogoUrl } from '../const/const';
 import Logo from '../general/logo';
 
 function Footer(): JSX.Element {
   return (
     <footer className="page-footer">
-      <Logo logoUrl={LogoUrl.Main} isTop= {LOGO_BOTTOM}/>
-      <Copyright />
+      <Logo logoUrl={LogoUrl.Main} isTop={false} />
+      <div className="copyright">
+        <p>© 2019 What to watch Ltd.</p>
+      </div>
     </footer>
   );
 }

@@ -5,6 +5,6 @@ import { FilmData } from './components/const/mockup';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App film= {FilmData}/>;
+    <App film={FilmData}/>
   </React.StrictMode>,
   document.getElementById('root'));
