@@ -1,20 +1,24 @@
 /* eslint-disable react/no-array-index-key */
-import { AddReviewRatingStars, Poster } from '../const/const';
+import { AddReviewRatingStars } from '../const/const';
 import { MovieInfo } from '../types/types';
-import BackgroundPoster from '../general/background-poster';
-import BigPicture from '../general/big-picture';
 import AddReviewHeader from './add-review-header';
 import AddReviewRating from './add-review-rating';
 
 
 function AddReview(props: {film: MovieInfo}):JSX.Element {
+  const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <BackgroundPoster film= {props.film}/>
+        <div className="film-card__bg">
+          <img src={backgroundImg} alt={backgroundImgAlt} />
+        </div>
         <h1 className="visually-hidden">WTW</h1>
         <AddReviewHeader film= {props.film}/>
-        <BigPicture film= {props.film} className={Poster.Class.AddReview}/>
+        <div className="film-card__poster film-card__poster--small">
+          <img src={poster} alt={altPoster} width="218" height="327" />
+        </div>
       </div>
 
       <div className="add-review">

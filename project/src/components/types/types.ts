@@ -1,4 +1,6 @@
 export type MovieInfo = {
+  backgroundImg: string,
+  backgroundImgAlt: string,
   poster: string,
   altPoster: string,
   title: string,

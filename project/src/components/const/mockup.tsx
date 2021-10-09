@@ -1,5 +1,7 @@
 export const FilmData = {
-  poster: 'img/bg-the-grand-budapest-hotel.jpg',
+  backgroundImg: 'img/bg-the-grand-budapest-hotel.jpg',
+  backgroundImgAlt: 'The Grand Budapest Hotel',
+  poster: 'img/the-grand-budapest-hotel-poster.jpg',
   altPoster:'The Grand Budapest Hotel poster',
   title: 'The Grand Budapest Hotel',
   genre: 'Drama',
