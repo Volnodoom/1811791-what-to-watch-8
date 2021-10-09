@@ -1,15 +1,3 @@
-export const Poster = {
-  Class: {
-    Main: 'film-card__poster',
-    MovieCard: 'film-card__poster film-card__poster--big',
-    AddReview: 'film-card__poster film-card__poster--small',
-  },
-  BigWidth: 218,
-  BigHeight: 327,
-  SmallWidth: 280,
-  SmallHeight: 175,
-} as const;
-
 export const LogoUrl = {
   Main: 'main.html',
   SignIn: 'sign-in.html',
