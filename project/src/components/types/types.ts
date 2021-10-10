@@ -1,3 +1,5 @@
+import {RouteProps} from 'react-router-dom';
+
 export type MovieInfo = {
   backgroundImg: string,
   backgroundImgAlt: string,
@@ -20,8 +22,8 @@ export type MovieInfo = {
   }
 };
 
-export type LogoProps = {
-  Main: string,
-  SignIn: string,
-};
-
+export type PrivateRouteProps =  RouteProps & {
+  render: () => JSX.Element;
+} & {
+  film: MovieInfo
+}

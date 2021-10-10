@@ -1,4 +1,4 @@
-import { KindOfButton, LogoUrl } from '../const/const';
+import { KindOfButton, AppRout } from '../const/const';
 import { MovieInfo } from '../types/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import Header from '../general/header';
@@ -23,7 +23,7 @@ function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
       <div className="film-card__bg">
         <img src={backgroundImg} alt={backgroundImgAlt} />
       </div>
-      <Header film={props.film} wtwHidden logoUrl={LogoUrl.SignIn}/>
+      <Header film={props.film} wtwHidden appRout={AppRout.SignIn}/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">

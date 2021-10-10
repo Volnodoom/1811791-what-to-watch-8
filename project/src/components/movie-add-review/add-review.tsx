@@ -1,9 +1,20 @@
 /* eslint-disable react/no-array-index-key */
-import { AddReviewRatingStars } from '../const/const';
 import { MovieInfo } from '../types/types';
 import AddReviewHeader from './add-review-header';
 import AddReviewRating from './add-review-rating';
 
+const AddReviewRatingStars = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+];
 
 function AddReview(props: {film: MovieInfo}):JSX.Element {
   const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
