@@ -1,4 +1,4 @@
-import { LogoUrl } from '../const/const';
+import { AppRout } from '../const/const';
 import Avatar from '../general/avatar';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
@@ -9,7 +9,7 @@ function Mylist(props: {film: MovieInfo}): JSX.Element {
   return(
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo logoUrl={LogoUrl.Main} isTop/>
+        <Logo appRout={AppRout.Main} isTop/>
         <h1 className="page-title user-page__title">My list</h1>
         <Avatar film={props.film} />
       </header>

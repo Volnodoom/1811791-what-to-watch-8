@@ -17,6 +17,6 @@ export const FilmData = {
     isInMyList: false,
     hasAddReview: false,
     isGenreActive: false,
-    isLogged: true,
+    isLogged: false,
   },
 };

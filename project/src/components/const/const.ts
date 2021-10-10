@@ -1,8 +1,3 @@
-export const LogoUrl = {
-  Main: 'main.html',
-  SignIn: 'sign-in.html',
-};
-
 export const KindOfMovieCardButtons = {
   Play: {
     'ClassName': 'btn btn--play film-card__button',
@@ -89,15 +84,11 @@ export const genreFilterFrames = [
   },
 ];
 
-export const AddReviewRatingStars = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-];
+export const AppRout = {
+  Main: '/',
+  SignIn: '/login',
+  MyList: '/mylist',
+  MovieCard : '/films/:id',
+  AddReview: '/films/:id/review',
+  Player : '/player/:id',
+} as const;

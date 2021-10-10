@@ -1,4 +1,4 @@
-import { LogoUrl } from '../const/const';
+import { AppRout } from '../const/const';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 
@@ -6,7 +6,7 @@ function SignIn(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header film-card__head">
-        <Logo logoUrl= {LogoUrl.Main} isTop />
+        <Logo appRout= {AppRout.Main} isTop />
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
