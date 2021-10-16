@@ -1,17 +1,17 @@
-import { AppRout } from '../const/const';
+import { appRoute } from '../const/const';
 import Avatar from '../general/avatar';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 import MovieThumbnails from '../general/movie-thumbanail';
 import { MovieInfo } from '../types/types';
 
-function Mylist(props: {film: MovieInfo}): JSX.Element {
+function Mylist(props: {film: MovieInfo, authorizationStatus: string,}): JSX.Element {
   return(
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo appRout={AppRout.Main} isTop/>
+        <Logo appRoute={appRoute.Main} isTop/>
         <h1 className="page-title user-page__title">My list</h1>
-        <Avatar film={props.film} />
+        <Avatar authorizationStatus={props.authorizationStatus}  />
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>

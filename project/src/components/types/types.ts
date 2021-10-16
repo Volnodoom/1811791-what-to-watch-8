@@ -1,5 +1,3 @@
-import {RouteProps} from 'react-router-dom';
-
 export type MovieInfo = {
   backgroundImg: string,
   backgroundImgAlt: string,
@@ -18,12 +16,7 @@ export type MovieInfo = {
   privateInfoWeb: {
     isInMyList: boolean,
     hasAddReview: boolean,
-    isLogged: boolean,
   }
 };
 
-export type PrivateRouteProps =  RouteProps & {
-  render: () => JSX.Element;
-} & {
-  film: MovieInfo
-}
+

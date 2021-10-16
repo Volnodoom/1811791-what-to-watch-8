@@ -1,4 +1,4 @@
-import { MovieInfo } from '../types/types';
+import { AuthorizationStatus } from '../const/const';
 
 const AvatarAdjustment = {
   Img: 'img/avatar.jpg',
@@ -7,12 +7,12 @@ const AvatarAdjustment = {
   UrlSingOut: 'sign-in.html',
 } as const;
 
-function Avatar(props: {film: MovieInfo}): JSX.Element {
-  const {isLogged} = props.film.privateInfoWeb;
+function Avatar(props: {authorizationStatus: string}): JSX.Element {
+  const {authorizationStatus} = props;
 
   return (
     <ul className="user-block">
-      {isLogged ? (
+      {authorizationStatus === AuthorizationStatus.Auth ? (
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">

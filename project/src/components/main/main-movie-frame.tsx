@@ -1,9 +1,9 @@
-import { KindOfButton, AppRout } from '../const/const';
+import { KindOfButton, appRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import Header from '../general/header';
 
-function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
+function MainMovieFrame(props: {film: MovieInfo, authorizationStatus: string,}): JSX.Element {
   const {
     backgroundImg,
     backgroundImgAlt,
@@ -23,7 +23,7 @@ function MainMovieFrame(props: {film: MovieInfo}): JSX.Element {
       <div className="film-card__bg">
         <img src={backgroundImg} alt={backgroundImgAlt} />
       </div>
-      <Header film={props.film} wtwHidden appRout={AppRout.SignIn}/>
+      <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute={appRoute.SignIn}/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">

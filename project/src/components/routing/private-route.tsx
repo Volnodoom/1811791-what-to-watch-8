@@ -1,19 +1,22 @@
-import {Route, Redirect} from 'react-router-dom';
-import { AppRout } from '../const/const';
-import { PrivateRouteProps } from '../types/types';
+import {Route, Redirect, RouteProps} from 'react-router-dom';
+import { appRoute, AuthorizationStatus } from '../const/const';
+
+export type PrivateRouteProps =  RouteProps & {
+  render: () => JSX.Element;
+  authorizationStatus: string;
+}
 
 function PrivateRoute(props: PrivateRouteProps):JSX.Element {
-  const {exact, path, render } = props;
-  const {isLogged} = props.film.privateInfoWeb;
+  const {exact, path, render, authorizationStatus } = props;
 
   return(
     <Route
       exact={exact}
       path={path}
       render={() => (
-        isLogged
+        authorizationStatus === AuthorizationStatus.Auth
           ? render()
-          : <Redirect to={AppRout.SignIn} />
+          : <Redirect to={appRoute.SignIn} />
       )}
     />
   );

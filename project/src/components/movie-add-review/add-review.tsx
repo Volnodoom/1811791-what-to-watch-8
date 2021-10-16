@@ -3,20 +3,10 @@ import { MovieInfo } from '../types/types';
 import AddReviewHeader from './add-review-header';
 import AddReviewRating from './add-review-rating';
 
-const AddReviewRatingStars = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-];
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const AddReviewRatingStars: number[] = new Array(10).fill('').forEach((_, index) => index+1)!;
 
-function AddReview(props: {film: MovieInfo}):JSX.Element {
+function AddReview(props: {film: MovieInfo, authorizationStatus: string}):JSX.Element {
   const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
 
   return (
@@ -26,7 +16,7 @@ function AddReview(props: {film: MovieInfo}):JSX.Element {
           <img src={backgroundImg} alt={backgroundImgAlt} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <AddReviewHeader film= {props.film}/>
+        <AddReviewHeader film= {props.film} authorizationStatus={props.authorizationStatus}/>
         <div className="film-card__poster film-card__poster--small">
           <img src={poster} alt={altPoster} width="218" height="327" />
         </div>

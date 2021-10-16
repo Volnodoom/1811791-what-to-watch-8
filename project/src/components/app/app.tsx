@@ -7,37 +7,45 @@ import AddReview from '../movie-add-review/add-review';
 import MovieCard from '../movie-card/movie-card';
 import Mylist from '../mylist/mylist';
 import SignIn from '../sign-in/sign-in';
-import { AppRout } from '../const/const';
+import { appRoute } from '../const/const';
 import PrivateRoute from '../routing/private-route';
 
-export default function App(props: {film: MovieInfo}): JSX.Element {
+export default function App(props: {film: MovieInfo, authorizationStatus: string}): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={AppRout.Main}>
-          <Main film={props.film} />
+        <Route exact path={appRoute.Main}>
+          <Main film={props.film} authorizationStatus={props.authorizationStatus}/>
         </Route>
-        <Route exact path={AppRout.SignIn}>
+        <Route exact path={appRoute.SignIn}>
           <SignIn />
         </Route>
         <PrivateRoute
           exact
-          path={AppRout.MyList}
-          render={() => <Mylist film={props.film}/>}
-          film={props.film}
+          path={appRoute.MyList}
+          authorizationStatus={props.authorizationStatus}
+          render={() => (
+            <Mylist
+              authorizationStatus={props.authorizationStatus}
+              film={props.film}
+            />)}
         >
         </PrivateRoute>
-        <Route exact path={AppRout.MovieCard}>
-          <MovieCard film={props.film}/>
+        <Route exact path={appRoute.MovieCard}>
+          <MovieCard film={props.film} authorizationStatus={props.authorizationStatus}/>
         </Route>
         <PrivateRoute
           exact
-          path={AppRout.AddReview}
-          film={props.film}
-          render={() => <AddReview film={props.film}/>}
+          path={appRoute.AddReview}
+          authorizationStatus={props.authorizationStatus}
+          render={() => (
+            <AddReview
+              authorizationStatus={props.authorizationStatus}
+              film={props.film}
+            />)}
         >
         </PrivateRoute>
-        <Route exact path={AppRout.Player}>
+        <Route exact path={appRoute.Player}>
           <Player />
         </Route>
         <Route>

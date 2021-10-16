@@ -4,10 +4,10 @@ import MovieThumbnails from '../general/movie-thumbanail';
 import MainMovieFrame from './main-movie-frame';
 import Footer from '../general/footer';
 
-function Main(props: {film: MovieInfo}): JSX.Element {
+function Main(props: {film: MovieInfo, authorizationStatus: string}): JSX.Element {
   return(
     <>
-      <MainMovieFrame film ={props.film} />
+      <MainMovieFrame film ={props.film} authorizationStatus={props.authorizationStatus}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

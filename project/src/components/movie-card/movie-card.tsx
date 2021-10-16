@@ -1,4 +1,4 @@
-import { KindOfButton, AppRout } from '../const/const';
+import { KindOfButton, appRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -8,7 +8,7 @@ import MovieNavigation from './movie-navigation';
 import MovieOverview from './movie-overview';
 import MovieRecommendedLine from './movie-recommended-line';
 
-function MovieCard(props: {film: MovieInfo}):JSX.Element {
+function MovieCard(props: {film: MovieInfo, authorizationStatus: string,}):JSX.Element {
   const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
   const {isInMyList}= props.film.privateInfoWeb;
 
@@ -20,7 +20,7 @@ function MovieCard(props: {film: MovieInfo}):JSX.Element {
             <img src={backgroundImg} alt={backgroundImgAlt} />
           </div>
 
-          <Header film= {props.film} wtwHidden appRout= {AppRout.Main} />
+          <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute= {appRoute.Main} />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
