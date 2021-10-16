@@ -1,22 +1,21 @@
 export type MovieInfo = {
+  id: number,
   backgroundImg: string,
-  backgroundImgAlt: string,
+  backgroundColor: string,
   poster: string,
-  altPoster: string,
+  previewImg: string,
   title: string,
+  videoLink: string,
+  previewVideo: string,
   genre: string,
-  urlMovie: string,
   year: number,
   ratingAbsolute: number | string,
-  ratingRelative: string,
   ratingCount: number,
+  runTime: number,
   description: string,
   director: string,
-  actors: string,
-  privateInfoWeb: {
-    isInMyList: boolean,
-    hasAddReview: boolean,
-  }
+  actors: string[],
+  isFavorite: boolean,
 };
 
 

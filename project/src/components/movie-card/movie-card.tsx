@@ -8,16 +8,15 @@ import MovieNavigation from './movie-navigation';
 import MovieOverview from './movie-overview';
 import MovieRecommendedLine from './movie-recommended-line';
 
-function MovieCard(props: {film: MovieInfo, authorizationStatus: string,}):JSX.Element {
-  const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
-  const {isInMyList}= props.film.privateInfoWeb;
+function MovieCard(props: {film: MovieInfo, movieList:MovieInfo[], authorizationStatus: string,}):JSX.Element {
+  const {backgroundImg, poster, title, isFavorite} = props.film;
 
   return(
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={backgroundImg} alt={backgroundImgAlt} />
+            <img src={backgroundImg} alt={title} />
           </div>
 
           <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute= {appRoute.Main} />
@@ -27,7 +26,7 @@ function MovieCard(props: {film: MovieInfo, authorizationStatus: string,}):JSX.E
               <BasicDescriptionPoster  film= {props.film}/>
               <div className="film-card__buttons">
                 <MovieCardButtons buttonKind= {KindOfButton.Play}/>
-                {isInMyList ? <MovieCardButtons buttonKind= {KindOfButton.InMyList}/> : <MovieCardButtons buttonKind= {KindOfButton.AddToMyList}/>}
+                {isFavorite ? <MovieCardButtons buttonKind= {KindOfButton.InMyList}/> : <MovieCardButtons buttonKind= {KindOfButton.AddToMyList}/>}
                 <a href="add-review.html" className="btn film-card__button">Add review</a>
               </div>
             </div>
@@ -37,7 +36,7 @@ function MovieCard(props: {film: MovieInfo, authorizationStatus: string,}):JSX.E
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={poster} alt={altPoster} width="218" height="327" />
+              <img src={poster} alt={title} width="218" height="327" />
             </div>
             <div className="film-card__desc">
               <MovieNavigation />
@@ -48,7 +47,7 @@ function MovieCard(props: {film: MovieInfo, authorizationStatus: string,}):JSX.E
       </section>
 
       <div className="page-content">
-        <MovieRecommendedLine film={props.film}/>
+        <MovieRecommendedLine movieList={props.movieList}/>
         <Footer />
       </div>
     </>

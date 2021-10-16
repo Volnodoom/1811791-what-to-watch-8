@@ -7,18 +7,18 @@ import AddReviewRating from './add-review-rating';
 const AddReviewRatingStars: number[] = new Array(10).fill('').forEach((_, index) => index+1)!;
 
 function AddReview(props: {film: MovieInfo, authorizationStatus: string}):JSX.Element {
-  const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
+  const {backgroundImg, title, poster} = props.film;
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={backgroundImg} alt={backgroundImgAlt} />
+          <img src={backgroundImg} alt={title} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <AddReviewHeader film= {props.film} authorizationStatus={props.authorizationStatus}/>
         <div className="film-card__poster film-card__poster--small">
-          <img src={poster} alt={altPoster} width="218" height="327" />
+          <img src={poster} alt={title} width="218" height="327" />
         </div>
       </div>
 

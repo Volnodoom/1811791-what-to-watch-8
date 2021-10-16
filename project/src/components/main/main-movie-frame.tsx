@@ -6,28 +6,23 @@ import Header from '../general/header';
 function MainMovieFrame(props: {film: MovieInfo, authorizationStatus: string,}): JSX.Element {
   const {
     backgroundImg,
-    backgroundImgAlt,
     poster,
-    altPoster,
     title,
     genre,
     year,
+    isFavorite,
   } = props.film;
-
-  const {
-    isInMyList,
-  } = props.film.privateInfoWeb;
 
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={backgroundImg} alt={backgroundImgAlt} />
+        <img src={backgroundImg} alt={title} />
       </div>
       <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute={appRoute.SignIn}/>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src={poster} alt={altPoster} width="218" height="327" />
+            <img src={poster} alt={title} width="218" height="327" />
           </div>
           <div className="film-card__desc">
             <h2 className="film-card__title">{title}</h2>
@@ -37,7 +32,7 @@ function MainMovieFrame(props: {film: MovieInfo, authorizationStatus: string,}):
             </p>
             <div className="film-card__buttons">
               <MovieCardButtons buttonKind={KindOfButton.Play} />
-              <MovieCardButtons buttonKind={isInMyList ? KindOfButton.InMyList : KindOfButton.AddToMyList} />
+              <MovieCardButtons buttonKind={isFavorite ? KindOfButton.InMyList : KindOfButton.AddToMyList} />
             </div>
           </div>
         </div>

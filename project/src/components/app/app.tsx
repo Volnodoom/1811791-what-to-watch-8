@@ -10,12 +10,16 @@ import SignIn from '../sign-in/sign-in';
 import { appRoute } from '../const/const';
 import PrivateRoute from '../routing/private-route';
 
-export default function App(props: {film: MovieInfo, authorizationStatus: string}): JSX.Element {
+export default function App(props: {film: MovieInfo, movieList:MovieInfo[], authorizationStatus: string}): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={appRoute.Main}>
-          <Main film={props.film} authorizationStatus={props.authorizationStatus}/>
+          <Main
+            film={props.film}
+            movieList={props.movieList}
+            authorizationStatus={props.authorizationStatus}
+          />
         </Route>
         <Route exact path={appRoute.SignIn}>
           <SignIn />
@@ -27,12 +31,16 @@ export default function App(props: {film: MovieInfo, authorizationStatus: string
           render={() => (
             <Mylist
               authorizationStatus={props.authorizationStatus}
-              film={props.film}
+              movieList={props.movieList}
             />)}
         >
         </PrivateRoute>
         <Route exact path={appRoute.MovieCard}>
-          <MovieCard film={props.film} authorizationStatus={props.authorizationStatus}/>
+          <MovieCard
+            film={props.film}
+            movieList={props.movieList}
+            authorizationStatus={props.authorizationStatus}
+          />
         </Route>
         <PrivateRoute
           exact
