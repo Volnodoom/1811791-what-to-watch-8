@@ -88,9 +88,9 @@ export const appRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
-  MovieCard : '/films/:id',
-  AddReview: '/films/:id/review',
-  Player : '/player/:id',
+  Movie: (id: string | number = ':id') => `/films/${id}`,
+  AddReview: (id: string | number = ':id') => `/films/${id}/review`,
+  Player : (id: string | number = ':id') => `/player/${id}`,
 } as const;
 
 export const AuthorizationStatus = {

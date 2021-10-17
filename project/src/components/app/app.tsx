@@ -10,7 +10,26 @@ import SignIn from '../sign-in/sign-in';
 import { appRoute } from '../const/const';
 import PrivateRoute from '../routing/private-route';
 
-export default function App(props: {film: MovieInfo, movieList:MovieInfo[], authorizationStatus: string}): JSX.Element {
+type AppProps = {
+  film: MovieInfo,
+  movieList:MovieInfo[],
+  authorizationStatus: string,
+};
+
+export default function App(props: AppProps): JSX.Element {
+  // const getMovieById = (id:number) => {
+  //   const filmCard = props.movieList.find((film) => film.id === id);
+
+  //   if (!filmCard) {
+  //     throw new Error(`There is no films in our database with such id: ${id}`);
+  //   }
+
+  //   return filmCard;
+  // };
+
+  const getMyMovies = props.movieList.filter((film) => film.isFavorite);
+
+
   return (
     <BrowserRouter>
       <Switch>
@@ -31,11 +50,11 @@ export default function App(props: {film: MovieInfo, movieList:MovieInfo[], auth
           render={() => (
             <Mylist
               authorizationStatus={props.authorizationStatus}
-              movieList={props.movieList}
+              movieList={getMyMovies}
             />)}
         >
         </PrivateRoute>
-        <Route exact path={appRoute.MovieCard}>
+        <Route exact path={appRoute.Movie()}>
           <MovieCard
             film={props.film}
             movieList={props.movieList}
@@ -44,7 +63,7 @@ export default function App(props: {film: MovieInfo, movieList:MovieInfo[], auth
         </Route>
         <PrivateRoute
           exact
-          path={appRoute.AddReview}
+          path={appRoute.AddReview()}
           authorizationStatus={props.authorizationStatus}
           render={() => (
             <AddReview
@@ -53,7 +72,7 @@ export default function App(props: {film: MovieInfo, movieList:MovieInfo[], auth
             />)}
         >
         </PrivateRoute>
-        <Route exact path={appRoute.Player}>
+        <Route exact path={appRoute.Player()}>
           <Player />
         </Route>
         <Route>

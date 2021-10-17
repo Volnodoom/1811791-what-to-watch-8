@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom';
+import { appRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
 
 function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
   const {
     previewImg,
     title,
+    id,
   } = props.film;
 
   return (
@@ -12,7 +15,7 @@ function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
         <img src={previewImg} alt={title} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href={'film-page.html'}>{title}</a>
+        <Link to={appRoute.Movie(id)} className="small-film-card__link">{title}</Link>
       </h3>
     </article>
   );

@@ -14,7 +14,7 @@ function Main(props: {film: MovieInfo, movieList:MovieInfo[], authorizationStatu
           <MainGenreFilters />
           <div className="catalog__films-list">
             {props.movieList
-              .map((film) => <MovieThumbnails film={film} key = {film.id} />)}
+              .map((film) => <MovieThumbnails film={film} key={film.id} />)}
           </div>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
