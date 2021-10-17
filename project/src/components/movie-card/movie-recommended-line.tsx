@@ -1,5 +1,5 @@
 import { MovieInfo } from '../types/types';
-import MovieThumbnails from '../general/movie-thumbanail';
+import MovieThumbnails from '../general/movie-thumbnails';
 
 function MovieRecommendedLine(props: {movieList:MovieInfo[]}):JSX.Element {
   return (

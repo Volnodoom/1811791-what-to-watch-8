@@ -2,7 +2,7 @@ import { appRoute } from '../const/const';
 import Avatar from '../general/avatar';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
-import MovieThumbnails from '../general/movie-thumbanail';
+import MovieThumbnails from '../general/movie-thumbnails';
 import { MovieInfo } from '../types/types';
 
 function Mylist(props: {movieList:MovieInfo[], authorizationStatus: string,}): JSX.Element {

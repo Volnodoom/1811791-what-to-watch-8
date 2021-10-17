@@ -1,5 +1,7 @@
 import { MovieInfo } from '../types/types';
 
+const SHOW_ACTORS_NUMBER = 4;
+
 function MovieOverview(props: {film: MovieInfo}):JSX.Element {
   const {
     ratingAbsolute,
@@ -8,6 +10,13 @@ function MovieOverview(props: {film: MovieInfo}):JSX.Element {
     director,
     actors,
   } = props.film;
+
+  const actorOutput = () => {
+    if (actors.length >= SHOW_ACTORS_NUMBER) {
+      return (`${actors.slice(0,4).join(', ')}  and other`);
+    }
+    return actors.join(', ');
+  };
 
   return(
     <>
@@ -22,7 +31,7 @@ function MovieOverview(props: {film: MovieInfo}):JSX.Element {
       <div className="film-card__text">
         <p>{description}</p>
         <p className="film-card__director"><strong>Director: {director}</strong></p>
-        <p className="film-card__starring"><strong>Starring: {actors} and other</strong></p>
+        <p className="film-card__starring"><strong>Starring: {actorOutput()}</strong></p>
       </div>
     </>
   );

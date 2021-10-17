@@ -1,18 +1,32 @@
+import Error404 from '../routing/Error404';
+import { Comment } from '../types/types';
 import MovieSingleReview from './movie-single-review';
 
-function MovieReviews():JSX.Element {
+
+function MovieReviews(props: {comments: Comment[]}):JSX.Element {
+  const firstContainer: Comment[] = [];
+  const secondContainer: Comment[] = [];
+
+  if (props.comments.length === 0) {
+    return (<Error404 />);
+  }
+  // eslint-disable-next-line array-callback-return
+  props.comments.map((oneMessage, index) => {
+    if(index%2 === 0) {
+      firstContainer.push(oneMessage);
+    } else {
+      secondContainer.push(oneMessage);
+    }
+  });
+
   return(
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        <MovieSingleReview />
-        <MovieSingleReview />
-        <MovieSingleReview />
+        {firstContainer.map((comment) => <MovieSingleReview feedback={comment} key={comment.id}/>)}
       </div>
 
       <div className="film-card__reviews-col">
-        <MovieSingleReview />
-        <MovieSingleReview />
-        <MovieSingleReview />
+        {secondContainer.map((comment) => <MovieSingleReview feedback={comment} key={comment.id}/>)}
       </div>
     </div>
 
@@ -20,3 +34,5 @@ function MovieReviews():JSX.Element {
 }
 
 export default MovieReviews;
+
+

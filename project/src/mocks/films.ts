@@ -1,8 +1,6 @@
 import { MovieInfo } from '../components/types/types';
 import { getRandomInteger, getRandomPositiveFloat } from '../utils/common';
 
-const FILM_COUNT = 8;
-
 const colors = ['##FF66FF', '##00FFCC', '##3366FF', '##FFCC00', '#FF3366', '#FFFF66', '#CC0033', '#FF3300'];
 
 const images = [
@@ -31,7 +29,7 @@ const movieGenres = ['Comedy', 'Western', 'Thriller', 'History', 'Comedy', 'West
 const movieDirectors = ['Wes Anderson', 'James Cameron', 'Willem Dafoe', 'Saoirse Ronan', 'Edward Norton', 'Martin Scorsese', 'James Cameron', 'Edward Norton'];
 const movieActors = ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'];
 
-const Films: MovieInfo[] = new Array(FILM_COUNT).fill(' ').map((_,index) => (
+export const Films: MovieInfo[] = new Array(8).fill(' ').map((_,index) => (
   {
     id: index + 1,
     backgroundColor: colors[index],
@@ -52,4 +50,3 @@ const Films: MovieInfo[] = new Array(FILM_COUNT).fill(' ').map((_,index) => (
     isFavorite: !!getRandomInteger(0,1),
   }));
 
-export {Films};

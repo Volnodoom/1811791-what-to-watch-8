@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { appRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
@@ -9,8 +10,18 @@ function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
     id,
   } = props.film;
 
+  const [, setThumbnailState] = useState(false);
+
+  const handleMouseOn = () => {
+    setThumbnailState(() => true);
+  };
+
+  const handleMouseOut = () => {
+    setThumbnailState(() => false);
+  };
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOut}>
       <div className="small-film-card__image">
         <img src={previewImg} alt={title} width="280" height="175" />
       </div>

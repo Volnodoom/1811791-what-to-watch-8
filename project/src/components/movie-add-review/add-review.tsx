@@ -1,10 +1,11 @@
 /* eslint-disable react/no-array-index-key */
+import { Fragment } from 'react';
 import { MovieInfo } from '../types/types';
 import AddReviewHeader from './add-review-header';
-import AddReviewRating from './add-review-rating';
+
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const AddReviewRatingStars: number[] = new Array(10).fill('').forEach((_, index) => index+1)!;
+const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1)!;
 
 function AddReview(props: {film: MovieInfo, authorizationStatus: string}):JSX.Element {
   const {backgroundImg, title, poster} = props.film;
@@ -27,8 +28,13 @@ function AddReview(props: {film: MovieInfo, authorizationStatus: string}):JSX.El
 
           <div className="rating">
             <div className="rating__stars">
-              {AddReviewRatingStars
-                .map((number, index) => <AddReviewRating rating= {number} key={`itemStarRating-${index}`}/>)}
+              {AddReviewRatingStars.map((number, index) =>
+                (
+                  <Fragment key={`itemStarRating-${index}`}>
+                    <input className="rating__input" id={`star-${number}`} type="radio" name="rating" value={number} />
+                    <label className="rating__label" htmlFor={`star-${number}`} >Rating {number}</label>
+                  </Fragment>
+                ))}
             </div>
           </div>
 

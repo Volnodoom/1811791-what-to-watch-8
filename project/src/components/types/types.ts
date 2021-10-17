@@ -18,4 +18,15 @@ export type MovieInfo = {
   isFavorite: boolean,
 };
 
+export type IdParam = {id: string};
 
+export type Comment = {
+  id: number,
+  user: {
+    id: number,
+    name: string,
+  },
+  rating: number | string,
+  comment: string,
+  date: Date,
+}

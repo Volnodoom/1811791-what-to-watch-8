@@ -1,6 +1,6 @@
 import { MovieInfo } from '../types/types';
 import MainGenreFilters from './main-genre-filters';
-import MovieThumbnails from '../general/movie-thumbanail';
+import MovieThumbnails from '../general/movie-thumbnails';
 import MainMovieFrame from './main-movie-frame';
 import Footer from '../general/footer';
 

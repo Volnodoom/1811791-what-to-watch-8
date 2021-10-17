@@ -89,6 +89,8 @@ export const appRoute = {
   SignIn: '/login',
   MyList: '/mylist',
   Movie: (id: string | number = ':id') => `/films/${id}`,
+  Details: (id: string | number = ':id') => `/films/${id}/details`,
+  Reviews: (id: string | number = ':id') => `/films/${id}/reviews`,
   AddReview: (id: string | number = ':id') => `/films/${id}/review`,
   Player : (id: string | number = ':id') => `/player/${id}`,
 } as const;
@@ -97,4 +99,10 @@ export const AuthorizationStatus = {
   Auth: 'AUTH',
   NoAuth: 'NO_AUTH',
   Unknown: 'UNKNOWN',
+} as const;
+
+export const CardState = {
+  Overview: 'OVERVIEW',
+  Details: 'DETAILS',
+  Reviews: 'REVIEWS',
 } as const;
