@@ -30,3 +30,8 @@ export type Comment = {
   comment: string,
   date: Date,
 }
+
+export type CommentToServer = {
+  // rating: number,
+  comment: string,
+};

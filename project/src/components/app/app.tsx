@@ -75,7 +75,7 @@ export default function App(props: AppProps): JSX.Element {
           render={() => (
             <AddReview
               authorizationStatus={props.authorizationStatus}
-              film={props.film}
+              movieList={props.movieList}
             />)}
         >
         </PrivateRoute>
