@@ -1,29 +1,37 @@
-import {RouteProps} from 'react-router-dom';
-
 export type MovieInfo = {
+  id: number,
   backgroundImg: string,
-  backgroundImgAlt: string,
+  backgroundColor: string,
   poster: string,
-  altPoster: string,
+  previewImg: string,
   title: string,
+  videoLink: string,
+  previewVideo: string,
   genre: string,
-  urlMovie: string,
   year: number,
   ratingAbsolute: number | string,
-  ratingRelative: string,
   ratingCount: number,
+  runTime: number,
   description: string,
   director: string,
-  actors: string,
-  privateInfoWeb: {
-    isInMyList: boolean,
-    hasAddReview: boolean,
-    isLogged: boolean,
-  }
+  actors: string[],
+  isFavorite: boolean,
 };
 
-export type PrivateRouteProps =  RouteProps & {
-  render: () => JSX.Element;
-} & {
-  film: MovieInfo
+export type IdParam = {id: string};
+
+export type Comment = {
+  id: number,
+  user: {
+    id: number,
+    name: string,
+  },
+  rating: number | string,
+  comment: string,
+  date: Date,
 }
+
+export type CommentToServer = {
+  // rating: number,
+  comment: string,
+};

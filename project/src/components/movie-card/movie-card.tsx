@@ -1,5 +1,7 @@
-import { KindOfButton, AppRout } from '../const/const';
-import { MovieInfo } from '../types/types';
+import { useParams } from 'react-router';
+import Error404 from '../routing/Error404';
+import { KindOfButton, appRoute, CardState } from '../const/const';
+import { Comment, IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
 import Header from '../general/header';
@@ -7,28 +9,46 @@ import MovieCardButtons from '../general/movie-card-buttons';
 import MovieNavigation from './movie-navigation';
 import MovieOverview from './movie-overview';
 import MovieRecommendedLine from './movie-recommended-line';
+import MovieDetails from './movie-details';
+import MovieReviews from './movie-reviews';
+import { Link } from 'react-router-dom';
 
-function MovieCard(props: {film: MovieInfo}):JSX.Element {
-  const {backgroundImg, backgroundImgAlt, poster, altPoster} = props.film;
-  const {isInMyList}= props.film.privateInfoWeb;
+type MovieCardProps = {
+  movieList:MovieInfo[],
+  authorizationStatus: string,
+  cardDemonstrate: string,
+  comments: Comment[],
+}
+
+function MovieCard(props: MovieCardProps):JSX.Element {
+  const {cardDemonstrate} = props;
+  const { id } = useParams() as IdParam;
+  const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
+  if (!film) {
+    return (
+      <Error404 />
+    );
+  }
+
+  const {backgroundImg, poster, title, isFavorite} = film;
 
   return(
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={backgroundImg} alt={backgroundImgAlt} />
+            <img src={backgroundImg} alt={title} />
           </div>
 
-          <Header film= {props.film} wtwHidden appRout= {AppRout.Main} />
+          <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute= {appRoute.Main} />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <BasicDescriptionPoster  film= {props.film}/>
+              <BasicDescriptionPoster  film= {film}/>
               <div className="film-card__buttons">
                 <MovieCardButtons buttonKind= {KindOfButton.Play}/>
-                {isInMyList ? <MovieCardButtons buttonKind= {KindOfButton.InMyList}/> : <MovieCardButtons buttonKind= {KindOfButton.AddToMyList}/>}
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                {isFavorite ? <MovieCardButtons buttonKind= {KindOfButton.InMyList}/> : <MovieCardButtons buttonKind= {KindOfButton.AddToMyList}/>}
+                <Link to={appRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -37,18 +57,20 @@ function MovieCard(props: {film: MovieInfo}):JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={poster} alt={altPoster} width="218" height="327" />
+              <img src={poster} alt={title} width="218" height="327" />
             </div>
             <div className="film-card__desc">
               <MovieNavigation />
-              <MovieOverview film={props.film} />
+              {cardDemonstrate === CardState.Overview ? <MovieOverview film={film} /> : ''}
+              {cardDemonstrate === CardState.Details ? <MovieDetails film={film}/> : ''}
+              {cardDemonstrate === CardState.Reviews ? <MovieReviews comments={props.comments}/> : ''}
             </div>
           </div>
         </div>
       </section>
 
       <div className="page-content">
-        <MovieRecommendedLine film={props.film}/>
+        <MovieRecommendedLine movieList={props.movieList}/>
         <Footer />
       </div>
     </>

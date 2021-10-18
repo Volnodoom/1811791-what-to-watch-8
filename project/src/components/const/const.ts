@@ -84,11 +84,25 @@ export const genreFilterFrames = [
   },
 ];
 
-export const AppRout = {
+export const appRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
-  MovieCard : '/films/:id',
-  AddReview: '/films/:id/review',
-  Player : '/player/:id',
+  Movie: (id: string | number = ':id') => `/films/${id}`,
+  Details: (id: string | number = ':id') => `/films/${id}/details`,
+  Reviews: (id: string | number = ':id') => `/films/${id}/reviews`,
+  AddReview: (id: string | number = ':id') => `/films/${id}/review`,
+  Player : (id: string | number = ':id') => `/player/${id}`,
+} as const;
+
+export const AuthorizationStatus = {
+  Auth: 'AUTH',
+  NoAuth: 'NO_AUTH',
+  Unknown: 'UNKNOWN',
+} as const;
+
+export const CardState = {
+  Overview: 'OVERVIEW',
+  Details: 'DETAILS',
+  Reviews: 'REVIEWS',
 } as const;
