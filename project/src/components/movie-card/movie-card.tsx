@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
-import { KindOfButton, appRoute, CardState } from '../const/const';
+import { KindOfButton, AppRoute, CardState, MatchingComponent } from '../const/const';
 import { Comment, IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -8,10 +8,10 @@ import Header from '../general/header';
 import MovieCardButtons from '../general/movie-card-buttons';
 import MovieNavigation from './movie-navigation';
 import MovieOverview from './movie-overview';
-import MovieRecommendedLine from './movie-recommended-line';
 import MovieDetails from './movie-details';
 import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
+import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
@@ -40,7 +40,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
             <img src={backgroundImg} alt={title} />
           </div>
 
-          <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute= {appRoute.Main} />
+          <Header authorizationStatus={props.authorizationStatus} wtwHidden AppRoute= {AppRoute.Main} />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -48,7 +48,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
               <div className="film-card__buttons">
                 <MovieCardButtons buttonKind= {KindOfButton.Play}/>
                 {isFavorite ? <MovieCardButtons buttonKind= {KindOfButton.InMyList}/> : <MovieCardButtons buttonKind= {KindOfButton.AddToMyList}/>}
-                <Link to={appRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
+                <Link to={AppRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -70,7 +70,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
       </section>
 
       <div className="page-content">
-        <MovieRecommendedLine movieList={props.movieList}/>
+        <CatalogMovieThumbnails movieList={props.movieList} componentEqual={MatchingComponent.MovieCard}/>
         <Footer />
       </div>
     </>

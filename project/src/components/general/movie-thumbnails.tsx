@@ -1,23 +1,23 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { appRoute } from '../const/const';
+import { AppRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
 
-function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
+
+function MovieThumbnails(props:{film:MovieInfo, activeState: React.Dispatch<React.SetStateAction<number | null>>}): JSX.Element {
   const {
     previewImg,
     title,
     id,
   } = props.film;
 
-  const [, setThumbnailState] = useState(false);
+  const {activeState} = props;
 
   const handleMouseOn = () => {
-    setThumbnailState(() => true);
+    activeState(() => id);
   };
 
   const handleMouseOut = () => {
-    setThumbnailState(() => false);
+    activeState(() => null);
   };
 
   return (
@@ -26,7 +26,7 @@ function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
         <img src={previewImg} alt={title} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={appRoute.Movie(id)} className="small-film-card__link">{title}</Link>
+        <Link to={AppRoute.Movie(id)} className="small-film-card__link">{title}</Link>
       </h3>
     </article>
   );
