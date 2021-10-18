@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { appRoute } from '../const/const';
+import { AppRoute } from '../const/const';
 
 function Error404():JSX.Element {
   return (
@@ -9,7 +9,7 @@ function Error404():JSX.Element {
         <br />
         <small>Page not found</small>
       </h1>
-      <Link to={appRoute.Main}>Go to main page</Link>
+      <Link to={AppRoute.Main}>Go to main page</Link>
     </>
   );
 }

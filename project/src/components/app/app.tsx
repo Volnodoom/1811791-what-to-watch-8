@@ -7,7 +7,7 @@ import AddReview from '../movie-add-review/add-review';
 import MovieCard from '../movie-card/movie-card';
 import Mylist from '../mylist/mylist';
 import SignIn from '../sign-in/sign-in';
-import { appRoute, CardState } from '../const/const';
+import { AppRoute, CardState } from '../const/const';
 import PrivateRoute from '../routing/private-route';
 
 type AppProps = {
@@ -23,19 +23,19 @@ export default function App(props: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={appRoute.Main}>
+        <Route exact path={AppRoute.Main}>
           <Main
             film={props.film}
             movieList={props.movieList}
             authorizationStatus={props.authorizationStatus}
           />
         </Route>
-        <Route exact path={appRoute.SignIn}>
+        <Route exact path={AppRoute.SignIn}>
           <SignIn />
         </Route>
         <PrivateRoute
           exact
-          path={appRoute.MyList}
+          path={AppRoute.MyList}
           authorizationStatus={props.authorizationStatus}
           render={() => (
             <Mylist
@@ -44,7 +44,7 @@ export default function App(props: AppProps): JSX.Element {
             />)}
         >
         </PrivateRoute>
-        <Route exact path={appRoute.Movie()}>
+        <Route exact path={AppRoute.Movie()}>
           <MovieCard
             comments={props.comments}
             cardDemonstrate={CardState.Overview}
@@ -52,7 +52,7 @@ export default function App(props: AppProps): JSX.Element {
             authorizationStatus={props.authorizationStatus}
           />
         </Route>
-        <Route exact path={appRoute.Details()}>
+        <Route exact path={AppRoute.Details()}>
           <MovieCard
             comments={props.comments}
             cardDemonstrate={CardState.Details}
@@ -60,7 +60,7 @@ export default function App(props: AppProps): JSX.Element {
             authorizationStatus={props.authorizationStatus}
           />
         </Route>
-        <Route exact path={appRoute.Reviews()}>
+        <Route exact path={AppRoute.Reviews()}>
           <MovieCard
             comments={props.comments}
             cardDemonstrate={CardState.Reviews}
@@ -70,7 +70,7 @@ export default function App(props: AppProps): JSX.Element {
         </Route>
         <PrivateRoute
           exact
-          path={appRoute.AddReview()}
+          path={AppRoute.AddReview()}
           authorizationStatus={props.authorizationStatus}
           render={() => (
             <AddReview
@@ -79,7 +79,7 @@ export default function App(props: AppProps): JSX.Element {
             />)}
         >
         </PrivateRoute>
-        <Route exact path={appRoute.Player()}>
+        <Route exact path={AppRoute.Player()}>
           <Player />
         </Route>
         <Route>

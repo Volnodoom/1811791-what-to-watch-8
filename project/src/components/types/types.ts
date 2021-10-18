@@ -32,6 +32,6 @@ export type Comment = {
 }
 
 export type CommentToServer = {
-  // rating: number,
+  rating: number,
   comment: string,
 };

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ChangeEvent, Fragment, useState } from 'react';
 import { CommentToServer } from '../types/types';
 
@@ -6,26 +8,35 @@ const InitialState = {
   Rating: 0,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
 const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse()!;
 
 function AddReviewForm ():JSX.Element {
   const [feedback, setFeedback] = useState(InitialState.Comment);
-  const [, setRating] = useState(InitialState.Rating);
+  const [ratingValue, setRating] = useState(InitialState.Rating);
 
   const handleOnTextChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
     setFeedback(target.value);
     handleOnButtonClick();
   };
 
-  const handleOnRatingChange= ({target}: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(target.value));
+  const handleOnRatingChange= (evt: ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
+    // eslint-disable-next-line no-console
+    console.log(evt, evt.target);
+    // eslint-disable-next-line no-debugger
+    debugger;
+    setRating(() => Number(evt.target));
   };
+
+  // const handleOnRatingChange= ({target}: ChangeEvent<HTMLInputElement>) => {
+  //   setRating(() => Number(target.value));
+  // };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleOnButtonClick= () => {
     const result: CommentToServer  = {
-      // rating: ratingValue,
+      rating: ratingValue,
       comment: feedback,
     };
     // eslint-disable-next-line no-console
@@ -40,7 +51,6 @@ function AddReviewForm ():JSX.Element {
           <div className="rating__stars">
             {AddReviewRatingStars.map((number, index) =>
               (
-                // eslint-disable-next-line react/no-array-index-key
                 <Fragment key={`itemStarRating-${index}`}>
                   <input
                     onChange={handleOnRatingChange}
@@ -49,6 +59,7 @@ function AddReviewForm ():JSX.Element {
                     type="radio"
                     name="rating"
                     value={number}
+                    // checked={number === ratingValue}
                   />
                   <label className="rating__label" htmlFor={`star-${number}`} >Rating {number}</label>
                 </Fragment>
