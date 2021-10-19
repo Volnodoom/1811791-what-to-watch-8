@@ -1,13 +1,12 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { CommentToServer } from '../types/types';
 
 const InitialState = {
   Comment: '',
-  Rating: 0,
+  Rating: 9,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse()!;
 
 function AddReviewForm ():JSX.Element {
@@ -39,18 +38,19 @@ function AddReviewForm ():JSX.Element {
 
         <div className="rating">
           <div className="rating__stars">
-            {AddReviewRatingStars.map((number, index) =>
+            {AddReviewRatingStars.map((numberValue, index) =>
               (
-                <Fragment key={`itemStarRating-${index}`}>
+                <Fragment key={`itemStarRating-${Date.now()+Math.random()+Math.random()}`}>
                   <input
                     onChange={handleOnRatingChange}
                     className="rating__input"
-                    id={`star-rating-${number}`}
+                    id={`star-rating-${numberValue}`}
                     type="radio"
                     name="rating"
-                    value={number}
+                    value={numberValue}
+                    checked={numberValue === ratingValue}
                   />
-                  <label className="rating__label" htmlFor={`star-${number}`} >Rating {number}</label>
+                  <label className="rating__label" htmlFor={`star-rating-${numberValue}`} >Rating {numberValue}</label>
                 </Fragment>
               ))}
           </div>

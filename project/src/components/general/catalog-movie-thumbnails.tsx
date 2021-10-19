@@ -12,7 +12,7 @@ function CatalogMovieThumbnails(props: {movieList:MovieInfo[], componentEqual: s
       return(
         <div className="catalog__films-list">
           {props.movieList
-            .map((film) => <MovieThumbnails film={film} key={film.id} activeState={setActiveFilm}/>)}
+            .map((film) => <MovieThumbnails film={film} key={film.id} activeStateHandler={setActiveFilm}/>)}
         </div>
       );
     }
@@ -22,7 +22,7 @@ function CatalogMovieThumbnails(props: {movieList:MovieInfo[], componentEqual: s
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
             {props.movieList
-              .map((film)=> <MovieThumbnails film= {film} key= {film.id} activeState={setActiveFilm}/>)}
+              .map((film)=> <MovieThumbnails film= {film} key= {film.id} activeStateHandler={setActiveFilm}/>)}
           </div>
         </section>
       );
@@ -33,7 +33,7 @@ function CatalogMovieThumbnails(props: {movieList:MovieInfo[], componentEqual: s
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <div className="catalog__films-list">
             {props.movieList
-              .map((film) => <MovieThumbnails film= {film} key= {film.id} activeState={setActiveFilm}/>)}
+              .map((film) => <MovieThumbnails film= {film} key= {film.id} activeStateHandler={setActiveFilm}/>)}
           </div>
         </section>
       );

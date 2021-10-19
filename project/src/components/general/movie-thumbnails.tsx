@@ -3,21 +3,21 @@ import { AppRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
 
 
-function MovieThumbnails(props:{film:MovieInfo, activeState: React.Dispatch<React.SetStateAction<number | null>>}): JSX.Element {
+function MovieThumbnails(props:{film:MovieInfo, activeStateHandler: (React.Dispatch<React.SetStateAction<number | null>>)}): JSX.Element {
   const {
     previewImg,
     title,
     id,
   } = props.film;
 
-  const {activeState} = props;
+  const {activeStateHandler} = props;
 
   const handleMouseOn = () => {
-    activeState(() => id);
+    activeStateHandler(id);
   };
 
   const handleMouseOut = () => {
-    activeState(() => null);
+    activeStateHandler(null);
   };
 
   return (
