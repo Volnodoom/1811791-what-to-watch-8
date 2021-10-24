@@ -5,8 +5,8 @@ export type MovieInfo = {
   poster: string,
   previewImg: string,
   title: string,
-  videoLink: string,
-  previewVideo: string,
+  srcVideo: string,
+  scrPreviewVideo: string,
   genre: string,
   year: number,
   ratingAbsolute: number | string,
@@ -32,6 +32,6 @@ export type Comment = {
 }
 
 export type CommentToServer = {
-  // rating: number,
+  rating: number,
   comment: string,
 };

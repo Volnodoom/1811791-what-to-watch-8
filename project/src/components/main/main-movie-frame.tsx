@@ -1,4 +1,4 @@
-import { KindOfButton, appRoute } from '../const/const';
+import { KindOfButton } from '../const/const';
 import { MovieInfo } from '../types/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import Header from '../general/header';
@@ -18,7 +18,7 @@ function MainMovieFrame(props: {film: MovieInfo, authorizationStatus: string,}):
       <div className="film-card__bg">
         <img src={backgroundImg} alt={title} />
       </div>
-      <Header authorizationStatus={props.authorizationStatus} wtwHidden appRoute={appRoute.SignIn}/>
+      <Header authorizationStatus={props.authorizationStatus} wtwHidden />
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">

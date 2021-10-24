@@ -29,6 +29,17 @@ const movieGenres = ['Comedy', 'Western', 'Thriller', 'History', 'Comedy', 'West
 const movieDirectors = ['Wes Anderson', 'James Cameron', 'Willem Dafoe', 'Saoirse Ronan', 'Edward Norton', 'Martin Scorsese', 'James Cameron', 'Edward Norton'];
 const movieActors = ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'];
 
+const PreviewVideoF = [
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=591865&e=2208902400&videokbrate=1500&h=4527e4cff2f0c499851edbd084e83cad',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=845741&e=2208902400&videokbrate=1500&h=f0bcc08edf5ef9731cb3d653afee1299',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=442122&e=2208902400&videokbrate=1500&h=4b0af7931a9e4e520b6b7e5813e7faff',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=111975&e=2208902400&videokbrate=1500&h=909c72a98f14424307c52390b80eb90b',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=331845&e=2208902400&videokbrate=1500&h=7193c0c1623451925151f5ee6178b715',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=442122&e=2208902400&videokbrate=1500&h=4b0af7931a9e4e520b6b7e5813e7faff',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=591865&e=2208902400&videokbrate=1500&h=4527e4cff2f0c499851edbd084e83cad',
+  'https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=442122&e=2208902400&videokbrate=1500&h=4b0af7931a9e4e520b6b7e5813e7faff',
+];
+
 export const Films: MovieInfo[] = new Array(8).fill(' ').map((_,index) => (
   {
     id: index + 1,
@@ -37,8 +48,8 @@ export const Films: MovieInfo[] = new Array(8).fill(' ').map((_,index) => (
     poster: images[index],
     previewImg: images[index],
     title: movieName[index],
-    videoLink: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-    previewVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    srcVideo: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    scrPreviewVideo: PreviewVideoF[index],
     genre: movieGenres[index],
     year: getRandomInteger(1990, 2021),
     ratingAbsolute: getRandomPositiveFloat(2.2, 10),

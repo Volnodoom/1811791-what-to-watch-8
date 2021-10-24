@@ -84,7 +84,7 @@ export const genreFilterFrames = [
   },
 ];
 
-export const appRoute = {
+export const AppRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
@@ -105,4 +105,10 @@ export const CardState = {
   Overview: 'OVERVIEW',
   Details: 'DETAILS',
   Reviews: 'REVIEWS',
+} as const;
+
+export const MatchingComponent = {
+  MovieCard: 'MovieCard',
+  Main: 'Main',
+  Mylist: 'Mylist',
 } as const;
