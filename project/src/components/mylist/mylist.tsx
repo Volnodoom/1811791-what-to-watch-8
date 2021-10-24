@@ -1,4 +1,4 @@
-import { AppRoute, MatchingComponent } from '../const/const';
+import { MatchingComponent } from '../const/const';
 import Avatar from '../general/avatar';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 import Footer from '../general/footer';
@@ -9,7 +9,7 @@ function Mylist(props: {movieList:MovieInfo[], authorizationStatus: string,}): J
   return(
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo AppRoute={AppRoute.Main} isTop/>
+        <Logo isTop/>
         <h1 className="page-title user-page__title">My list</h1>
         <Avatar authorizationStatus={props.authorizationStatus}  />
       </header>

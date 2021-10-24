@@ -40,7 +40,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
             <img src={backgroundImg} alt={title} />
           </div>
 
-          <Header authorizationStatus={props.authorizationStatus} wtwHidden AppRoute= {AppRoute.Main} />
+          <Header authorizationStatus={props.authorizationStatus} wtwHidden />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
