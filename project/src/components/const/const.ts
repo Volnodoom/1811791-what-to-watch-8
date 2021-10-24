@@ -112,3 +112,16 @@ export const MatchingComponent = {
   Main: 'Main',
   Mylist: 'Mylist',
 } as const;
+
+export enum ListOfGenres {
+  AllGenres = 'All filterGenres',
+  Comedies = 'Comedies',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Dramas = 'Dramas',
+  Horror = 'Horror',
+  Family = 'Kids & Family',
+  Romance = 'Romance',
+  Science = 'Sci-Fi',
+  Thrillers = 'Thrillers',
+}
