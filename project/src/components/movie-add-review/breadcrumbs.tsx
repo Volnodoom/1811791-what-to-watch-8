@@ -1,17 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../const/const';
 import { MovieInfo } from '../types/types';
 
 function Breadcrumbs(props: {film: MovieInfo}):JSX.Element {
-  const {title} = props.film;
+  const {title, id} = props.film;
 
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <a href="film-page.html" className="breadcrumbs__link">{title}</a>
+          <Link to={AppRoute.Movie(id)} className="breadcrumbs__link">{title}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
+          <Link to={AppRoute.Movie(id)} className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>

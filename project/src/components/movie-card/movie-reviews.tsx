@@ -10,7 +10,7 @@ function MovieReviews(props: {comments: Comment[]}):JSX.Element {
   if (props.comments.length === 0) {
     return (<Error404 />);
   }
-  // eslint-disable-next-line array-callback-return
+
   props.comments.map((oneMessage, index) => {
     if(index%2 === 0) {
       firstContainer.push(oneMessage);

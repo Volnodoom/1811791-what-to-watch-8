@@ -6,7 +6,6 @@ const InitialState = {
   Rating: 9,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse()!;
 
 function AddReviewForm ():JSX.Element {

@@ -1,10 +1,9 @@
-import { AuthorizationStatus } from '../const/const';
+import { Link } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../const/const';
 
 const AvatarAdjustment = {
   Img: 'img/avatar.jpg',
   AltImg: 'User avatar',
-  UrlSingIn: 'sign-in.html',
-  UrlSingOut: 'sign-in.html',
 } as const;
 
 function Avatar(props: {authorizationStatus: string}): JSX.Element {
@@ -20,11 +19,11 @@ function Avatar(props: {authorizationStatus: string}): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a href={AvatarAdjustment.UrlSingIn} className="user-block__link">Sign out</a>
+            <Link to={AppRoute.SignIn} className="user-block__link">Sign out</Link>
           </li>
         </>
       ) : (
-        <a href={AvatarAdjustment.UrlSingIn} className="user-block__link">Sign in</a>
+        <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
       )}
     </ul>
   );
