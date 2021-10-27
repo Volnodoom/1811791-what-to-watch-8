@@ -1,3 +1,4 @@
+import { ListOfGenres } from '../const/const';
 import { MovieInfo } from './types';
 
 export enum ActionType {
@@ -10,7 +11,13 @@ export type GetAllGenresAction = {
   payload: MovieInfo[],
 };
 
-export type GetSpecificGenreAction = () => {
+export type GetSpecificGenreAction  = {
   type: ActionType.SpecificGenre,
-  payload: string,
+  payload:
+  {
+    genreKind: ListOfGenres,
+    arrayData: MovieInfo[],
+  },
 };
+
+export type Action = GetAllGenresAction | GetSpecificGenreAction;

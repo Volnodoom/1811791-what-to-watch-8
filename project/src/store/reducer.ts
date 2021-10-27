@@ -1,14 +1,24 @@
-import { MovieInfo } from '../components/types/types';
+import { Action, ActionType } from '../components/types/action-types';
+import { State } from '../components/types/state';
+import { Films } from '../mocks/films';
 
+const initialState = {
+  films: Films,
+} as const;
 
-
-const reducer = (state, action):MovieInfo[] => {
+const reducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
-    case 'all': {
-      state;
-    }
+    case ActionType.AllGenres:
+      return {...state, films: action.payload};
+    case ActionType.SpecificGenre:
+      return {
+        ...state,
+        films: action.payload.arrayData.filter((film) => film.genre === action.payload.genreKind),
+      };
+    default:
+      return state;
   }
-
 };
+
 
 export {reducer};
