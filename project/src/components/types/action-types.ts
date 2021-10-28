@@ -8,7 +8,11 @@ export enum ActionType {
 
 export type GetAllGenresAction = {
   type: ActionType.AllGenres,
-  payload: MovieInfo[],
+  payload:
+  {
+    genreKind: ListOfGenres.AllGenres,
+    arrayData: MovieInfo[],
+  },
 };
 
 export type GetSpecificGenreAction  = {

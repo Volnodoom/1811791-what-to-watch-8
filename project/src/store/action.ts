@@ -4,7 +4,11 @@ import { ListOfGenres } from '../components/const/const';
 
 export const getAllGenres = (allAvailableMovies: MovieInfo[]): GetAllGenresAction  => ({
   type: ActionType.AllGenres,
-  payload: allAvailableMovies,
+  payload:
+  {
+    genreKind: ListOfGenres.AllGenres,
+    arrayData: allAvailableMovies,
+  },
 });
 
 export const getSpecificGenre = (specificGenre: ListOfGenres, films:MovieInfo[]): GetSpecificGenreAction  => ({
