@@ -1,18 +1,19 @@
 import { MovieInfo } from '../components/types/types';
-import { ActionType, GetAllGenresAction, GetSpecificGenreAction } from '../components/types/action-types';
-import { ListOfGenres } from '../components/const/const';
+import { ActionType, ResetFilterAction, SetFilterAction, FiltrateMoviesAction } from '../components/types/action-types';
 
-export const getAllGenres = (allAvailableMovies: MovieInfo[]): GetAllGenresAction  => ({
-  type: ActionType.AllGenres,
-  payload:
-  {
-    genreKind: ListOfGenres.AllGenres,
-    arrayData: allAvailableMovies,
+export const resetMovieFilter = ():ResetFilterAction => ({
+  type: ActionType.ResetFilter,
+});
+
+export const setMovieFilter = (specificGenre: string):SetFilterAction => ({
+  type: ActionType.SetFilter,
+  payload: {
+    genreKind: specificGenre,
   },
 });
 
-export const getSpecificGenre = (specificGenre: ListOfGenres, films:MovieInfo[]): GetSpecificGenreAction  => ({
-  type: ActionType.SpecificGenre,
+export const filtrateMovies = (specificGenre: string, films:MovieInfo[]): FiltrateMoviesAction => ({
+  type: ActionType.FiltrateMovies,
   payload: {
     genreKind: specificGenre,
     arrayData: films,

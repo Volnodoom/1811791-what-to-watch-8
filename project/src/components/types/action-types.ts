@@ -1,27 +1,33 @@
-import { ListOfGenres } from '../const/const';
 import { MovieInfo } from './types';
 
 export enum ActionType {
-  AllGenres = 'filter/allGenres',
-  SpecificGenre = 'filter/specificGenre',
+  ResetFilter = 'filter/resetFilter',
+  SetFilter = 'filter/setFilter',
+  FiltrateMovies = 'filter/filtrateMovies',
 }
 
-export type GetAllGenresAction = {
-  type: ActionType.AllGenres,
+export type ResetFilterAction = {
+  type: ActionType.ResetFilter,
+};
+
+export type SetFilterAction  = {
+  type: ActionType.SetFilter,
   payload:
   {
-    genreKind: ListOfGenres.AllGenres,
+    genreKind: string,
+  },
+};
+
+export type FiltrateMoviesAction  = {
+  type: ActionType.FiltrateMovies,
+  payload:
+  {
+    genreKind: string,
     arrayData: MovieInfo[],
   },
 };
 
-export type GetSpecificGenreAction  = {
-  type: ActionType.SpecificGenre,
-  payload:
-  {
-    genreKind: ListOfGenres,
-    arrayData: MovieInfo[],
-  },
-};
-
-export type Action = GetAllGenresAction | GetSpecificGenreAction;
+export type Actions =
+  |ResetFilterAction
+  |SetFilterAction
+  |FiltrateMoviesAction;

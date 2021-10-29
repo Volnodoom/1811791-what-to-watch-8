@@ -33,54 +33,44 @@ export const KindOfButton = {
 
 export const genreFilterFrames = [
   {
-    filterGenre: 'All filterGenres',
+    filterGenre: 'All genres',
     filterUrl: 'null',
-    isAllGenres: true,
   },
   {
     filterGenre: 'Comedies',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Crime',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Documentary',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Dramas',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Horror',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Kids & Family',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Romance',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Sci-Fi',
     filterUrl: 'null',
-    isAllGenres: false,
   },
   {
     filterGenre: 'Thrillers',
     filterUrl: 'null',
-    isAllGenres: false,
   },
 ];
 
@@ -113,15 +103,15 @@ export const MatchingComponent = {
   Mylist: 'Mylist',
 } as const;
 
-export enum ListOfGenres {
-  AllGenres = 'All filterGenres',
-  Comedies = 'Comedies',
-  Crime = 'Crime',
-  Documentary = 'Documentary',
-  Dramas = 'Dramas',
-  Horror = 'Horror',
-  Family = 'Kids & Family',
-  Romance = 'Romance',
-  Science = 'Sci-Fi',
-  Thrillers = 'Thrillers',
-}
+export const ListOfGenres = {
+  AllGenres: 'All genres',
+  Comedies: 'Comedies',
+  Crime: 'Crime',
+  Documentary: 'Documentary',
+  Dramas: 'Dramas',
+  Horror: 'Horror',
+  Family: 'Kids & Family',
+  Romance: 'Romance',
+  Science: 'Sci-Fi',
+  Thrillers: 'Thrillers',
+} as const;
