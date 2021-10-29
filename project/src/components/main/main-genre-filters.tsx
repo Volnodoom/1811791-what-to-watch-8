@@ -52,4 +52,5 @@ function MainGenreFilters(props: PropsFromRedux):JSX.Element {
   );
 }
 
-export default MainGenreFilters;
+export  {MainGenreFilters};
+export default connector(MainGenreFilters);
