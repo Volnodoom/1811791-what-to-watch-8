@@ -1,4 +1,4 @@
-import { MovieInfo } from './types';
+import { filtrateMovies, resetMovieFilter, setMovieFilter } from '../../store/action';
 
 export enum ActionType {
   ResetFilter = 'filter/resetFilter',
@@ -6,27 +6,7 @@ export enum ActionType {
   FiltrateMovies = 'filter/filtrateMovies',
 }
 
-export type ResetFilterAction = {
-  type: ActionType.ResetFilter,
-};
-
-export type SetFilterAction  = {
-  type: ActionType.SetFilter,
-  payload:
-  {
-    genreKind: string,
-  },
-};
-
-export type FiltrateMoviesAction  = {
-  type: ActionType.FiltrateMovies,
-  payload:
-  {
-    arrayData: MovieInfo[],
-  },
-};
-
 export type Actions =
-  |ResetFilterAction
-  |SetFilterAction
-  |FiltrateMoviesAction;
+  |ReturnType <typeof resetMovieFilter>
+  |ReturnType <typeof setMovieFilter>
+  |ReturnType <typeof filtrateMovies>;

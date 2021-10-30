@@ -47,7 +47,7 @@ function MainGenreFilters(props: PropsFromRedux):JSX.Element {
             className={filterGenre === activeGenre ? GenreState.Active : GenreState.NonActive}
             key={Date.now()+Math.random()}
             onClick={activeGenreHandler}
-            data-genreName={genreName}
+            data-genrename={genreName}
           >
             <a href={filterUrl} className="catalog__genres-link">{filterGenre}</a>
           </li>
