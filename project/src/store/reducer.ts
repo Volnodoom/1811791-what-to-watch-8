@@ -18,7 +18,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
     } else {
       return {
         activeGenre: action.payload.genreKind,
-        films: initialState.films.filter((film) => film.genre === state.activeGenre),
+        films: initialState.films.filter((film) => film.genre === action.payload.genreKind),
       };
     }}
     default:
