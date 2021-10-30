@@ -2,9 +2,10 @@ import { MouseEvent } from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
 import { filtrateMovies, resetMovieFilter, setMovieFilter  } from '../../store/action';
-import { genreFilterFrames, ListOfGenres } from '../const/const';
+import { ListOfGenres } from '../const/const';
 import { Actions } from '../types/action-types';
 import { State } from '../types/state';
+import { MovieInfo } from '../types/types';
 
 const GenreState = {
   Active: 'catalog__genres-item catalog__genres-item--active',
@@ -23,33 +24,39 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
 }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
+type MainGenreFiltersProps = {movieList: MovieInfo[]}
 type PropsFromRedux = ConnectedProps<typeof connector>
+type ConnectedComponentProps = MainGenreFiltersProps & PropsFromRedux;
 
-function MainGenreFilters(props: PropsFromRedux):JSX.Element {
-  const {activeGenre, films, onResetFilter, onFilterClick, onFiltration} = props;
+function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
+  const {activeGenre, films, movieList, onResetFilter, onFilterClick, onFiltration} = props;
+
+  const uniqueGenreList: Set <string> = new Set();
+  uniqueGenreList.add('All genres');
+  movieList.forEach((film) => uniqueGenreList.add(film.genre));
 
   const activeGenreHandler = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
 
-    if (evt.currentTarget.getAttribute('data-genrename') === ListOfGenres.AllGenres) {
+    if (evt.currentTarget.textContent === ListOfGenres.AllGenres) {
       onResetFilter();
     } else {
-      onFilterClick(evt.currentTarget.getAttribute('data-genrename')!);
+      onFilterClick(evt.currentTarget.textContent!);
       onFiltration(films);
     }
   };
 
   return (
     <ul className="catalog__genres-list">
-      {genreFilterFrames
-        .map(({filterGenre, filterUrl, genreName}) => (
+      {Array.from(uniqueGenreList)
+        .slice(0,8)
+        .map((genre) => (
           <li
-            className={filterGenre === activeGenre ? GenreState.Active : GenreState.NonActive}
-            key={Date.now()+Math.random()}
+            className={genre === activeGenre ? GenreState.Active : GenreState.NonActive}
+            key={genre}
             onClick={activeGenreHandler}
-            data-genrename={genreName}
           >
-            <a href={filterUrl} className="catalog__genres-link">{filterGenre}</a>
+            <a href="#url" className="catalog__genres-link">{genre}</a>
           </li>
         ))}
     </ul>

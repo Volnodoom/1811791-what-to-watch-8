@@ -27,6 +27,7 @@ export default function App(props: AppProps): JSX.Element {
           <Main
             film={props.film}
             authorizationStatus={props.authorizationStatus}
+            movieList={props.movieList}
           />
         </Route>
         <Route exact path={AppRoute.SignIn}>
