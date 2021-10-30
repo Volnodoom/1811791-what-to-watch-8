@@ -35,42 +35,52 @@ export const genreFilterFrames = [
   {
     filterGenre: 'All genres',
     filterUrl: 'null',
+    genreName: 'All genres',
   },
   {
     filterGenre: 'Comedies',
     filterUrl: 'null',
+    genreName: 'Comedy',
   },
   {
     filterGenre: 'Crime',
     filterUrl: 'null',
+    genreName: 'Crime',
   },
   {
     filterGenre: 'Documentary',
     filterUrl: 'null',
+    genreName: 'Documentary',
   },
   {
     filterGenre: 'Dramas',
     filterUrl: 'null',
+    genreName: 'Drama',
   },
   {
     filterGenre: 'Horror',
     filterUrl: 'null',
+    genreName: 'Horror',
   },
   {
     filterGenre: 'Kids & Family',
     filterUrl: 'null',
+    genreName: 'Kids & Family',
   },
   {
     filterGenre: 'Romance',
     filterUrl: 'null',
+    genreName: 'Romance',
   },
   {
     filterGenre: 'Sci-Fi',
     filterUrl: 'null',
+    genreName: 'Sci-Fi',
   },
   {
     filterGenre: 'Thrillers',
     filterUrl: 'null',
+    genreName: 'Thriller',
   },
 ];
 

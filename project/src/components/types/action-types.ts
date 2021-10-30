@@ -22,7 +22,6 @@ export type FiltrateMoviesAction  = {
   type: ActionType.FiltrateMovies,
   payload:
   {
-    genreKind: string,
     arrayData: MovieInfo[],
   },
 };

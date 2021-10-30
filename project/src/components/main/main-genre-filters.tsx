@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import {connect, ConnectedProps} from 'react-redux';
-import { resetMovieFilter, setMovieFilter  } from '../../store/action';
+import { filtrateMovies, resetMovieFilter, setMovieFilter  } from '../../store/action';
 import { genreFilterFrames, ListOfGenres } from '../const/const';
 import { Actions } from '../types/action-types';
 import { State } from '../types/state';
@@ -11,39 +11,43 @@ const GenreState = {
   NonActive: 'catalog__genres-item',
 };
 
-const mapStateToProps = ({activeGenre}: State) => ({
+const mapStateToProps = ({activeGenre, films}: State) => ({
   activeGenre,
+  films,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
   onResetFilter: resetMovieFilter,
   onFilterClick: setMovieFilter,
+  onFiltration: filtrateMovies,
 }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 function MainGenreFilters(props: PropsFromRedux):JSX.Element {
-  const {activeGenre, onResetFilter, onFilterClick} = props;
+  const {activeGenre, films, onResetFilter, onFilterClick, onFiltration} = props;
 
   const activeGenreHandler = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
 
-    if (evt.currentTarget.textContent === ListOfGenres.AllGenres) {
+    if (evt.currentTarget.getAttribute('data-genrename') === ListOfGenres.AllGenres) {
       onResetFilter();
     } else {
-      onFilterClick(evt.currentTarget.textContent!);
+      onFilterClick(evt.currentTarget.getAttribute('data-genrename')!);
+      onFiltration(films);
     }
   };
 
   return (
     <ul className="catalog__genres-list">
       {genreFilterFrames
-        .map(({filterGenre, filterUrl}) => (
+        .map(({filterGenre, filterUrl, genreName}) => (
           <li
             className={filterGenre === activeGenre ? GenreState.Active : GenreState.NonActive}
             key={Date.now()+Math.random()}
             onClick={activeGenreHandler}
+            data-genreName={genreName}
           >
             <a href={filterUrl} className="catalog__genres-link">{filterGenre}</a>
           </li>

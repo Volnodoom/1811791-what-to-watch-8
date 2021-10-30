@@ -12,10 +12,9 @@ export const setMovieFilter = (specificGenre: string):SetFilterAction => ({
   },
 });
 
-export const filtrateMovies = (specificGenre: string, films:MovieInfo[]): FiltrateMoviesAction => ({
+export const filtrateMovies = (films:MovieInfo[]): FiltrateMoviesAction => ({
   type: ActionType.FiltrateMovies,
   payload: {
-    genreKind: specificGenre,
     arrayData: films,
   },
 });
