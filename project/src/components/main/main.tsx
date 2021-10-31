@@ -4,16 +4,29 @@ import MainMovieFrame from './main-movie-frame';
 import Footer from '../general/footer';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 import { MatchingComponent } from '../const/const';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../types/state';
 
-function Main(props: {film: MovieInfo, movieList:MovieInfo[], authorizationStatus: string}): JSX.Element {
+const mapStateToProps = ({films}: State) => ({
+  films,
+});
+
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type MainProps = {film: MovieInfo, movieList: MovieInfo[],  authorizationStatus: string};
+type ConnectedComponentProps = MainProps & PropsFromRedux;
+
+function Main(props: ConnectedComponentProps): JSX.Element {
+  const {film, films, movieList, authorizationStatus } = props;
+
   return(
     <>
-      <MainMovieFrame film ={props.film} authorizationStatus={props.authorizationStatus}/>
+      <MainMovieFrame film ={film} authorizationStatus={authorizationStatus}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <MainGenreFilters />
-          <CatalogMovieThumbnails movieList={props.movieList} componentEqual={MatchingComponent.Main}/>
+          <MainGenreFilters movieList={movieList}/>
+          <CatalogMovieThumbnails movieList={films} componentEqual={MatchingComponent.Main}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -24,4 +37,5 @@ function Main(props: {film: MovieInfo, movieList:MovieInfo[], authorizationStatu
   );
 }
 
-export default Main;
+export  {Main};
+export default connector (Main);
