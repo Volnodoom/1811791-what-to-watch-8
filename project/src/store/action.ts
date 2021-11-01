@@ -1,8 +1,5 @@
+import { AuthorizationStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
-
-export const resetMovieFilter = () => ({
-  type: ActionType.ResetFilter,
-} as const);
 
 export const onFilmsFiltration = (specificGenre?: string) => ({
   type: ActionType.FiltrateMovies,
@@ -10,3 +7,12 @@ export const onFilmsFiltration = (specificGenre?: string) => ({
     genreKind: specificGenre,
   },
 } as const);
+
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
+  type: ActionType.RequireAuthorization,
+  payload: authStatus,
+} as const);
+
+export const requireLogout = () => ({
+  type: ActionType.RequireLogout,
+}as const);
