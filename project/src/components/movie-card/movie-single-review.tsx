@@ -1,7 +1,7 @@
 import { Comment } from '../types/types';
 
 function MovieSingleReview(props: {feedback:Comment}):JSX.Element {
-  const {rating, comment, date} = props.feedback;
+  const {rating, comment} = props.feedback;
   const userName = props.feedback.user.name;
 
   return(
@@ -11,7 +11,7 @@ function MovieSingleReview(props: {feedback:Comment}):JSX.Element {
 
         <footer className="review__details">
           <cite className="review__author">{userName}</cite>
-          <time className="review__date" dateTime="2016-12-24">{date.toDateString()}</time>
+          {/* <time className="review__date" dateTime="2016-12-24">{date.toDateString()}</time> */}
         </footer>
       </blockquote>
 

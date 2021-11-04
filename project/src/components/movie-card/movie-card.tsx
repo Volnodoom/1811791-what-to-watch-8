@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
-import { KindOfButton, AppRoute, CardState, MatchingComponent } from '../const/const';
+import { KindOfButton, AppRoute, CardState, MatchingComponent, BACKEND_URL, APIRoute, REQUEST_TIMEOUT } from '../const/const';
 import { Comment, IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -12,18 +12,27 @@ import MovieDetails from './movie-details';
 import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
   authorizationStatus: string,
   cardDemonstrate: string,
-  comments: Comment[],
 }
 
 function MovieCard(props: MovieCardProps):JSX.Element {
   const {cardDemonstrate} = props;
   const { id } = useParams() as IdParam;
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
+  const [feedback, setFeedback] = useState<Comment[]>([]);
+
+  useEffect(() => {
+    axios.get<Comment[]>(`${BACKEND_URL}${APIRoute.CommentsGet(Number(id))}`, {timeout: REQUEST_TIMEOUT})
+      .then((response) => setFeedback(response.data))
+      .catch(() => {throw new Error('It is a bad response concerning "comments-data request"');});
+  },[id]);
+
   if (!film) {
     return (
       <Error404 />
@@ -63,7 +72,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
               <MovieNavigation />
               {cardDemonstrate === CardState.Overview ? <MovieOverview film={film} /> : ''}
               {cardDemonstrate === CardState.Details ? <MovieDetails film={film}/> : ''}
-              {cardDemonstrate === CardState.Reviews ? <MovieReviews comments={props.comments}/> : ''}
+              {cardDemonstrate === CardState.Reviews ? <MovieReviews comments={feedback}/> : ''}
             </div>
           </div>
         </div>

@@ -1,8 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { BACKEND_URL, REQUEST_TIMEOUT } from '../components/const/const';
 import { getToken } from './token';
-
-const BACKEND_URL = 'https://8.react.pages.academy/wtw';
-const REQUEST_TIMEOUT = 5000;
 
 enum HttpCode {
   Unauthorized = 401,
@@ -10,13 +8,12 @@ enum HttpCode {
 
 type UnauthorizedCallback = () => void;
 
+const api = axios.create({
+  baseURL: BACKEND_URL,
+  timeout: REQUEST_TIMEOUT,
+});
 
 export const createAPI = (onLogging: UnauthorizedCallback): AxiosInstance => {
-  const api = axios.create({
-    baseURL: BACKEND_URL,
-    timeout: REQUEST_TIMEOUT,
-  });
-
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
 

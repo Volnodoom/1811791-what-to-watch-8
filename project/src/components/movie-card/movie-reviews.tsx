@@ -1,4 +1,3 @@
-import Error404 from '../routing/Error404';
 import { Comment } from '../types/types';
 import MovieSingleReview from './movie-single-review';
 
@@ -8,7 +7,11 @@ function MovieReviews(props: {comments: Comment[]}):JSX.Element {
   const secondContainer: Comment[] = [];
 
   if (props.comments.length === 0) {
-    return (<Error404 />);
+    return (
+      <div className="review">
+        <p>No one left any comments yet. Be first! What is on your mind after watching this film.</p>
+      </div>
+    );
   }
 
   props.comments.map((oneMessage, index) => {

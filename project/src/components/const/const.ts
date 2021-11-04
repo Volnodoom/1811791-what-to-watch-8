@@ -25,64 +25,14 @@ export const KindOfMovieCardButtons = {
   },
 } as const;
 
+export const BACKEND_URL = 'https://8.react.pages.academy/wtw';
+export const REQUEST_TIMEOUT = 5000;
+
 export const KindOfButton = {
   Play: 'Play',
   AddToMyList: 'AddToMyList',
   InMyList: 'InMyList',
 }as const;
-
-export const genreFilterFrames = [
-  {
-    filterGenre: 'All genres',
-    filterUrl: 'null',
-    genreName: 'All genres',
-  },
-  {
-    filterGenre: 'Comedies',
-    filterUrl: 'null',
-    genreName: 'Comedy',
-  },
-  {
-    filterGenre: 'Crime',
-    filterUrl: 'null',
-    genreName: 'Crime',
-  },
-  {
-    filterGenre: 'Documentary',
-    filterUrl: 'null',
-    genreName: 'Documentary',
-  },
-  {
-    filterGenre: 'Dramas',
-    filterUrl: 'null',
-    genreName: 'Drama',
-  },
-  {
-    filterGenre: 'Horror',
-    filterUrl: 'null',
-    genreName: 'Horror',
-  },
-  {
-    filterGenre: 'Kids & Family',
-    filterUrl: 'null',
-    genreName: 'Kids & Family',
-  },
-  {
-    filterGenre: 'Romance',
-    filterUrl: 'null',
-    genreName: 'Romance',
-  },
-  {
-    filterGenre: 'Sci-Fi',
-    filterUrl: 'null',
-    genreName: 'Sci-Fi',
-  },
-  {
-    filterGenre: 'Thrillers',
-    filterUrl: 'null',
-    genreName: 'Thriller',
-  },
-];
 
 export const AppRoute = {
   Main: '/',
@@ -113,15 +63,11 @@ export const MatchingComponent = {
   Mylist: 'Mylist',
 } as const;
 
-export const ListOfGenres = {
-  AllGenres: 'All genres',
-  Comedies: 'Comedies',
-  Crime: 'Crime',
-  Documentary: 'Documentary',
-  Dramas: 'Dramas',
-  Horror: 'Horror',
-  Family: 'Kids & Family',
-  Romance: 'Romance',
-  Science: 'Sci-Fi',
-  Thrillers: 'Thrillers',
+export const APIRoute = {
+  Films: '/films',
+  Login: '/login',
+  Logout: '/logout',
+  Promo: '/promo',
+  CommentsGet: (filmId: number) => `/comments/${filmId}`,
 } as const;
+

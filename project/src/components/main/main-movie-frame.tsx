@@ -3,7 +3,13 @@ import { MovieInfo } from '../types/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import Header from '../general/header';
 
-function MainMovieFrame(props: {film: MovieInfo, authorizationStatus: string,}): JSX.Element {
+function MainMovieFrame(props: {promoFilm?: MovieInfo, authorizationStatus: string,}): JSX.Element {
+  if (props.promoFilm === undefined) {
+    return (
+      <p>No promo movies</p>
+    );
+  }
+
   const {
     backgroundImg,
     poster,
@@ -11,7 +17,7 @@ function MainMovieFrame(props: {film: MovieInfo, authorizationStatus: string,}):
     genre,
     year,
     isFavorite,
-  } = props.film;
+  } = props.promoFilm;
 
   return (
     <section className="film-card">
