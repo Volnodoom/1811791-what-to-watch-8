@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
-import { KindOfButton, AppRoute, CardState, MatchingComponent, BACKEND_URL, APIRoute, REQUEST_TIMEOUT } from '../const/const';
-import { Comment, IdParam, MovieInfo } from '../types/types';
+import { KindOfButton, AppRoute, CardState, MatchingComponent } from '../const/const';
+import { IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
 import Header from '../general/header';
@@ -12,8 +12,11 @@ import MovieDetails from './movie-details';
 import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { fetchCommentsToMovieAction } from '../../store/api-actions';
+import { bindActionCreators, Dispatch } from 'redux';
+import { Actions } from '../types/action-types';
+import { connect, ConnectedProps } from 'react-redux';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
@@ -21,17 +24,24 @@ type MovieCardProps = {
   cardDemonstrate: string,
 }
 
-function MovieCard(props: MovieCardProps):JSX.Element {
-  const {cardDemonstrate} = props;
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
+  onLoadComments: fetchCommentsToMovieAction,
+}, dispatch);
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromReact = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromReact & MovieCardProps;
+
+
+function MovieCard(props: ConnectedComponentProps):JSX.Element {
+  const {cardDemonstrate, onLoadComments} = props;
   const { id } = useParams() as IdParam;
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
-  const [feedback, setFeedback] = useState<Comment[]>([]);
 
   useEffect(() => {
-    axios.get<Comment[]>(`${BACKEND_URL}${APIRoute.CommentsGet(Number(id))}`, {timeout: REQUEST_TIMEOUT})
-      .then((response) => setFeedback(response.data))
-      .catch(() => {throw new Error('It is a bad response concerning "comments-data request"');});
-  },[id]);
+    onLoadComments(Number(id));
+  });
 
   if (!film) {
     return (
@@ -72,7 +82,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
               <MovieNavigation />
               {cardDemonstrate === CardState.Overview ? <MovieOverview film={film} /> : ''}
               {cardDemonstrate === CardState.Details ? <MovieDetails film={film}/> : ''}
-              {cardDemonstrate === CardState.Reviews ? <MovieReviews comments={feedback}/> : ''}
+              {cardDemonstrate === CardState.Reviews ? <MovieReviews /> : ''}
             </div>
           </div>
         </div>
@@ -86,4 +96,5 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   );
 }
 
-export default MovieCard;
+export {MovieCard};
+export default connector(MovieCard);

@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
-import { MovieInfo } from '../components/types/types';
+import { Comment, MovieInfo } from '../components/types/types';
 
 export const onFilmsFiltration = (specificGenre?: string) => ({
   type: ActionType.FiltrateMovies,
@@ -19,10 +19,10 @@ export const onLoadPromoMovie = (promoFilm: MovieInfo) => ({
   payload: {promoFilm},
 } as const);
 
-// export const onLoadCommentsToMovie = (comments: Comment[]) => ({
-//   type: ActionType.LoadCommentsToMovie,
-//   payload: {comments},
-// } as const);
+export const loadCommentsToMovie = (comments: Comment[]) => ({
+  type: ActionType.LoadCommentsToMovie,
+  payload: {comments},
+} as const);
 
 export const onRequireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,

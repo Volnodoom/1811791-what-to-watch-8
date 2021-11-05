@@ -2,8 +2,8 @@ import { AxiosInstance } from 'axios';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { State } from './state';
 import {
+  loadCommentsToMovie,
   onFilmsFiltration,
-  // onLoadCommentsToMovie,
   onLoadMovies,
   onLoadPromoMovie,
   onRequireAuthorization,
@@ -24,7 +24,7 @@ export type Actions =
   |ReturnType <typeof onRequireAuthorization>
   |ReturnType <typeof onRequireLogout>
   |ReturnType <typeof onLoadPromoMovie>
-  // |ReturnType <typeof onLoadCommentsToMovie>
+  |ReturnType <typeof loadCommentsToMovie>
   |ReturnType <typeof onLoadMovies>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;

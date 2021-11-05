@@ -49,7 +49,7 @@ export type Comment = {
   },
   rating: number | string,
   comment: string,
-  date: Date,
+  date: string,
 }
 
 export type CommentToServer = {

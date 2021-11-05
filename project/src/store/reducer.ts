@@ -51,14 +51,14 @@ const reducer = (state: State = initialState, action: Actions): State => {
       };
     }
 
-    // case ActionType.LoadCommentsToMovie:{
-    //   const {comments} = action.payload;
-    //   initialState.comments = comments;
-    //   return {
-    //     ...state,
-    //     comments,
-    //   };
-    // }
+    case ActionType.LoadCommentsToMovie:{
+      const {comments} = action.payload;
+      initialState.comments = comments;
+      return {
+        ...state,
+        comments,
+      };
+    }
 
     case ActionType.RequireAuthorization:
       return {

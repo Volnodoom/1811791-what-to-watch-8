@@ -1,9 +1,15 @@
 import { APIRoute, AuthorizationStatus } from '../components/const/const';
 import { ThunkActionResult } from '../components/types/action-types';
-import { AuthData, RawFilm } from '../components/types/types';
+import { AuthData, Comment, RawFilm } from '../components/types/types';
 import { adaptMovieToClient } from '../services/adapter';
 import { dropToken, saveToken, Token } from '../services/token';
-import { onLoadMovies, onLoadPromoMovie, onRequireAuthorization, onRequireLogout } from './action';
+import {
+  loadCommentsToMovie,
+  onLoadMovies,
+  onLoadPromoMovie,
+  onRequireAuthorization,
+  onRequireLogout
+} from './action';
 
 
 export const fetchMoviesAction = (): ThunkActionResult =>
@@ -20,11 +26,11 @@ export const fetchPromoMovieAction = (): ThunkActionResult =>
     dispatch(onLoadPromoMovie(adaptedData));
   };
 
-// export const fetchCommentsToMovieAction = (filmId: number): ThunkActionResult =>
-//   async (dispatch, _getState, api): Promise<void> => {
-//     const {data} = await api.get<Comment[]>(APIRoute.CommentsGet(filmId));
-//     dispatch(onLoadCommentsToMovie(data));
-//   };
+export const fetchCommentsToMovieAction = (filmId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<Comment[]>(APIRoute.CommentsGet(filmId));
+    dispatch(loadCommentsToMovie(data));
+  };
 
 export const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getSate, api) => {
