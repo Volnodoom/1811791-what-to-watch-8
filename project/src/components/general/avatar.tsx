@@ -1,12 +1,21 @@
+import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const/const';
+import { State } from '../types/state';
 
 const AvatarAdjustment = {
   Img: 'img/avatar.jpg',
   AltImg: 'User avatar',
 } as const;
 
-function Avatar(props: {authorizationStatus: string}): JSX.Element {
+const mapStateToProps = ({authorizationStatus}: State) => ({
+  authorizationStatus,
+});
+
+const connector =connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function Avatar(props: PropsFromRedux): JSX.Element {
   const {authorizationStatus} = props;
 
   return (
@@ -29,4 +38,5 @@ function Avatar(props: {authorizationStatus: string}): JSX.Element {
   );
 }
 
-export default Avatar;
+export  {Avatar};
+export default connector(Avatar);

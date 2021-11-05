@@ -1,3 +1,5 @@
+import { AppRoute } from '../const/const';
+
 export type MovieInfo = {
   id: number,
   title: string,
@@ -61,3 +63,7 @@ export type AuthData = {
   login: string,
   password: string,
 };
+
+type KeysOfAppRoute = keyof typeof AppRoute;
+export type ValuesOfAppRoute = typeof AppRoute[KeysOfAppRoute]
+

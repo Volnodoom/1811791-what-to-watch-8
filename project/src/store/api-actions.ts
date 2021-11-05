@@ -1,4 +1,4 @@
-import { APIRoute, AuthorizationStatus } from '../components/const/const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../components/const/const';
 import { ThunkActionResult } from '../components/types/action-types';
 import { AuthData, Comment, RawFilm } from '../components/types/types';
 import { adaptMovieToClient } from '../services/adapter';
@@ -7,6 +7,7 @@ import {
   loadCommentsToMovie,
   loadMovies,
   loadPromoMovie,
+  redirectToRout,
   requireAuthorization,
   requireLogout
 } from './action';
@@ -45,6 +46,7 @@ export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResul
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    dispatch(redirectToRout(AppRoute.Main));
   };
 
 export const fetchLogout = (): ThunkActionResult =>

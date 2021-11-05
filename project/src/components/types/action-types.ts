@@ -8,17 +8,19 @@ import {
   loadMovies,
   loadPromoMovie,
   requireAuthorization,
-  requireLogout} from '../../store/action';
+  requireLogout,
+  redirectToRout} from '../../store/action';
 
 
 export enum ActionType {
   FiltrateMovies = 'filter/filtrateMovies',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
-  LoadMovies = 'data/LoadMovies',
-  LoadPromoMovie = 'data/LoadPromoMovie',
-  LoadCommentsToMovie = 'data/CommentsToMovie',
+  LoadMovies = 'data/loadMovies',
+  LoadPromoMovie = 'data/loadPromoMovie',
+  LoadCommentsToMovie = 'data/commentsToMovie',
   InitialGenreList = 'filter/genreList',
+  RedirectToRoute = 'signIn/redirectToRoute'
 }
 
 export type Actions =
@@ -28,6 +30,7 @@ export type Actions =
   |ReturnType <typeof loadPromoMovie>
   |ReturnType <typeof loadCommentsToMovie>
   |ReturnType <typeof getInitialGenreList>
+  |ReturnType <typeof redirectToRout>
   |ReturnType <typeof loadMovies>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;

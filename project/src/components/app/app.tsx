@@ -1,4 +1,4 @@
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import Main from '../main/main';
 import Error404 from '../routing/Error404';
 import Player from '../player/player';
@@ -17,6 +17,7 @@ import { MovieInfo } from '../types/types';
 import { getInitialGenreList } from '../../store/action';
 import { Actions } from '../types/action-types';
 import { useEffect } from 'react';
+import browserHistory from '../routing/browser-history';
 
 const mapStateToProps = ({authorizationStatus, isDataLoaded, films}: State) => ({
   films,
@@ -46,12 +47,10 @@ function App(props: PropsFromRedux): JSX.Element {
     );
   }
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <Main
-            authorizationStatus={authorizationStatus}
-          />
+          <Main />
         </Route>
         <Route exact path={AppRoute.SignIn}>
           <SignIn />
@@ -59,10 +58,8 @@ function App(props: PropsFromRedux): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          authorizationStatus={authorizationStatus}
           render={() => (
             <Mylist
-              authorizationStatus={authorizationStatus}
               movieList={getMyMovies}
             />)}
         >
@@ -71,30 +68,25 @@ function App(props: PropsFromRedux): JSX.Element {
           <MovieCard
             cardDemonstrate={CardState.Overview}
             movieList={films}
-            authorizationStatus={authorizationStatus}
           />
         </Route>
         <Route exact path={AppRoute.Details()}>
           <MovieCard
             cardDemonstrate={CardState.Details}
             movieList={films}
-            authorizationStatus={authorizationStatus}
           />
         </Route>
         <Route exact path={AppRoute.Reviews()}>
           <MovieCard
             cardDemonstrate={CardState.Reviews}
             movieList={films}
-            authorizationStatus={authorizationStatus}
           />
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview()}
-          authorizationStatus={authorizationStatus}
           render={() => (
             <AddReview
-              authorizationStatus={authorizationStatus}
               movieList={films}
             />)}
         >

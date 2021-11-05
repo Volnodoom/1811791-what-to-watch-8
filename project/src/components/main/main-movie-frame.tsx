@@ -3,7 +3,7 @@ import { MovieInfo } from '../types/types';
 import MovieCardButtons from '../general/movie-card-buttons';
 import Header from '../general/header';
 
-function MainMovieFrame(props: {promoFilm?: MovieInfo, authorizationStatus: string,}): JSX.Element {
+function MainMovieFrame(props: {promoFilm?: MovieInfo}): JSX.Element {
   if (props.promoFilm === undefined) {
     return (
       <p>No promo movies</p>
@@ -24,7 +24,7 @@ function MainMovieFrame(props: {promoFilm?: MovieInfo, authorizationStatus: stri
       <div className="film-card__bg">
         <img src={backgroundImg} alt={title} />
       </div>
-      <Header authorizationStatus={props.authorizationStatus} wtwHidden />
+      <Header wtwHidden />
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">

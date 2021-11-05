@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
-import { Comment, MovieInfo } from '../components/types/types';
+import { Comment, MovieInfo, ValuesOfAppRoute } from '../components/types/types';
 
 export const onFilmsFiltration = (specificGenre?: string) => ({
   type: ActionType.FiltrateMovies,
@@ -37,4 +37,9 @@ export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
 
 export const requireLogout = () => ({
   type: ActionType.RequireLogout,
+}as const);
+
+export const redirectToRout = (url: ValuesOfAppRoute) => ({
+  type: ActionType.RedirectToRoute,
+  payload: url,
 }as const);

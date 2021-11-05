@@ -13,16 +13,14 @@ const mapStateToProps = ({promoFilm, filtratedFilms}: State) => ({
 
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type MainProps = {authorizationStatus: string};
-type ConnectedComponentProps = MainProps & PropsFromRedux;
+type ConnectedComponentProps = PropsFromRedux;
 
 function Main(props: ConnectedComponentProps): JSX.Element {
-  const {promoFilm, filtratedFilms, authorizationStatus} = props;
-  // eslint-disable-next-line no-debugger
-  debugger;
+  const {promoFilm, filtratedFilms} = props;
+
   return(
     <>
-      <MainMovieFrame promoFilm ={promoFilm} authorizationStatus={authorizationStatus}/>
+      <MainMovieFrame promoFilm ={promoFilm} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

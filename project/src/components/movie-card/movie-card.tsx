@@ -20,7 +20,6 @@ import { connect, ConnectedProps } from 'react-redux';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
-  authorizationStatus: string,
   cardDemonstrate: string,
 }
 
@@ -59,7 +58,7 @@ function MovieCard(props: ConnectedComponentProps):JSX.Element {
             <img src={backgroundImg} alt={title} />
           </div>
 
-          <Header authorizationStatus={props.authorizationStatus} wtwHidden />
+          <Header wtwHidden />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
