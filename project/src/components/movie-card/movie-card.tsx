@@ -13,7 +13,7 @@ import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 import { useEffect } from 'react';
-import { fetchCommentsToMovieAction } from '../../store/api-actions';
+import { fetchCommentsToMovie } from '../../store/api-actions';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Actions } from '../types/action-types';
 import { connect, ConnectedProps } from 'react-redux';
@@ -25,7 +25,7 @@ type MovieCardProps = {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
-  onLoadComments: fetchCommentsToMovieAction,
+  onLoadComments: fetchCommentsToMovie,
 }, dispatch);
 
 const connector = connect(null, mapDispatchToProps);

@@ -8,12 +8,12 @@ import { AuthorizationStatus } from './components/const/const';
 import { reducer } from './store/reducer';
 import thunk from 'redux-thunk';
 import { createAPI } from './services/api';
-import { onRequireAuthorization } from './store/action';
+import { requireAuthorization } from './store/action';
 import { ThunkAppDispatch } from './components/types/action-types';
-import { checkAuthAction, fetchMoviesAction, fetchPromoMovieAction } from './store/api-actions';
+import { fetchCheckAuth, fetchMovies, fetchPromoMovie } from './store/api-actions';
 
 const api = createAPI(
-  () => store.dispatch(onRequireAuthorization(AuthorizationStatus.NoAuth)),
+  () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
 );
 
 const store = createStore(
@@ -23,9 +23,9 @@ const store = createStore(
   ),
 );
 
-(store.dispatch as ThunkAppDispatch)(checkAuthAction());
-(store.dispatch as ThunkAppDispatch)(fetchMoviesAction());
-(store.dispatch as ThunkAppDispatch)(fetchPromoMovieAction());
+(store.dispatch as ThunkAppDispatch)(fetchCheckAuth());
+(store.dispatch as ThunkAppDispatch)(fetchMovies());
+(store.dispatch as ThunkAppDispatch)(fetchPromoMovie());
 
 ReactDOM.render(
   <React.StrictMode>

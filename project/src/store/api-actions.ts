@@ -5,51 +5,51 @@ import { adaptMovieToClient } from '../services/adapter';
 import { dropToken, saveToken, Token } from '../services/token';
 import {
   loadCommentsToMovie,
-  onLoadMovies,
-  onLoadPromoMovie,
-  onRequireAuthorization,
-  onRequireLogout
+  loadMovies,
+  loadPromoMovie,
+  requireAuthorization,
+  requireLogout
 } from './action';
 
 
-export const fetchMoviesAction = (): ThunkActionResult =>
+export const fetchMovies = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<RawFilm[]>(APIRoute.Films);
     const adaptedData = data.map((arrayData) => adaptMovieToClient(arrayData));
-    dispatch(onLoadMovies(adaptedData));
+    dispatch(loadMovies(adaptedData));
   };
 
-export const fetchPromoMovieAction = (): ThunkActionResult =>
+export const fetchPromoMovie = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<RawFilm>(APIRoute.Promo);
     const adaptedData = adaptMovieToClient(data);
-    dispatch(onLoadPromoMovie(adaptedData));
+    dispatch(loadPromoMovie(adaptedData));
   };
 
-export const fetchCommentsToMovieAction = (filmId: number): ThunkActionResult =>
+export const fetchCommentsToMovie = (filmId: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     const {data} = await api.get<Comment[]>(APIRoute.CommentsGet(filmId));
     dispatch(loadCommentsToMovie(data));
   };
 
-export const checkAuthAction = (): ThunkActionResult =>
+export const fetchCheckAuth = (): ThunkActionResult =>
   async (dispatch, _getSate, api) => {
     await api.get(APIRoute.Login)
       .then(() => {
-        dispatch(onRequireAuthorization(AuthorizationStatus.Auth));
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
       });
   };
 
-export const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
+export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
     saveToken(token);
-    dispatch(onRequireAuthorization(AuthorizationStatus.Auth));
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
   };
 
-export const logoutAction = (): ThunkActionResult =>
+export const fetchLogout = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(onRequireLogout());
+    dispatch(requireLogout());
   };

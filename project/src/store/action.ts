@@ -9,12 +9,12 @@ export const onFilmsFiltration = (specificGenre?: string) => ({
   },
 } as const);
 
-export const onLoadMovies = (films: MovieInfo[]) => ({
+export const loadMovies = (films: MovieInfo[]) => ({
   type: ActionType.LoadMovies,
   payload: {films},
 } as const);
 
-export const onLoadPromoMovie = (promoFilm: MovieInfo) => ({
+export const loadPromoMovie = (promoFilm: MovieInfo) => ({
   type: ActionType.LoadPromoMovie,
   payload: {promoFilm},
 } as const);
@@ -24,11 +24,17 @@ export const loadCommentsToMovie = (comments: Comment[]) => ({
   payload: {comments},
 } as const);
 
-export const onRequireAuthorization = (authStatus: AuthorizationStatus) => ({
+export const getInitialGenreList = (films: MovieInfo[]) => ({
+  type: ActionType.InitialGenreList,
+  payload: {films},
+} as const);
+
+
+export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
   payload: authStatus,
 } as const);
 
-export const onRequireLogout = () => ({
+export const requireLogout = () => ({
   type: ActionType.RequireLogout,
 }as const);

@@ -6,9 +6,9 @@ import { MatchingComponent } from '../const/const';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../types/state';
 
-const mapStateToProps = ({films, promoFilm}: State) => ({
-  films,
+const mapStateToProps = ({promoFilm, filtratedFilms}: State) => ({
   promoFilm,
+  filtratedFilms,
 });
 
 const connector = connect(mapStateToProps);
@@ -17,16 +17,17 @@ type MainProps = {authorizationStatus: string};
 type ConnectedComponentProps = MainProps & PropsFromRedux;
 
 function Main(props: ConnectedComponentProps): JSX.Element {
-  const {promoFilm, films, authorizationStatus } = props;
-
+  const {promoFilm, filtratedFilms, authorizationStatus} = props;
+  // eslint-disable-next-line no-debugger
+  debugger;
   return(
     <>
       <MainMovieFrame promoFilm ={promoFilm} authorizationStatus={authorizationStatus}/>
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <MainGenreFilters movieList={films}/>
-          <CatalogMovieThumbnails movieList={films} componentEqual={MatchingComponent.Main}/>
+          <MainGenreFilters />
+          <CatalogMovieThumbnails movieList={filtratedFilms} componentEqual={MatchingComponent.Main}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>

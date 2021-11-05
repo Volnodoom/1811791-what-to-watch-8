@@ -2,12 +2,13 @@ import { AxiosInstance } from 'axios';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { State } from './state';
 import {
+  getInitialGenreList,
   loadCommentsToMovie,
   onFilmsFiltration,
-  onLoadMovies,
-  onLoadPromoMovie,
-  onRequireAuthorization,
-  onRequireLogout} from '../../store/action';
+  loadMovies,
+  loadPromoMovie,
+  requireAuthorization,
+  requireLogout} from '../../store/action';
 
 
 export enum ActionType {
@@ -17,15 +18,17 @@ export enum ActionType {
   LoadMovies = 'data/LoadMovies',
   LoadPromoMovie = 'data/LoadPromoMovie',
   LoadCommentsToMovie = 'data/CommentsToMovie',
+  InitialGenreList = 'filter/genreList',
 }
 
 export type Actions =
   |ReturnType <typeof onFilmsFiltration>
-  |ReturnType <typeof onRequireAuthorization>
-  |ReturnType <typeof onRequireLogout>
-  |ReturnType <typeof onLoadPromoMovie>
+  |ReturnType <typeof requireAuthorization>
+  |ReturnType <typeof requireLogout>
+  |ReturnType <typeof loadPromoMovie>
   |ReturnType <typeof loadCommentsToMovie>
-  |ReturnType <typeof onLoadMovies>;
+  |ReturnType <typeof getInitialGenreList>
+  |ReturnType <typeof loadMovies>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 

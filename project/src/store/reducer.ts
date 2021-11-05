@@ -1,13 +1,14 @@
-import { AuthorizationStatus } from '../components/const/const';
+import { ALL_GENRES, AuthorizationStatus } from '../components/const/const';
 import { Actions, ActionType } from '../components/types/action-types';
 import { State } from '../components/types/state';
 import { MovieInfo } from '../components/types/types';
-
-const ALL_GENRES = 'All genres';
+import { makeGenreNameLine } from '../utils/common';
 
 const initialState: State = {
   films: [],
+  filtratedFilms: [],
   promoFilm: undefined,
+  genreList: [],
   activeGenre: ALL_GENRES,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
@@ -21,39 +22,46 @@ const reducer = (state: State = initialState, action: Actions): State => {
       if (action.payload.genreKind === (undefined || ALL_GENRES)) {
         return {
           ...state,
-          activeGenre: initialState.activeGenre,
-          films: initialState.films,
+          activeGenre: ALL_GENRES,
+          filtratedFilms: state.films,
         };
       } else {
         return {
           ...state,
           activeGenre: action.payload.genreKind,
-          films: initialState.films.filter((film: MovieInfo) => film.genre === action.payload.genreKind),
+          filtratedFilms: state.films.filter((film: MovieInfo) => film.genre === action.payload.genreKind),
         };
       }
     }
 
     case ActionType.LoadMovies:{
       const {films} = action.payload;
-      initialState.films = films;
       return {
         ...state,
         films,
+        filtratedFilms: films,
       };
     }
 
     case ActionType.LoadPromoMovie:{
       const promoFilm = action.payload.promoFilm;
-      initialState.promoFilm = promoFilm;
       return {
         ...state,
         promoFilm,
       };
     }
 
+    case ActionType.InitialGenreList:{
+      const {films} = action.payload;
+      const genreList = makeGenreNameLine(films);
+      return {
+        ...state,
+        genreList,
+      };
+    }
+
     case ActionType.LoadCommentsToMovie:{
       const {comments} = action.payload;
-      initialState.comments = comments;
       return {
         ...state,
         comments,

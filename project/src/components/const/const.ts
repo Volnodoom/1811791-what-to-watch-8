@@ -27,6 +27,7 @@ export const KindOfMovieCardButtons = {
 
 export const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
+export const ALL_GENRES = 'All genres';
 
 export const KindOfButton = {
   Play: 'Play',
