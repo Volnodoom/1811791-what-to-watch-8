@@ -1,9 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { fetchLogin } from '../../store/api-actions';
-import { AppRoute } from '../const/const';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 import { ThunkAppDispatch } from '../types/action-types';
@@ -22,10 +20,6 @@ function SignIn(props: logoutAction): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  // remove history push from the component and connect this action through middleware
-
-  const history = useHistory();
-
   const submitHandle = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
@@ -34,7 +28,6 @@ function SignIn(props: logoutAction): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-      history.push(AppRoute.Main);
     }
   };
 

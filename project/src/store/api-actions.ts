@@ -3,6 +3,7 @@ import { ThunkActionResult } from '../components/types/action-types';
 import { AuthData, Comment, RawFilm } from '../components/types/types';
 import { adaptMovieToClient } from '../services/adapter';
 import { dropToken, saveToken, Token } from '../services/token';
+import {toast} from 'react-toastify';
 import {
   loadCommentsToMovie,
   loadMovies,
@@ -12,6 +13,9 @@ import {
   requireLogout
 } from './action';
 
+const AUTH_FAIL_MESSAGE = 'Assess to some pages has only authorized users';
+const TOAST_CLOSE = 10000;
+const TOAST_THEME = 'colored';
 
 export const fetchMovies = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -35,10 +39,16 @@ export const fetchCommentsToMovie = (filmId: number): ThunkActionResult =>
 
 export const fetchCheckAuth = (): ThunkActionResult =>
   async (dispatch, _getSate, api) => {
-    await api.get(APIRoute.Login)
-      .then(() => {
-        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    try{
+      await api.get(APIRoute.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    } catch {
+      toast.info(AUTH_FAIL_MESSAGE, {
+        autoClose: TOAST_CLOSE,
+        theme: TOAST_THEME,
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
   };
 
 export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResult =>

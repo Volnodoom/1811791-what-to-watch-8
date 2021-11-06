@@ -1,6 +1,9 @@
+import { MouseEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
+import { ThunkAppDispatch } from '../types/action-types';
 import { State } from '../types/state';
 
 const AvatarAdjustment = {
@@ -12,11 +15,22 @@ const mapStateToProps = ({authorizationStatus}: State) => ({
   authorizationStatus,
 });
 
-const connector =connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  onLogout() {
+    dispatch(fetchLogout());
+  },
+});
+
+const connector =connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Avatar(props: PropsFromRedux): JSX.Element {
-  const {authorizationStatus} = props;
+  const {authorizationStatus, onLogout} = props;
+
+  const logoutHandle = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    onLogout();
+  };
 
   return (
     <ul className="user-block">
@@ -28,11 +42,22 @@ function Avatar(props: PropsFromRedux): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <Link to={AppRoute.SignIn} className="user-block__link">Sign out</Link>
+            <Link
+              to={AppRoute.Main}
+              className="user-block__link"
+              onClick={logoutHandle}
+            >
+              Sign out
+            </Link>
           </li>
         </>
       ) : (
-        <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
+        <Link
+          className="user-block__link"
+          to={AppRoute.SignIn}
+        >
+          Sign in
+        </Link>
       )}
     </ul>
   );
