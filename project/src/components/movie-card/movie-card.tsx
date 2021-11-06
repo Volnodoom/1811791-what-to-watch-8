@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
 import { KindOfButton, AppRoute, CardState, MatchingComponent } from '../const/const';
-import { Comment, IdParam, MovieInfo } from '../types/types';
+import { IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
 import Header from '../general/header';
@@ -12,18 +12,36 @@ import MovieDetails from './movie-details';
 import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
+import { useEffect } from 'react';
+import { fetchCommentsToMovie } from '../../store/api-actions';
+import { bindActionCreators, Dispatch } from 'redux';
+import { Actions } from '../types/action-types';
+import { connect, ConnectedProps } from 'react-redux';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
-  authorizationStatus: string,
   cardDemonstrate: string,
-  comments: Comment[],
 }
 
-function MovieCard(props: MovieCardProps):JSX.Element {
-  const {cardDemonstrate} = props;
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
+  onLoadComments: fetchCommentsToMovie,
+}, dispatch);
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromReact = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromReact & MovieCardProps;
+
+
+function MovieCard(props: ConnectedComponentProps):JSX.Element {
+  const {cardDemonstrate, onLoadComments} = props;
   const { id } = useParams() as IdParam;
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
+
+  useEffect(() => {
+    onLoadComments(Number(id));
+  });
+
   if (!film) {
     return (
       <Error404 />
@@ -40,7 +58,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
             <img src={backgroundImg} alt={title} />
           </div>
 
-          <Header authorizationStatus={props.authorizationStatus} wtwHidden />
+          <Header wtwHidden />
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -63,7 +81,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
               <MovieNavigation />
               {cardDemonstrate === CardState.Overview ? <MovieOverview film={film} /> : ''}
               {cardDemonstrate === CardState.Details ? <MovieDetails film={film}/> : ''}
-              {cardDemonstrate === CardState.Reviews ? <MovieReviews comments={props.comments}/> : ''}
+              {cardDemonstrate === CardState.Reviews ? <MovieReviews /> : ''}
             </div>
           </div>
         </div>
@@ -77,4 +95,5 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   );
 }
 
-export default MovieCard;
+export {MovieCard};
+export default connector(MovieCard);

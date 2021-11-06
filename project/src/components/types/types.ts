@@ -1,21 +1,44 @@
+import { AppRoute } from '../const/const';
+
 export type MovieInfo = {
   id: number,
-  backgroundImg: string,
-  backgroundColor: string,
+  title: string,
   poster: string,
   previewImg: string,
-  title: string,
+  backgroundImg: string,
+  backgroundColor: string,
   srcVideo: string,
   scrPreviewVideo: string,
-  genre: string,
-  year: number,
+  description: string,
   ratingAbsolute: number | string,
   ratingCount: number,
-  runTime: number,
-  description: string,
   director: string,
   actors: string[],
+  runTime: number,
+  genre: string,
+  year: number,
   isFavorite: boolean,
+};
+
+export type RawFilm = {
+  name: string,
+  ['poster_image']: string,
+  ['preview_image']: string,
+  ['background_image']: string,
+  ['background_color']: string,
+  description: string,
+  rating: number,
+  ['scores_count']: number,
+  director: string,
+  ['run_time']: number,
+  genre: string,
+  release: number,
+  id: number,
+  ['is_favorite']: boolean,
+  ['preview_video_link']: string,
+  ['video_link']: string,
+  starring: string[],
+  released: number,
 };
 
 export type IdParam = {id: string};
@@ -28,10 +51,19 @@ export type Comment = {
   },
   rating: number | string,
   comment: string,
-  date: Date,
+  date: string,
 }
 
 export type CommentToServer = {
   rating: number,
   comment: string,
 };
+
+export type AuthData = {
+  login: string,
+  password: string,
+};
+
+type KeysOfAppRoute = keyof typeof AppRoute;
+export type ValuesOfAppRoute = typeof AppRoute[KeysOfAppRoute]
+

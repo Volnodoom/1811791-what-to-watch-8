@@ -1,17 +1,29 @@
-import Error404 from '../routing/Error404';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../types/state';
 import { Comment } from '../types/types';
 import MovieSingleReview from './movie-single-review';
 
+const mapStateToProps = ({comments}: State) => ({
+  comments,
+});
 
-function MovieReviews(props: {comments: Comment[]}):JSX.Element {
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+function MovieReviews(props: PropsFromRedux):JSX.Element {
+  const {comments} = props;
   const firstContainer: Comment[] = [];
   const secondContainer: Comment[] = [];
 
-  if (props.comments.length === 0) {
-    return (<Error404 />);
+  if (comments.length === 0) {
+    return (
+      <div className="review">
+        <p>No one left any comments yet. Be first! What is on your mind after watching this film.</p>
+      </div>
+    );
   }
 
-  props.comments.map((oneMessage, index) => {
+  comments.map((oneMessage, index) => {
     if(index%2 === 0) {
       return firstContainer.push(oneMessage);
     } else {
@@ -33,6 +45,7 @@ function MovieReviews(props: {comments: Comment[]}):JSX.Element {
   );
 }
 
-export default MovieReviews;
+export {MovieReviews};
+export default connector(MovieReviews);
 
 

@@ -5,7 +5,7 @@ import AddReviewForm from './add-review-form';
 import AddReviewHeader from './add-review-header';
 
 
-function AddReview(props: {movieList:MovieInfo[], authorizationStatus: string}):JSX.Element {
+function AddReview(props: {movieList:MovieInfo[]}):JSX.Element {
   const {id} = useParams() as IdParam;
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
   if (!film) {
@@ -22,7 +22,7 @@ function AddReview(props: {movieList:MovieInfo[], authorizationStatus: string}):
           <img src={backgroundImg} alt={title} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
-        <AddReviewHeader film= {film} authorizationStatus={props.authorizationStatus}/>
+        <AddReviewHeader film= {film} />
         <div className="film-card__poster film-card__poster--small">
           <img src={poster} alt={title} width="218" height="327" />
         </div>

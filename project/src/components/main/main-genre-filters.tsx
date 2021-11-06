@@ -4,15 +4,15 @@ import {connect, ConnectedProps} from 'react-redux';
 import { onFilmsFiltration } from '../../store/action';
 import { Actions } from '../types/action-types';
 import { State } from '../types/state';
-import { MovieInfo } from '../types/types';
 
 const GenreState = {
   Active: 'catalog__genres-item catalog__genres-item--active',
   NonActive: 'catalog__genres-item',
 };
 
-const mapStateToProps = ({activeGenre}: State) => ({
+const mapStateToProps = ({activeGenre, genreList}: State) => ({
   activeGenre,
+  genreList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
@@ -20,16 +20,10 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
 }, dispatch);
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-type MainGenreFiltersProps = {movieList: MovieInfo[]}
 type PropsFromRedux = ConnectedProps<typeof connector>
-type ConnectedComponentProps = MainGenreFiltersProps & PropsFromRedux;
 
-function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
-  const {activeGenre, movieList, onFiltration} = props;
-
-  const uniqueGenreList: Set <string> = new Set();
-  uniqueGenreList.add('All genres');
-  movieList.forEach((film) => uniqueGenreList.add(film.genre));
+function MainGenreFilters(props: PropsFromRedux):JSX.Element {
+  const {activeGenre, genreList, onFiltration} = props;
 
   const activeGenreHandler = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
@@ -38,7 +32,7 @@ function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
 
   return (
     <ul className="catalog__genres-list">
-      {Array.from(uniqueGenreList)
+      {Array.from(genreList)
         .slice(0,8)
         .map((genre) => (
           <li

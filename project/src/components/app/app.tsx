@@ -1,5 +1,4 @@
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import { Comment, MovieInfo } from '../types/types';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import Main from '../main/main';
 import Error404 from '../routing/Error404';
 import Player from '../player/player';
@@ -9,26 +8,49 @@ import Mylist from '../mylist/mylist';
 import SignIn from '../sign-in/sign-in';
 import { AppRoute, CardState } from '../const/const';
 import PrivateRoute from '../routing/private-route';
+import { State } from '../types/state';
+import { connect, ConnectedProps } from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { isAuthUnKnown } from '../../utils/site-flags';
+import { Dispatch } from 'redux';
+import { MovieInfo } from '../types/types';
+import { getInitialGenreList } from '../../store/action';
+import { Actions } from '../types/action-types';
+import { useEffect } from 'react';
+import browserHistory from '../routing/browser-history';
 
-type AppProps = {
-  film: MovieInfo,
-  movieList:MovieInfo[],
-  authorizationStatus: string,
-  comments: Comment[],
-};
+const mapStateToProps = ({authorizationStatus, isDataLoaded, films}: State) => ({
+  films,
+  authorizationStatus,
+  isDataLoaded,
+});
 
-export default function App(props: AppProps): JSX.Element {
-  const getMyMovies = props.movieList.filter((film) => film.isFavorite);
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => ({
+  setInitialGenreList(films: MovieInfo[]) {
+    dispatch(getInitialGenreList(films));
+  },
+});
 
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function App(props: PropsFromRedux): JSX.Element {
+  const {films, authorizationStatus, isDataLoaded, setInitialGenreList} = props;
+  const getMyMovies = films.filter((film) => film.isFavorite);
+
+  useEffect(() => setInitialGenreList(films));
+
+  if (isAuthUnKnown(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.Main}>
-          <Main
-            film={props.film}
-            authorizationStatus={props.authorizationStatus}
-            movieList={props.movieList}
-          />
+          <Main />
         </Route>
         <Route exact path={AppRoute.SignIn}>
           <SignIn />
@@ -36,46 +58,36 @@ export default function App(props: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.MyList}
-          authorizationStatus={props.authorizationStatus}
           render={() => (
             <Mylist
-              authorizationStatus={props.authorizationStatus}
               movieList={getMyMovies}
             />)}
         >
         </PrivateRoute>
         <Route exact path={AppRoute.Movie()}>
           <MovieCard
-            comments={props.comments}
             cardDemonstrate={CardState.Overview}
-            movieList={props.movieList}
-            authorizationStatus={props.authorizationStatus}
+            movieList={films}
           />
         </Route>
         <Route exact path={AppRoute.Details()}>
           <MovieCard
-            comments={props.comments}
             cardDemonstrate={CardState.Details}
-            movieList={props.movieList}
-            authorizationStatus={props.authorizationStatus}
+            movieList={films}
           />
         </Route>
         <Route exact path={AppRoute.Reviews()}>
           <MovieCard
-            comments={props.comments}
             cardDemonstrate={CardState.Reviews}
-            movieList={props.movieList}
-            authorizationStatus={props.authorizationStatus}
+            movieList={films}
           />
         </Route>
         <PrivateRoute
           exact
           path={AppRoute.AddReview()}
-          authorizationStatus={props.authorizationStatus}
           render={() => (
             <AddReview
-              authorizationStatus={props.authorizationStatus}
-              movieList={props.movieList}
+              movieList={films}
             />)}
         >
         </PrivateRoute>
@@ -89,3 +101,6 @@ export default function App(props: AppProps): JSX.Element {
     </BrowserRouter>
   );
 }
+
+export {App};
+export default connector(App);
