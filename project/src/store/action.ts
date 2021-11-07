@@ -24,12 +24,6 @@ export const loadCommentsToMovie = (comments: Comment[]) => ({
   payload: {comments},
 } as const);
 
-export const getInitialGenreList = (films: MovieInfo[]) => ({
-  type: ActionType.InitialGenreList,
-  payload: {films},
-} as const);
-
-
 export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
   payload: authStatus,

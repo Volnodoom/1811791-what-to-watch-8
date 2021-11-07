@@ -2,7 +2,6 @@ import { AxiosInstance } from 'axios';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { State } from './state';
 import {
-  getInitialGenreList,
   loadCommentsToMovie,
   onFilmsFiltration,
   loadMovies,
@@ -19,7 +18,6 @@ export enum ActionType {
   LoadMovies = 'data/loadMovies',
   LoadPromoMovie = 'data/loadPromoMovie',
   LoadCommentsToMovie = 'data/commentsToMovie',
-  InitialGenreList = 'filter/genreList',
   RedirectToRoute = 'signIn/redirectToRoute'
 }
 
@@ -29,7 +27,6 @@ export type Actions =
   |ReturnType <typeof requireLogout>
   |ReturnType <typeof loadPromoMovie>
   |ReturnType <typeof loadCommentsToMovie>
-  |ReturnType <typeof getInitialGenreList>
   |ReturnType <typeof redirectToRout>
   |ReturnType <typeof loadMovies>;
 

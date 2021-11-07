@@ -22,8 +22,7 @@ const api = createAPI(
 const store = createStore(
   reducer,
   composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-    applyMiddleware(redirect),
+    applyMiddleware(thunk.withExtraArgument(api), redirect),
   ),
 );
 
