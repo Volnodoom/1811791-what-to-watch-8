@@ -15,11 +15,11 @@ import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
-  cardDemonstrate: string,
+  cardTab: string,
 }
 
 function MovieCard(props: MovieCardProps):JSX.Element {
-  const {cardDemonstrate} = props;
+  const {cardTab} = props;
   const { id } = useParams<IdParam>();
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
 
@@ -60,9 +60,9 @@ function MovieCard(props: MovieCardProps):JSX.Element {
             </div>
             <div className="film-card__desc">
               <MovieNavigation />
-              {cardDemonstrate === CardState.Overview ? <MovieOverview film={film} /> : ''}
-              {cardDemonstrate === CardState.Details ? <MovieDetails film={film}/> : ''}
-              {cardDemonstrate === CardState.Reviews ? <MovieReviews /> : ''}
+              {cardTab === CardState.Overview ? <MovieOverview film={film} /> : ''}
+              {cardTab === CardState.Details ? <MovieDetails film={film}/> : ''}
+              {cardTab === CardState.Reviews ? <MovieReviews /> : ''}
             </div>
           </div>
         </div>

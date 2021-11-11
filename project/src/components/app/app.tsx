@@ -53,19 +53,19 @@ function App(props: PropsFromRedux): JSX.Element {
         </PrivateRoute>
         <Route exact path={AppRoute.Movie()}>
           <MovieCard
-            cardDemonstrate={CardState.Overview}
+            cardTab={CardState.Overview}
             movieList={films}
           />
         </Route>
         <Route exact path={AppRoute.Details()}>
           <MovieCard
-            cardDemonstrate={CardState.Details}
+            cardTab={CardState.Details}
             movieList={films}
           />
         </Route>
         <Route exact path={AppRoute.Reviews()}>
           <MovieCard
-            cardDemonstrate={CardState.Reviews}
+            cardTab={CardState.Reviews}
             movieList={films}
           />
         </Route>

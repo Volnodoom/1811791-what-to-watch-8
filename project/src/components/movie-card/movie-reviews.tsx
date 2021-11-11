@@ -22,13 +22,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 function MovieReviews(props: PropsFromRedux):JSX.Element {
   const {comments, onLoadComments} = props;
 
-  // eslint-disable-next-line no-console
-  console.log(useParams());
   const { id } = useParams<IdParam>();
   useEffect(() => {
     onLoadComments(Number(id));
   }, [id, onLoadComments]);
-
 
   const firstContainer: Comment[] = [];
   const secondContainer: Comment[] = [];

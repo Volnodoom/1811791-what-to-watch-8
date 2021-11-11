@@ -14,7 +14,8 @@ const WaringMessage = {
   Empty: 'Please, feel up the login and password lines',
   Space: 'Please, do not use space on any lines of signing form',
   Number: 'Password line must contain at least one number',
-  Text: 'Line must contain at least one letter',
+  TextLogin: 'Login line must contain at least one letter',
+  TextPassword: 'Password line must contain at least one letter',
 };
 
 const showSignInProblem = (message: string) => {
@@ -64,9 +65,9 @@ function SignIn(props: logoutAction): JSX.Element {
         case inputErrors.containMinimumPasswordNumber:
           return showSignInProblem(WaringMessage.Number);
         case inputErrors.containMinimumPasswordText:
-          return showSignInProblem(WaringMessage.Text);
+          return showSignInProblem(WaringMessage.TextPassword);
         case inputErrors.containMinimumLoginText:
-          return showSignInProblem(WaringMessage.Text);
+          return showSignInProblem(WaringMessage.TextPassword);
         default:  return onSubmit({
           login: loginRef.current.value,
           password: passwordRef.current.value,
