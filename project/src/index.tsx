@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import App from './components/app/app';
 import { AuthorizationStatus } from './components/const/const';
-import { reducer } from './store/reducer';
 import thunk from 'redux-thunk';
 import { createAPI } from './services/api';
 import { requireAuthorization } from './store/action';
@@ -14,13 +13,14 @@ import { fetchCheckAuth, fetchMovies, fetchPromoMovie } from './store/api-action
 import { redirect } from './store/middlewares/redirect';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { rootReducer } from './store/root-reducer';
 
 const api = createAPI(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth)),
 );
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api), redirect),
   ),

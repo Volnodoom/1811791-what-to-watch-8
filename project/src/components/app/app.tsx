@@ -14,10 +14,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 
-const mapStateToProps = ({authorizationStatus, isDataLoaded, films}: State) => ({
-  films,
-  authorizationStatus,
-  isDataLoaded,
+const mapStateToProps = ({DATA, USER}: State) => ({
+  films: DATA.films,
+  authorizationStatus: USER.authorizationStatus,
+  isDataLoaded: USER.isDataLoaded,
 });
 
 const connector = connect(mapStateToProps);

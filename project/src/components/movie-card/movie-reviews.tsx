@@ -8,8 +8,8 @@ import { State } from '../types/state';
 import { Comment, IdParam } from '../types/types';
 import MovieSingleReview from './movie-single-review';
 
-const mapStateToProps = ({comments}: State) => ({
-  comments,
+const mapStateToProps = ({DATA}: State) => ({
+  comments: DATA.comments,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({

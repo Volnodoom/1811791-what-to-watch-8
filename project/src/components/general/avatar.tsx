@@ -11,8 +11,8 @@ const AvatarAdjustment = {
   AltImg: 'User avatar',
 } as const;
 
-const mapStateToProps = ({authorizationStatus}: State) => ({
-  authorizationStatus,
+const mapStateToProps = ({USER}: State) => ({
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

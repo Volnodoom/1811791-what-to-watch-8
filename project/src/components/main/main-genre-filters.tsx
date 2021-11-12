@@ -10,9 +10,9 @@ const GenreState = {
   NonActive: 'catalog__genres-item',
 };
 
-const mapStateToProps = ({activeGenre, genreList}: State) => ({
-  activeGenre,
-  genreList,
+const mapStateToProps = ({FILMS, DATA}: State) => ({
+  activeGenre: FILMS.activeGenre,
+  genreList: DATA.genreList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({

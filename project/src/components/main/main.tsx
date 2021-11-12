@@ -6,9 +6,9 @@ import { MatchingComponent } from '../const/const';
 import { connect, ConnectedProps } from 'react-redux';
 import { State } from '../types/state';
 
-const mapStateToProps = ({promoFilm, filtratedFilms}: State) => ({
-  promoFilm,
-  filtratedFilms,
+const mapStateToProps = ({DATA, FILMS}: State) => ({
+  promoFilm: DATA.promoFilm,
+  filtratedFilms: DATA.filtratedFilms,
 });
 
 const connector = connect(mapStateToProps);
