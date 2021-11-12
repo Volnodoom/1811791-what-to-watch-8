@@ -12,35 +12,16 @@ import MovieDetails from './movie-details';
 import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
-import { useEffect } from 'react';
-import { fetchCommentsToMovie } from '../../store/api-actions';
-import { bindActionCreators, Dispatch } from 'redux';
-import { Actions } from '../types/action-types';
-import { connect, ConnectedProps } from 'react-redux';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
-  cardDemonstrate: string,
+  cardTab: string,
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
-  onLoadComments: fetchCommentsToMovie,
-}, dispatch);
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromReact = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromReact & MovieCardProps;
-
-
-function MovieCard(props: ConnectedComponentProps):JSX.Element {
-  const {cardDemonstrate, onLoadComments} = props;
-  const { id } = useParams() as IdParam;
+function MovieCard(props: MovieCardProps):JSX.Element {
+  const {cardTab} = props;
+  const { id } = useParams<IdParam>();
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
-
-  useEffect(() => {
-    onLoadComments(Number(id));
-  });
 
   if (!film) {
     return (
@@ -79,9 +60,9 @@ function MovieCard(props: ConnectedComponentProps):JSX.Element {
             </div>
             <div className="film-card__desc">
               <MovieNavigation />
-              {cardDemonstrate === CardState.Overview ? <MovieOverview film={film} /> : ''}
-              {cardDemonstrate === CardState.Details ? <MovieDetails film={film}/> : ''}
-              {cardDemonstrate === CardState.Reviews ? <MovieReviews /> : ''}
+              {cardTab === CardState.Overview ? <MovieOverview film={film} /> : ''}
+              {cardTab === CardState.Details ? <MovieDetails film={film}/> : ''}
+              {cardTab === CardState.Reviews ? <MovieReviews /> : ''}
             </div>
           </div>
         </div>
@@ -95,5 +76,4 @@ function MovieCard(props: ConnectedComponentProps):JSX.Element {
   );
 }
 
-export {MovieCard};
-export default connector(MovieCard);
+export default MovieCard;

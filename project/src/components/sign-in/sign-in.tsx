@@ -1,10 +1,30 @@
 import { FormEvent, useRef } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchLogin } from '../../store/api-actions';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 import { ThunkAppDispatch } from '../types/action-types';
+import {toast} from 'react-toastify';
+import { fetchLogin } from '../../store/api-actions';
+
+const TOAST_CLOSE = 10000;
+const TOAST_THEME = 'colored';
+
+const WaringMessage = {
+  Empty: 'Please, feel up the login and password lines',
+  Space: 'Please, do not use space on any lines of signing form',
+  Number: 'Password line must contain at least one number',
+  TextLogin: 'Login line must contain at least one letter',
+  TextPassword: 'Password line must contain at least one letter',
+};
+
+const showSignInProblem = (message: string) => {
+  toast.error(message, {
+    autoClose: TOAST_CLOSE,
+    theme: TOAST_THEME,
+    position: toast.POSITION.TOP_CENTER,
+  });
+};
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => bindActionCreators({
   onSubmit: fetchLogin,
@@ -23,11 +43,36 @@ function SignIn(props: logoutAction): JSX.Element {
   const submitHandle = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if(loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
+    if(loginRef.current === null && passwordRef.current === null) {
+      return showSignInProblem(WaringMessage.Empty);
+    } else if (loginRef.current !== null && passwordRef.current !== null) {
+      const loginValue = loginRef.current.value;
+      const passwordValue = passwordRef.current.value;
+
+      const inputErrors = {
+        spaceForLogin: !!loginValue.match(/\s/),
+        spaceForPassword: !!passwordValue.match(/\s/),
+        containMinimumPasswordNumber: !passwordValue.match(/[0-9]/i),
+        containMinimumPasswordText: !passwordValue.match(/[a-zа-я]/i),
+        containMinimumLoginText: !loginValue.match(/[a-zа-я]/i),
+      };
+
+      switch (true) {
+        case inputErrors.spaceForLogin:
+          return showSignInProblem(WaringMessage.Space);
+        case inputErrors.spaceForPassword:
+          return showSignInProblem(WaringMessage.Space);
+        case inputErrors.containMinimumPasswordNumber:
+          return showSignInProblem(WaringMessage.Number);
+        case inputErrors.containMinimumPasswordText:
+          return showSignInProblem(WaringMessage.TextPassword);
+        case inputErrors.containMinimumLoginText:
+          return showSignInProblem(WaringMessage.TextPassword);
+        default:  return onSubmit({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        });
+      }
     }
   };
 

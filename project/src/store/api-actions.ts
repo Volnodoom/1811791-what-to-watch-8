@@ -13,8 +13,8 @@ import {
   requireLogout
 } from './action';
 
-const AUTH_FAIL_MESSAGE = 'Assess to some pages has only authorized users';
-const TOAST_CLOSE = 10000;
+const AUTH_FAIL_MESSAGE = 'Assess to some pages on the web-site has only authorized users';
+const TOAST_CLOSE = 5000;
 const TOAST_THEME = 'colored';
 
 export const fetchMovies = (): ThunkActionResult =>
@@ -39,7 +39,7 @@ export const fetchCommentsToMovie = (filmId: number): ThunkActionResult =>
 
 export const fetchCheckAuth = (): ThunkActionResult =>
   async (dispatch, _getSate, api) => {
-    try{
+    try {
       await api.get(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {

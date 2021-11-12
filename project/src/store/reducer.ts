@@ -19,7 +19,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
   switch (action.type) {
     case ActionType.FiltrateMovies:
     {
-      if (action.payload.genreKind === (undefined || ALL_GENRES)) {
+      if (action.payload.genreKind ===  ALL_GENRES) {
         return {
           ...state,
           activeGenre: ALL_GENRES,
@@ -36,9 +36,11 @@ const reducer = (state: State = initialState, action: Actions): State => {
 
     case ActionType.LoadMovies:{
       const {films} = action.payload;
+      const genreList = makeGenreNameLine(films);
       return {
         ...state,
         films,
+        genreList,
         filtratedFilms: films,
       };
     }
@@ -48,15 +50,6 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {
         ...state,
         promoFilm,
-      };
-    }
-
-    case ActionType.InitialGenreList:{
-      const {films} = action.payload;
-      const genreList = makeGenreNameLine(films);
-      return {
-        ...state,
-        genreList,
       };
     }
 
