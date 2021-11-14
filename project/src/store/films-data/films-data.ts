@@ -1,26 +1,21 @@
 import { Actions, ActionType } from '../../components/types/action-types';
 import { FilmsData } from '../../components/types/state';
-import { makeGenreNameLine } from '../../utils/common';
-
 
 const initialState: FilmsData = {
   films: [],
   promoFilm: undefined,
   comments: [],
-  genreList: [],
-  filtratedFilms: [],
+  isDataLoaded: false,
 };
 
 const filmsData = (state = initialState, action: Actions): FilmsData => {
   switch (action.type) {
     case ActionType.LoadMovies:{
       const {films} = action.payload;
-      const genreList = makeGenreNameLine(films);
       return {
         ...state,
         films,
-        genreList,
-        filtratedFilms: films,
+        isDataLoaded: true,
       };
     }
 

@@ -39,11 +39,3 @@ export const getTime = (runTime: number): string  => {
   }
   return duration;
 };
-
-export const makeGenreNameLine = (films: MovieInfo[]): Set <string> => {
-  const uniqueGenreList: Set <string> = new Set();
-  uniqueGenreList.add(ALL_GENRES);
-  films.forEach((film) => uniqueGenreList.add(film.genre));
-
-  return uniqueGenreList;
-};

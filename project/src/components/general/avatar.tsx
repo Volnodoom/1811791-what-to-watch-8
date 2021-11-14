@@ -2,6 +2,7 @@ import { MouseEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
+import { selectAuthorizationStatus } from '../../store/user-process/selector-user-process';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import { ThunkAppDispatch } from '../types/action-types';
 import { State } from '../types/state';
@@ -11,8 +12,8 @@ const AvatarAdjustment = {
   AltImg: 'User avatar',
 } as const;
 
-const mapStateToProps = ({USER}: State) => ({
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state: State) => ({
+  authorizationStatus: selectAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

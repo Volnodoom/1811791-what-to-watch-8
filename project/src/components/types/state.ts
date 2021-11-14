@@ -8,17 +8,9 @@ export type FilmsData = {
   films: MovieInfo[] | [],
   promoFilm?: MovieInfo,
   comments: Comment[] | [],
-  genreList: Set<string> | [],
-  filtratedFilms: MovieInfo[] | [],
-}
-
-export type FilmsProcess = {
-  films: MovieInfo[] | [],
-  activeGenre?: string,
-  filtratedFilms: MovieInfo[] | [],
+  isDataLoaded: boolean,
 }
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
-  isDataLoaded: boolean,
 }

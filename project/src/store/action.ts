@@ -2,13 +2,6 @@ import { AuthorizationStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
 import { Comment, MovieInfo, ValuesOfAppRoute } from '../components/types/types';
 
-export const onFilmsFiltration = (specificGenre?: string) => ({
-  type: ActionType.FiltrateMovies,
-  payload: {
-    genreKind: specificGenre,
-  },
-} as const);
-
 export const loadMovies = (films: MovieInfo[]) => ({
   type: ActionType.LoadMovies,
   payload: {films},

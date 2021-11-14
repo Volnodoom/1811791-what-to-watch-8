@@ -3,7 +3,6 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { State } from './state';
 import {
   loadCommentsToMovie,
-  onFilmsFiltration,
   loadMovies,
   loadPromoMovie,
   requireAuthorization,
@@ -22,7 +21,6 @@ export enum ActionType {
 }
 
 export type Actions =
-  |ReturnType <typeof onFilmsFiltration>
   |ReturnType <typeof requireAuthorization>
   |ReturnType <typeof requireLogout>
   |ReturnType <typeof loadPromoMovie>

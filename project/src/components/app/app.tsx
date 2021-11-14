@@ -13,11 +13,13 @@ import { connect, ConnectedProps } from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
+import { selectFilms, selectLoadedDataStatus } from '../../store/films-data/selector-films-data';
+import { selectAuthorizationStatus } from '../../store/user-process/selector-user-process';
 
-const mapStateToProps = ({DATA, USER}: State) => ({
-  films: DATA.films,
-  authorizationStatus: USER.authorizationStatus,
-  isDataLoaded: USER.isDataLoaded,
+const mapStateToProps = (state: State) => ({
+  films: selectFilms(state),
+  authorizationStatus: selectAuthorizationStatus(state),
+  isDataLoaded: selectLoadedDataStatus(state),
 });
 
 const connector = connect(mapStateToProps);

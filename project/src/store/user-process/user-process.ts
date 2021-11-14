@@ -4,7 +4,6 @@ import { UserProcess } from '../../components/types/state';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  isDataLoaded: false,
 };
 
 const userProcess = (state = initialState, action: Actions): UserProcess => {
@@ -13,7 +12,6 @@ const userProcess = (state = initialState, action: Actions): UserProcess => {
       return {
         ...state,
         authorizationStatus: action.payload,
-        isDataLoaded: true,
       };
 
     case ActionType.RequireLogout:
