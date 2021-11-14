@@ -2,10 +2,10 @@ import { MouseEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
-import { selectAuthorizationStatus } from '../../store/user-process/selector-user-process';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import { ThunkAppDispatch } from '../types/action-types';
 import { State } from '../types/state';
+import * as selectors from '../../store/selectors';
 
 const AvatarAdjustment = {
   Img: 'img/avatar.jpg',
@@ -13,7 +13,7 @@ const AvatarAdjustment = {
 } as const;
 
 const mapStateToProps = (state: State) => ({
-  authorizationStatus: selectAuthorizationStatus(state),
+  authorizationStatus: selectors.getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

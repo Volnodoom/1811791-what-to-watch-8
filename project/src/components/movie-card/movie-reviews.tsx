@@ -7,9 +7,10 @@ import { Actions } from '../types/action-types';
 import { State } from '../types/state';
 import { Comment, IdParam } from '../types/types';
 import MovieSingleReview from './movie-single-review';
+import * as selectors from '../../store/selectors';
 
-const mapStateToProps = ({DATA}: State) => ({
-  comments: DATA.comments,
+const mapStateToProps = (state: State) => ({
+  comments: selectors.getComments(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({

@@ -1,11 +1,9 @@
-import { MouseEvent, useCallback, useMemo, useState } from 'react';
+import React, { MouseEvent, useCallback, useMemo, useState } from 'react';
 import {connect, ConnectedProps, useSelector} from 'react-redux';
 import { State } from '../types/state';
 import { ALL_GENRES } from '../const/const';
-import { selectGenreList } from '../../store/films-data/selector-films-data';
-// import { MovieInfo } from '../types/types';
 import MovieThumbnails from '../general/movie-thumbnails';
-import { makeSelectFilmsByGenre } from '../../store/films-process/selector-films-process';
+import * as selectors from '../../store/selectors';
 
 const GenreState = {
   Active: 'catalog__genres-item catalog__genres-item--active',
@@ -13,26 +11,24 @@ const GenreState = {
 };
 
 const mapStateToProps = (state: State) => ({
-  genreList: selectGenreList(state),
+  films: selectors.getFilms(state),
+  genreList: selectors.getGenreList(state),
 });
 
 const connector = connect(mapStateToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>
-// type PropsMainGenreFilters = {movieList:MovieInfo[]}
 type ConnectedComponentProps = PropsFromRedux;
 
 function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
-  const {genreList} = props;
-
-  const [activeGenre, setActiveGenre] = useState (ALL_GENRES);
+  const {genreList, films} = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
   const getActiveFilm = useCallback(() => setActiveFilm, []);
-  const selectFilmsByGenre = useMemo(makeSelectFilmsByGenre, [activeGenre]);
-  const filmsByGenre = useSelector<State>((state) => {
-    selectFilmsByGenre(state, activeGenre);
-  });
 
+  const [activeGenre, setActiveGenre] = useState (ALL_GENRES);
+
+  const selectFilmsByGenre = useMemo(() => selectors.makeSelectFilmsByGenre(activeGenre), [activeGenre]);
+  const filmsByGenre = useSelector((state:State) => selectFilmsByGenre(state));
 
   const activeGenreHandler = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
@@ -55,7 +51,15 @@ function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
           ))}
       </ul>
       <div className="catalog__films-list">
-        {filmsByGenre
+        {activeGenre === ALL_GENRES ? films
+          .map((film) =>
+            (
+              <MovieThumbnails
+                film={film}
+                key={film.id}
+                activeStateHandler={getActiveFilm}
+              />
+            )) : filmsByGenre
           .map((film) =>
             (
               <MovieThumbnails
@@ -70,4 +74,4 @@ function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
 }
 
 export  {MainGenreFilters};
-export default connector(MainGenreFilters);
+export default React.memo(connector(MainGenreFilters));
