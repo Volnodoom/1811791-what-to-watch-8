@@ -30,9 +30,15 @@ function App(): JSX.Element {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path={AppRoute.Main}>
-          <Main />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.Main}
+          render={({history}) => (
+            <Main
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
         <Route exact path={AppRoute.SignIn}>
           <SignIn />
         </Route>
@@ -43,26 +49,40 @@ function App(): JSX.Element {
             <Mylist
               movieList={getMyMovies}
             />)}
-        >
-        </PrivateRoute>
-        <Route exact path={AppRoute.Movie()}>
-          <MovieCard
-            cardTab={CardState.Overview}
-            movieList={films}
-          />
-        </Route>
-        <Route exact path={AppRoute.Details()}>
-          <MovieCard
-            cardTab={CardState.Details}
-            movieList={films}
-          />
-        </Route>
-        <Route exact path={AppRoute.Reviews()}>
-          <MovieCard
-            cardTab={CardState.Reviews}
-            movieList={films}
-          />
-        </Route>
+        />
+        <Route
+          exact
+          path={AppRoute.Movie()}
+          render={({history}) => (
+            <MovieCard
+              cardTab={CardState.Overview}
+              movieList={films}
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={AppRoute.Details()}
+          render={({history}) => (
+            <MovieCard
+              cardTab={CardState.Details}
+              movieList={films}
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={AppRoute.Reviews()}
+          render={({history}) => (
+            <MovieCard
+              cardTab={CardState.Reviews}
+              movieList={films}
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
         <PrivateRoute
           exact
           path={AppRoute.AddReview()}

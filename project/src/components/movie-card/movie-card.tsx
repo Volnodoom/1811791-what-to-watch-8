@@ -5,21 +5,24 @@ import { IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
 import Header from '../general/header';
-import MovieCardButtons from '../general/movie-card-buttons';
 import MovieNavigation from './movie-navigation';
 import MovieOverview from './movie-overview';
 import MovieDetails from './movie-details';
 import MovieReviews from './movie-reviews';
 import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
+import MoviePlayButton from '../general/movie-play-button';
+import MovieAddInListButtons from '../general/movie-add-in-list-buttons';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
   cardTab: string,
+  onPlayVideoClick: (id: string | number) => void,
 }
 
 function MovieCard(props: MovieCardProps):JSX.Element {
   const {cardTab} = props;
+  const onPlayFilm = props.onPlayVideoClick;
   const { id } = useParams<IdParam>();
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
 
@@ -45,8 +48,10 @@ function MovieCard(props: MovieCardProps):JSX.Element {
             <div className="film-card__desc">
               <BasicDescriptionPoster  film= {film}/>
               <div className="film-card__buttons">
-                <MovieCardButtons buttonKind= {KindOfButton.Play}/>
-                {isFavorite ? <MovieCardButtons buttonKind= {KindOfButton.InMyList}/> : <MovieCardButtons buttonKind= {KindOfButton.AddToMyList}/>}
+                <MoviePlayButton filmId={Number(id)} onPlayFilm={onPlayFilm} />
+                {isFavorite
+                  ? <MovieAddInListButtons buttonKind= {KindOfButton.InMyList}/>
+                  : <MovieAddInListButtons buttonKind= {KindOfButton.AddToMyList}/>}
                 <Link to={AppRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
               </div>
             </div>

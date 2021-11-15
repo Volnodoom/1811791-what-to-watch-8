@@ -3,13 +3,19 @@ import MainMovieFrame from './main-movie-frame';
 import Footer from '../general/footer';
 import { useSelector } from 'react-redux';
 import * as selectors from '../../store/selectors';
+import { RouteProps } from 'react-router';
 
-function Main(): JSX.Element {
+type MainProps = RouteProps & {
+  onPlayVideoClick: (id: string | number) => void;
+};
+
+function Main(props: MainProps): JSX.Element {
+  const {onPlayVideoClick} = props;
   const promoFilm = useSelector(selectors.getPromoFilm);
 
   return(
     <>
-      <MainMovieFrame promoFilm ={promoFilm} />
+      <MainMovieFrame promoFilm ={promoFilm} onPlayFilm={onPlayVideoClick} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>

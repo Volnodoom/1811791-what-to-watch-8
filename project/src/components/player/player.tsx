@@ -1,4 +1,5 @@
 function Player():JSX.Element {
+
   return(
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>

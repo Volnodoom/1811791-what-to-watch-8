@@ -1,36 +1,8 @@
-export const KindOfMovieCardButtons = {
-  Play: {
-    'ClassName': 'btn btn--play film-card__button',
-    'ViewBox': '0 0 19 19',
-    'Use': '#play-s',
-    'Snap': 'Play',
-    'Width': 19,
-    'Height': 19,
-  },
-  AddToMyList: {
-    'ClassName': 'btn btn--list film-card__button',
-    'ViewBox': '0 0 19 20',
-    'Use': '#add',
-    'Snap': 'My list',
-    'Width': 19,
-    'Height': 20,
-  },
-  InMyList: {
-    'ClassName': 'btn btn--play film-card__button',
-    'ViewBox': '0 0 18 14',
-    'Use': '#in-list',
-    'Snap': 'My list',
-    'Width': 18,
-    'Height': 14,
-  },
-} as const;
-
 export const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const ALL_GENRES = 'All genres';
 
 export const KindOfButton = {
-  Play: 'Play',
   AddToMyList: 'AddToMyList',
   InMyList: 'InMyList',
 }as const;
