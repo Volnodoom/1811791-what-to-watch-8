@@ -5,7 +5,7 @@ function Footer(): JSX.Element {
     <footer className="page-footer">
       <Logo isTop={false} />
       <div className="copyright">
-        <p>© 2021 What to watch Ltd.</p>
+        <p>© {new Date().getFullYear()} What to watch Ltd.</p>
       </div>
     </footer>
   );

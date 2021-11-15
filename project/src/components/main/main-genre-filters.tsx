@@ -1,5 +1,5 @@
-import React, { MouseEvent, useCallback, useMemo, useState } from 'react';
-import {connect, ConnectedProps, useSelector} from 'react-redux';
+import { MouseEvent, useMemo, useState } from 'react';
+import { useSelector} from 'react-redux';
 import { State } from '../types/state';
 import { ALL_GENRES } from '../const/const';
 import MovieThumbnails from '../general/movie-thumbnails';
@@ -10,20 +10,11 @@ const GenreState = {
   NonActive: 'catalog__genres-item',
 };
 
-const mapStateToProps = (state: State) => ({
-  films: selectors.getFilms(state),
-  genreList: selectors.getGenreList(state),
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>
-type ConnectedComponentProps = PropsFromRedux;
-
-function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
-  const {genreList, films} = props;
+function MainGenreFilters():JSX.Element {
+  const films = useSelector(selectors.getFilms);
+  const genreList = useSelector(selectors.getGenreList);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeFilm, setActiveFilm] = useState<number | null>(null);
-  const getActiveFilm = useCallback(() => setActiveFilm, []);
 
   const [activeGenre, setActiveGenre] = useState (ALL_GENRES);
 
@@ -57,7 +48,7 @@ function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
               <MovieThumbnails
                 film={film}
                 key={film.id}
-                activeStateHandler={getActiveFilm}
+                activeStateHandler={setActiveFilm}
               />
             )) : filmsByGenre
           .map((film) =>
@@ -65,7 +56,7 @@ function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
               <MovieThumbnails
                 film={film}
                 key={film.id}
-                activeStateHandler={getActiveFilm}
+                activeStateHandler={setActiveFilm}
               />
             ))}
       </div>
@@ -73,5 +64,4 @@ function MainGenreFilters(props: ConnectedComponentProps):JSX.Element {
   );
 }
 
-export  {MainGenreFilters};
-export default React.memo(connector(MainGenreFilters));
+export default MainGenreFilters;

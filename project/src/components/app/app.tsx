@@ -8,25 +8,18 @@ import Mylist from '../mylist/mylist';
 import SignIn from '../sign-in/sign-in';
 import { AppRoute, CardState } from '../const/const';
 import PrivateRoute from '../routing/private-route';
-import { State } from '../types/state';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
 
-const mapStateToProps = (state: State) => ({
-  films: selectors.getFilms(state),
-  authorizationStatus:  selectors.getAuthorizationStatus(state),
-  isDataLoaded:  selectors.getLoadedDataStatus(state),
-});
 
-const connector = connect(mapStateToProps);
+function App(): JSX.Element {
+  const films = useSelector(selectors.getFilms);
+  const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
+  const isDataLoaded = useSelector(selectors.getLoadedDataStatus);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App(props: PropsFromRedux): JSX.Element {
-  const {films, authorizationStatus, isDataLoaded} = props;
   const getMyMovies = films.filter((film) => film.isFavorite);
 
   if (isAuthUnKnown(authorizationStatus) || !isDataLoaded) {
@@ -90,5 +83,4 @@ function App(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {App};
-export default connector(App);
+export default App;

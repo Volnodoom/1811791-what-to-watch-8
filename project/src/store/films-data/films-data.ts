@@ -1,5 +1,6 @@
-import { Actions, ActionType } from '../../components/types/action-types';
+import { createReducer } from '@reduxjs/toolkit';
 import { FilmsData } from '../../components/types/state';
+import { loadCommentsToMovie, loadMovies, loadPromoMovie } from '../action';
 
 const initialState: FilmsData = {
   films: [],
@@ -8,35 +9,21 @@ const initialState: FilmsData = {
   isDataLoaded: false,
 };
 
-const filmsData = (state = initialState, action: Actions): FilmsData => {
-  switch (action.type) {
-    case ActionType.LoadMovies:{
+const filmsData = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadMovies, (state, action) => {
       const {films} = action.payload;
-      return {
-        ...state,
-        films,
-        isDataLoaded: true,
-      };
-    }
-
-    case ActionType.LoadPromoMovie:{
+      state.films = films;
+      state.isDataLoaded = true;
+    })
+    .addCase(loadPromoMovie, (state, action) => {
       const promoFilm = action.payload.promoFilm;
-      return {
-        ...state,
-        promoFilm,
-      };
-    }
-
-    case ActionType.LoadCommentsToMovie:{
+      state.promoFilm = promoFilm;
+    })
+    .addCase(loadCommentsToMovie, (state, action) => {
       const {comments} = action.payload;
-      return {
-        ...state,
-        comments,
-      };
-    }
-    default:
-      return state;
-  }
-};
+      state.comments = comments;
+    });
+});
 
 export {filmsData};

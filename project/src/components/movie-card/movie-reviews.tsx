@@ -1,32 +1,19 @@
 import { useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { bindActionCreators, Dispatch } from 'redux';
 import { fetchCommentsToMovie } from '../../store/api-actions';
-import { Actions } from '../types/action-types';
-import { State } from '../types/state';
 import { Comment, IdParam } from '../types/types';
 import MovieSingleReview from './movie-single-review';
 import * as selectors from '../../store/selectors';
 
-const mapStateToProps = (state: State) => ({
-  comments: selectors.getComments(state),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
-  onLoadComments: fetchCommentsToMovie,
-}, dispatch);
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-function MovieReviews(props: PropsFromRedux):JSX.Element {
-  const {comments, onLoadComments} = props;
+function MovieReviews():JSX.Element {
+  const comments = useSelector(selectors.getComments);
+  const dispatch = useDispatch();
 
   const { id } = useParams<IdParam>();
   useEffect(() => {
-    onLoadComments(Number(id));
-  }, [id, onLoadComments]);
+    dispatch(fetchCommentsToMovie(Number(id)));
+  }, [id, dispatch]);
 
   const firstContainer: Comment[] = [];
   const secondContainer: Comment[] = [];
@@ -61,7 +48,6 @@ function MovieReviews(props: PropsFromRedux):JSX.Element {
   );
 }
 
-export {MovieReviews};
-export default connector(MovieReviews);
+export default MovieReviews;
 
 

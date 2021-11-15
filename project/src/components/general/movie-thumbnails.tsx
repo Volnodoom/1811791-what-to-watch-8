@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import VideoPlayer from '../player/video';
@@ -41,4 +41,4 @@ function MovieThumbnails(props:{film:MovieInfo, activeStateHandler: (value: numb
   );
 }
 
-export default MovieThumbnails;
+export default React.memo(MovieThumbnails);

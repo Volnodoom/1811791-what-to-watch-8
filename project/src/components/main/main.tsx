@@ -1,21 +1,11 @@
 import MainGenreFilters from './main-genre-filters';
 import MainMovieFrame from './main-movie-frame';
 import Footer from '../general/footer';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../types/state';
+import { useSelector } from 'react-redux';
 import * as selectors from '../../store/selectors';
 
-const mapStateToProps = (state: State) => ({
-  promoFilm: selectors.getPromoFilm(state),
-  films: selectors.getFilms(state),
-});
-
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux;
-
-function Main(props: ConnectedComponentProps): JSX.Element {
-  const {promoFilm} = props;
+function Main(): JSX.Element {
+  const promoFilm = useSelector(selectors.getPromoFilm);
 
   return(
     <>
@@ -34,5 +24,4 @@ function Main(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export  {Main};
-export default connector (Main);
+export default Main;
