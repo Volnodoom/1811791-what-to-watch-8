@@ -1,6 +1,3 @@
-import { ALL_GENRES } from '../components/const/const';
-import { MovieInfo } from '../components/types/types';
-
 const MINUTES = 60;
 
 export const getRandomInteger = (a = 0, b = 1): number => {

@@ -16,13 +16,16 @@ export const getGenreList = createSelector([getFilms], (films: MovieInfo[]): str
   uniqueGenreList.add(ALL_GENRES);
   films.forEach((film) => uniqueGenreList.add(film.genre));
 
-  return Array.from(uniqueGenreList);
+  return Array.from(uniqueGenreList).slice(0,8);
 });
 
 export const makeSelectFilmsByGenre  = (genreKind: string) =>
   createSelector(
     [getFilms],
     (films: MovieInfo[]): MovieInfo[] => {
+      if (genreKind === ALL_GENRES || undefined) {
+        return films;
+      }
       const filtratedData = films.filter((film: MovieInfo) => film.genre === genreKind);
       return filtratedData;
     },

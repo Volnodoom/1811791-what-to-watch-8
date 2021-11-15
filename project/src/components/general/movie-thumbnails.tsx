@@ -4,7 +4,7 @@ import { AppRoute } from '../const/const';
 import VideoPlayer from '../player/video';
 import { MovieInfo } from '../types/types';
 
-function MovieThumbnails(props:{film:MovieInfo, activeStateHandler: (value: number | null) => void}): JSX.Element {
+function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
   const {
     previewImg,
     title,
@@ -12,16 +12,13 @@ function MovieThumbnails(props:{film:MovieInfo, activeStateHandler: (value: numb
     scrPreviewVideo,
   } = props.film;
 
-  const {activeStateHandler} = props;
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleMouseOn = () => {
-    activeStateHandler(id);
     setIsPlaying(true);
   };
 
   const handleMouseOut = () => {
-    activeStateHandler(null);
     setIsPlaying(false);
   };
 

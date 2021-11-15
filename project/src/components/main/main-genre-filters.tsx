@@ -11,10 +11,7 @@ const GenreState = {
 };
 
 function MainGenreFilters():JSX.Element {
-  const films = useSelector(selectors.getFilms);
   const genreList = useSelector(selectors.getGenreList);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeFilm, setActiveFilm] = useState<number | null>(null);
 
   const [activeGenre, setActiveGenre] = useState (ALL_GENRES);
 
@@ -29,8 +26,7 @@ function MainGenreFilters():JSX.Element {
   return (
     <>
       <ul className="catalog__genres-list">
-        {Array.from(genreList)
-          .slice(0,8)
+        {genreList
           .map((genre) => (
             <li
               className={genre === activeGenre ? GenreState.Active : GenreState.NonActive}
@@ -42,21 +38,12 @@ function MainGenreFilters():JSX.Element {
           ))}
       </ul>
       <div className="catalog__films-list">
-        {activeGenre === ALL_GENRES ? films
+        {filmsByGenre
           .map((film) =>
             (
               <MovieThumbnails
                 film={film}
                 key={film.id}
-                activeStateHandler={setActiveFilm}
-              />
-            )) : filmsByGenre
-          .map((film) =>
-            (
-              <MovieThumbnails
-                film={film}
-                key={film.id}
-                activeStateHandler={setActiveFilm}
               />
             ))}
       </div>
