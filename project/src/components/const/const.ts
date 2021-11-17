@@ -44,3 +44,7 @@ export const APIRoute = {
   CommentsGet: (filmId: number) => `/comments/${filmId}`,
 } as const;
 
+export enum TimeDifferentiation {
+  Total = 'Total time',
+  LeftTime = 'Time left to watch',
+}
