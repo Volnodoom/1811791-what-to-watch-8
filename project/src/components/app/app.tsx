@@ -14,7 +14,6 @@ import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
 
-
 function App(): JSX.Element {
   const films = useSelector(selectors.getFilms);
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
@@ -92,9 +91,15 @@ function App(): JSX.Element {
             />)}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Player()}>
-          <Player />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.Player()}
+          render={({history}) => (
+            <Player
+              onExitClick={(id: string|number) => history.push(AppRoute.Movie(id))}
+            />
+          )}
+        />
         <Route>
           <Error404/>
         </Route>
