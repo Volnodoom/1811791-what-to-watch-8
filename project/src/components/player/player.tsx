@@ -7,6 +7,8 @@ import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 
+const ONE_HUNDRED_PERCENT = 100;
+
 type PlayerProps = {
   onExitClick: (id: string | number) => void,
 }
@@ -14,11 +16,10 @@ type PlayerProps = {
 function Player(props: PlayerProps):JSX.Element {
   const {onExitClick} = props;
   const { id } = useParams<IdParam>();
-  const film = useSelector(selectors.getFilms).find((filmCard) => filmCard.id === Number(id));
+  const film = useSelector(selectors.getFilmById(id));
 
-  const [
+  const {
     playerRef,
-    isPlaying,
     handleTogglePlayPause,
     fullScreen,
     totalTime,
@@ -26,7 +27,9 @@ function Player(props: PlayerProps):JSX.Element {
     handleTimeUpdate,
     movieProgress,
     isLoading,
-  ] = usePlayer();
+    isPlayButton,
+    handleManualChangeVideoProgress,
+  } = usePlayer();
 
   if (!film) {
     return (
@@ -34,8 +37,7 @@ function Player(props: PlayerProps):JSX.Element {
     );
   }
 
-
-  const {srcVideo, poster} = film;
+  const {srcVideo, backgroundImg } = film;
 
   return(
     <div className="player">
@@ -43,10 +45,9 @@ function Player(props: PlayerProps):JSX.Element {
       <video
         src={srcVideo}
         className="player__video"
-        poster={poster}
+        poster={backgroundImg}
         ref={playerRef}
         onTimeUpdate={handleTimeUpdate}
-
       >
       </video>
 
@@ -65,10 +66,16 @@ function Player(props: PlayerProps):JSX.Element {
               className="player__progress"
               value={movieProgress}
               max="100"
+              onClick={handleManualChangeVideoProgress}
             >
             </progress>
 
-            <div className="player__toggler" >Toggler</div>
+            <div
+              className="player__toggler"
+              style={{left: `${currentTime*ONE_HUNDRED_PERCENT/totalTime}%`}}
+            >Toggler
+            </div>
+
           </div>
 
           <div className="player__time-value">
@@ -83,7 +90,7 @@ function Player(props: PlayerProps):JSX.Element {
             className="player__play"
             onClick={handleTogglePlayPause}
           >
-            {!isPlaying
+            {isPlayButton
               ?
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>
@@ -92,10 +99,10 @@ function Player(props: PlayerProps):JSX.Element {
               <svg viewBox="0 0 14 21" width="14" height="21">
                 <use xlinkHref="#pause"></use>
               </svg>}
-            <span>{!isPlaying ? 'Play' : 'Pause'}</span>
+            <span>{isPlayButton ? 'Play' : 'Pause'}</span>
           </button>
 
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{film.title}</div>
 
           <button
             type="button"

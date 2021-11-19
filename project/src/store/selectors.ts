@@ -11,6 +11,15 @@ export const getComments = (state: State): Comment[] => state[NameSpace.data].co
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
 
+export const getFilmById = (id: string) =>
+  createSelector([getFilms], (films: MovieInfo[]): MovieInfo => {
+    const result = films.find((filmCard) => filmCard.id === Number(id));
+    if (result === undefined) {
+      throw Error('Your dataBase does not contain film with such id');
+    }
+    return result;
+  });
+
 export const getGenreList = createSelector([getFilms], (films: MovieInfo[]): string[] => {
   const uniqueGenreList: Set <string> = new Set();
   uniqueGenreList.add(ALL_GENRES);

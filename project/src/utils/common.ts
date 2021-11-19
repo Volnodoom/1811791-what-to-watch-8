@@ -1,6 +1,7 @@
 const MINUTES = 60;
 const SEC_IN_MINUTE = 60;
 const SEC_IN_HOUR = 3600;
+const TEN = 10;
 
 export const getRandomInteger = (a = 0, b = 1): number => {
   const lower = Math.ceil(Math.min(a, b));
@@ -53,12 +54,14 @@ export const getTimeForPlayer = (total: number, current: number): string => {
   const leftTime = total - current;
   let duration = '';
 
+  const properFormat = (value: number): string => value > TEN ? `${value}` : `0${value}`;
+
   switch (true) {
     case timeConditions[0]:
-      duration = `-${minutes(leftTime)}:${secondsAfterMinutes(leftTime)}`;
+      duration = `-${properFormat(minutes(leftTime))}:${properFormat(secondsAfterMinutes(leftTime))}`;
       break;
     case timeConditions[1]:
-      duration = `-${hours(leftTime)}:${minutes(secondsAfterHours(leftTime))}:${secondsAfterMinutes(leftTime)}`;
+      duration = `-${properFormat(hours(leftTime))}:${properFormat(minutes(secondsAfterHours(leftTime)))}:${properFormat(secondsAfterMinutes(leftTime))}`;
       break;
   }
   return duration;

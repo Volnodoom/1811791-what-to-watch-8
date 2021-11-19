@@ -2,20 +2,20 @@ import { KindOfButton } from '../const/const';
 
 const KindOfMovieCardButtons = {
   AddToMyList: {
-    'ClassName': 'btn btn--list film-card__button',
-    'ViewBox': '0 0 19 20',
-    'Use': '#add',
-    'Snap': 'My list',
-    'Width': 19,
-    'Height': 20,
+    'className': 'btn btn--list film-card__button',
+    'viewBox': '0 0 19 20',
+    'use': '#add',
+    'snap': 'My list',
+    'width': 19,
+    'height': 20,
   },
   InMyList: {
-    'ClassName': 'btn btn--play film-card__button',
-    'ViewBox': '0 0 18 14',
-    'Use': '#in-list',
-    'Snap': 'My list',
-    'Width': 18,
-    'Height': 14,
+    'className': 'btn btn--play film-card__button',
+    'viewBox': '0 0 18 14',
+    'use': '#in-list',
+    'snap': 'My list',
+    'width': 18,
+    'height': 14,
   },
 } as const;
 
@@ -26,24 +26,24 @@ type MovieAddInListButtonsProps = {
 function MovieAddInListButtons(props: MovieAddInListButtonsProps): JSX.Element {
   const {buttonKind} = props;
 
-  function buttonsTemplate(ClassName:string, ViewBox:string, Use:string, Snap:string, Width:number, Height: number) {
+  function buttonsTemplate(className:string, viewBox:string, use:string, snap:string, width:number, height: number) {
     return (
-      <button className={ClassName} type="button" >
-        <svg viewBox={ViewBox}  width={Width}  height={Height} >
-          <use xlinkHref= {Use}></use>
+      <button className={className} type="button" >
+        <svg viewBox={viewBox}  width={width}  height={height} >
+          <use xlinkHref= {use}></use>
         </svg>
-        <span>{Snap}</span>
+        <span>{snap}</span>
       </button>);
   }
 
   switch (buttonKind) {
     case KindOfButton.AddToMyList: {
-      const {ClassName, ViewBox, Use, Snap, Width, Height} = KindOfMovieCardButtons.AddToMyList;
-      return buttonsTemplate(ClassName, ViewBox, Use, Snap, Width, Height);
+      const {className, viewBox, use, snap, width, height} = KindOfMovieCardButtons.AddToMyList;
+      return buttonsTemplate(className, viewBox, use, snap, width, height);
     }
     case KindOfButton.InMyList: {
-      const {ClassName, ViewBox, Use, Snap, Width, Height} = KindOfMovieCardButtons.InMyList;
-      return buttonsTemplate(ClassName, ViewBox, Use, Snap, Width, Height);
+      const {className, viewBox, use, snap, width, height} = KindOfMovieCardButtons.InMyList;
+      return buttonsTemplate(className, viewBox, use, snap, width, height);
     }
     default: {
       throw Error ('It is not possible to find this kind of Button in const');
