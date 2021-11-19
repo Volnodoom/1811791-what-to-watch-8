@@ -1,39 +1,31 @@
+import { createAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
 import { Comment, MovieInfo, ValuesOfAppRoute } from '../components/types/types';
 
-export const onFilmsFiltration = (specificGenre?: string) => ({
-  type: ActionType.FiltrateMovies,
-  payload: {
-    genreKind: specificGenre,
-  },
-} as const);
+export const requireLogout = createAction (ActionType.RequireLogout);
 
-export const loadMovies = (films: MovieInfo[]) => ({
-  type: ActionType.LoadMovies,
-  payload: {films},
-} as const);
+export const loadMovies = createAction (
+  ActionType.LoadMovies,
+  (films: MovieInfo[]) => ({payload: {films}}),
+);
 
-export const loadPromoMovie = (promoFilm: MovieInfo) => ({
-  type: ActionType.LoadPromoMovie,
-  payload: {promoFilm},
-} as const);
+export const loadPromoMovie = createAction (
+  ActionType.LoadPromoMovie,
+  (promoFilm: MovieInfo) => ({payload: {promoFilm}}),
+);
 
-export const loadCommentsToMovie = (comments: Comment[]) => ({
-  type: ActionType.LoadCommentsToMovie,
-  payload: {comments},
-} as const);
+export const loadCommentsToMovie = createAction (
+  ActionType.LoadCommentsToMovie,
+  (comments: Comment[]) => ({payload: {comments}}),
+);
 
-export const requireAuthorization = (authStatus: AuthorizationStatus) => ({
-  type: ActionType.RequireAuthorization,
-  payload: authStatus,
-} as const);
+export const requireAuthorization = createAction (
+  ActionType.RequireAuthorization,
+  (authStatus: AuthorizationStatus) => ({payload: authStatus}),
+);
 
-export const requireLogout = () => ({
-  type: ActionType.RequireLogout,
-}as const);
-
-export const redirectToRout = (url: ValuesOfAppRoute) => ({
-  type: ActionType.RedirectToRoute,
-  payload: url,
-}as const);
+export const redirectToRout = createAction (
+  ActionType.RedirectToRoute,
+  (url: ValuesOfAppRoute) => ({payload: url}),
+);

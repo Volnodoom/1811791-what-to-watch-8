@@ -1,51 +1,54 @@
-import { MouseEvent } from 'react';
-import { bindActionCreators, Dispatch } from 'redux';
-import {connect, ConnectedProps} from 'react-redux';
-import { onFilmsFiltration } from '../../store/action';
-import { Actions } from '../types/action-types';
+import { MouseEvent, useMemo, useState } from 'react';
+import { useSelector} from 'react-redux';
 import { State } from '../types/state';
+import { ALL_GENRES } from '../const/const';
+import MovieThumbnails from '../general/movie-thumbnails';
+import * as selectors from '../../store/selectors';
 
 const GenreState = {
   Active: 'catalog__genres-item catalog__genres-item--active',
   NonActive: 'catalog__genres-item',
 };
 
-const mapStateToProps = ({activeGenre, genreList}: State) => ({
-  activeGenre,
-  genreList,
-});
+function MainGenreFilters():JSX.Element {
+  const genreList = useSelector(selectors.getGenreList);
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => bindActionCreators({
-  onFiltration: onFilmsFiltration,
-}, dispatch);
+  const [activeGenre, setActiveGenre] = useState (ALL_GENRES);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-function MainGenreFilters(props: PropsFromRedux):JSX.Element {
-  const {activeGenre, genreList, onFiltration} = props;
+  const selectFilmsByGenre = useMemo(() => selectors.makeSelectFilmsByGenre(activeGenre), [activeGenre]);
+  const filmsByGenre = useSelector((state:State) => selectFilmsByGenre(state));
 
   const activeGenreHandler = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
-    onFiltration (genre);
+    setActiveGenre (genre);
   };
 
   return (
-    <ul className="catalog__genres-list">
-      {Array.from(genreList)
-        .slice(0,8)
-        .map((genre) => (
-          <li
-            className={genre === activeGenre ? GenreState.Active : GenreState.NonActive}
-            key={genre}
-            onClick={activeGenreHandler(genre)}
-          >
-            <a href="#url" className="catalog__genres-link">{genre}</a>
-          </li>
-        ))}
-    </ul>
+    <>
+      <ul className="catalog__genres-list">
+        {genreList
+          .map((genre) => (
+            <li
+              className={genre === activeGenre ? GenreState.Active : GenreState.NonActive}
+              key={genre}
+              onClick={activeGenreHandler(genre)}
+            >
+              <a href="#url" className="catalog__genres-link">{genre}</a>
+            </li>
+          ))}
+      </ul>
+      <div className="catalog__films-list">
+        {filmsByGenre
+          .map((film) =>
+            (
+              <MovieThumbnails
+                film={film}
+                key={film.id}
+              />
+            ))}
+      </div>
+    </>
   );
 }
 
-export  {MainGenreFilters};
-export default connector(MainGenreFilters);
+export default MainGenreFilters;

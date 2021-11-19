@@ -1,9 +1,7 @@
 import { FormEvent, useRef } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
-import { ThunkAppDispatch } from '../types/action-types';
 import {toast} from 'react-toastify';
 import { fetchLogin } from '../../store/api-actions';
 
@@ -26,16 +24,8 @@ const showSignInProblem = (message: string) => {
   });
 };
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => bindActionCreators({
-  onSubmit: fetchLogin,
-}, dispatch);
-
-const connector = connect(null, mapDispatchToProps);
-type logoutAction = ConnectedProps<typeof connector>;
-
-
-function SignIn(props: logoutAction): JSX.Element {
-  const{onSubmit} = props;
+function SignIn(): JSX.Element {
+  const dispatch = useDispatch();
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -68,10 +58,10 @@ function SignIn(props: logoutAction): JSX.Element {
           return showSignInProblem(WaringMessage.TextPassword);
         case inputErrors.containMinimumLoginText:
           return showSignInProblem(WaringMessage.TextPassword);
-        default:  return onSubmit({
+        default:  return dispatch(fetchLogin({
           login: loginRef.current.value,
           password: passwordRef.current.value,
-        });
+        }));
       }
     }
   };
@@ -128,5 +118,4 @@ function SignIn(props: logoutAction): JSX.Element {
   );
 }
 
-export  {SignIn};
-export default connector(SignIn);
+export default SignIn;

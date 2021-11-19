@@ -1,7 +1,7 @@
-import { ALL_GENRES } from '../components/const/const';
-import { MovieInfo } from '../components/types/types';
-
 const MINUTES = 60;
+const SEC_IN_MINUTE = 60;
+const SEC_IN_HOUR = 3600;
+const TEN = 10;
 
 export const getRandomInteger = (a = 0, b = 1): number => {
   const lower = Math.ceil(Math.min(a, b));
@@ -40,10 +40,31 @@ export const getTime = (runTime: number): string  => {
   return duration;
 };
 
-export const makeGenreNameLine = (films: MovieInfo[]): Set <string> => {
-  const uniqueGenreList: Set <string> = new Set();
-  uniqueGenreList.add(ALL_GENRES);
-  films.forEach((film) => uniqueGenreList.add(film.genre));
+export const getTimeForPlayer = (total: number, current: number): string => {
+  const hours = (time: number) => Math.floor(time/SEC_IN_HOUR);
+  const secondsAfterHours = (amount: number) => Math.floor(amount % SEC_IN_HOUR);
+  const minutes = (time: number) => Math.floor(time/SEC_IN_MINUTE);
+  const secondsAfterMinutes = (amount: number) => Math.floor(amount % SEC_IN_MINUTE);
 
-  return uniqueGenreList;
+  const timeConditions = [
+    total < SEC_IN_HOUR,
+    total >= SEC_IN_HOUR,
+  ];
+
+  const leftTime = total - current;
+  let duration = '';
+
+  const properFormat = (value: number): string => value > TEN ? `${value}` : `0${value}`;
+
+  switch (true) {
+    case timeConditions[0]:
+      duration = `-${properFormat(minutes(leftTime))}:${properFormat(secondsAfterMinutes(leftTime))}`;
+      break;
+    case timeConditions[1]:
+      duration = `-${properFormat(hours(leftTime))}:${properFormat(minutes(secondsAfterHours(leftTime)))}:${properFormat(secondsAfterMinutes(leftTime))}`;
+      break;
+  }
+  return duration;
 };
+
+export const getProgress = (total: number, current: number): number => (current/total)*100;

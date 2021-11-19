@@ -4,7 +4,6 @@ import { IdParam, MovieInfo } from '../types/types';
 import AddReviewForm from './add-review-form';
 import AddReviewHeader from './add-review-header';
 
-
 function AddReview(props: {movieList:MovieInfo[]}):JSX.Element {
   const {id} = useParams() as IdParam;
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));

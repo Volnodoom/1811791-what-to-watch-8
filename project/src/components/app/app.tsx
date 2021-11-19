@@ -8,24 +8,17 @@ import Mylist from '../mylist/mylist';
 import SignIn from '../sign-in/sign-in';
 import { AppRoute, CardState } from '../const/const';
 import PrivateRoute from '../routing/private-route';
-import { State } from '../types/state';
-import { connect, ConnectedProps } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
+import * as selectors from '../../store/selectors';
 
-const mapStateToProps = ({authorizationStatus, isDataLoaded, films}: State) => ({
-  films,
-  authorizationStatus,
-  isDataLoaded,
-});
+function App(): JSX.Element {
+  const films = useSelector(selectors.getFilms);
+  const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
+  const isDataLoaded = useSelector(selectors.getLoadedDataStatus);
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App(props: PropsFromRedux): JSX.Element {
-  const {films, authorizationStatus, isDataLoaded} = props;
   const getMyMovies = films.filter((film) => film.isFavorite);
 
   if (isAuthUnKnown(authorizationStatus) || !isDataLoaded) {
@@ -36,9 +29,15 @@ function App(props: PropsFromRedux): JSX.Element {
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path={AppRoute.Main}>
-          <Main />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.Main}
+          render={({history}) => (
+            <Main
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
         <Route exact path={AppRoute.SignIn}>
           <SignIn />
         </Route>
@@ -49,26 +48,40 @@ function App(props: PropsFromRedux): JSX.Element {
             <Mylist
               movieList={getMyMovies}
             />)}
-        >
-        </PrivateRoute>
-        <Route exact path={AppRoute.Movie()}>
-          <MovieCard
-            cardTab={CardState.Overview}
-            movieList={films}
-          />
-        </Route>
-        <Route exact path={AppRoute.Details()}>
-          <MovieCard
-            cardTab={CardState.Details}
-            movieList={films}
-          />
-        </Route>
-        <Route exact path={AppRoute.Reviews()}>
-          <MovieCard
-            cardTab={CardState.Reviews}
-            movieList={films}
-          />
-        </Route>
+        />
+        <Route
+          exact
+          path={AppRoute.Movie()}
+          render={({history}) => (
+            <MovieCard
+              cardTab={CardState.Overview}
+              movieList={films}
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={AppRoute.Details()}
+          render={({history}) => (
+            <MovieCard
+              cardTab={CardState.Details}
+              movieList={films}
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={AppRoute.Reviews()}
+          render={({history}) => (
+            <MovieCard
+              cardTab={CardState.Reviews}
+              movieList={films}
+              onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
+            />
+          )}
+        />
         <PrivateRoute
           exact
           path={AppRoute.AddReview()}
@@ -78,9 +91,15 @@ function App(props: PropsFromRedux): JSX.Element {
             />)}
         >
         </PrivateRoute>
-        <Route exact path={AppRoute.Player()}>
-          <Player />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.Player()}
+          render={({history}) => (
+            <Player
+              onExitClick={(id: string|number) => history.push(AppRoute.Movie(id))}
+            />
+          )}
+        />
         <Route>
           <Error404/>
         </Route>
@@ -89,5 +108,4 @@ function App(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export {App};
-export default connector(App);
+export default App;

@@ -1,31 +1,25 @@
 import MainGenreFilters from './main-genre-filters';
 import MainMovieFrame from './main-movie-frame';
 import Footer from '../general/footer';
-import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
-import { MatchingComponent } from '../const/const';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../types/state';
+import { useSelector } from 'react-redux';
+import * as selectors from '../../store/selectors';
+import { RouteProps } from 'react-router';
 
-const mapStateToProps = ({promoFilm, filtratedFilms}: State) => ({
-  promoFilm,
-  filtratedFilms,
-});
+type MainProps = RouteProps & {
+  onPlayVideoClick: (id: string | number) => void;
+};
 
-const connector = connect(mapStateToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux;
-
-function Main(props: ConnectedComponentProps): JSX.Element {
-  const {promoFilm, filtratedFilms} = props;
+function Main(props: MainProps): JSX.Element {
+  const {onPlayVideoClick} = props;
+  const promoFilm = useSelector(selectors.getPromoFilm);
 
   return(
     <>
-      <MainMovieFrame promoFilm ={promoFilm} />
+      <MainMovieFrame promoFilm ={promoFilm} onPlayFilm={onPlayVideoClick} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <MainGenreFilters />
-          <CatalogMovieThumbnails movieList={filtratedFilms} componentEqual={MatchingComponent.Main}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
@@ -36,5 +30,4 @@ function Main(props: ConnectedComponentProps): JSX.Element {
   );
 }
 
-export  {Main};
-export default connector (Main);
+export default Main;

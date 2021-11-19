@@ -1,35 +1,24 @@
 import { MouseEvent } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
-import { ThunkAppDispatch } from '../types/action-types';
-import { State } from '../types/state';
+
+import * as selectors from '../../store/selectors';
 
 const AvatarAdjustment = {
   Img: 'img/avatar.jpg',
   AltImg: 'User avatar',
 } as const;
 
-const mapStateToProps = ({authorizationStatus}: State) => ({
-  authorizationStatus,
-});
+function Avatar(): JSX.Element {
+  const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onLogout() {
-    dispatch(fetchLogout());
-  },
-});
-
-const connector =connect(mapStateToProps, mapDispatchToProps);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function Avatar(props: PropsFromRedux): JSX.Element {
-  const {authorizationStatus, onLogout} = props;
 
   const logoutHandle = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
-    onLogout();
+    dispatch(fetchLogout());
   };
 
   return (
@@ -63,5 +52,4 @@ function Avatar(props: PropsFromRedux): JSX.Element {
   );
 }
 
-export  {Avatar};
-export default connector(Avatar);
+export default Avatar;
