@@ -65,7 +65,7 @@ export type AuthData = {
 };
 
 export type PostMyListData = {
-  id: number,
+  id: number | string,
   actionToFilm: number,
 };
 

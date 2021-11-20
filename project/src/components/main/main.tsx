@@ -11,7 +11,7 @@ type MainProps = RouteProps & {
 
 function Main(props: MainProps): JSX.Element {
   const {onPlayVideoClick} = props;
-  const promoFilm = useSelector(selectors.getPromoFilm);
+  const promoFilm = useSelector(selectors.getPromoMovies);
 
   return(
     <>

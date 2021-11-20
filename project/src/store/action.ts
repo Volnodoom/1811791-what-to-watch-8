@@ -20,6 +20,11 @@ export const loadCommentsToMovie = createAction (
   (comments: Comment[]) => ({payload: {comments}}),
 );
 
+export const loadMyFavoriteMovies = createAction (
+  ActionType.LoadMyFavoriteMovies,
+  (myFavoriteMovies: MovieInfo[]) => ({payload: {myFavoriteMovies}}),
+);
+
 export const requireAuthorization = createAction (
   ActionType.RequireAuthorization,
   (authStatus: AuthorizationStatus) => ({payload: authStatus}),

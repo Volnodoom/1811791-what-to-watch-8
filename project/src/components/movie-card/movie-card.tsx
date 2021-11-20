@@ -15,6 +15,7 @@ import MoviePlayButton from '../general/movie-play-button';
 import MovieAddInListButtons from '../general/movie-add-in-list-buttons';
 import { useSelector } from 'react-redux';
 import * as selectors from '../../store/selectors';
+import { State } from '../types/state';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
@@ -26,7 +27,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   const {cardTab} = props;
   const onPlayFilm = props.onPlayVideoClick;
   const { id } = useParams<IdParam>();
-  const film = useSelector(selectors.getFilmById(id));
+  const film = useSelector((state:State) => selectors.getMovieById(state, id));
 
   if (!film) {
     return (
@@ -50,8 +51,8 @@ function MovieCard(props: MovieCardProps):JSX.Element {
             <div className="film-card__desc">
               <BasicDescriptionPoster  film= {film}/>
               <div className="film-card__buttons">
-                <MoviePlayButton filmId={Number(id)} onPlayFilm={onPlayFilm} />
-                <MovieAddInListButtons filmId={Number(id)}/>
+                <MoviePlayButton filmId={id} onPlayFilm={onPlayFilm} />
+                <MovieAddInListButtons filmId={id}/>
                 <Link to={AppRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
               </div>
             </div>

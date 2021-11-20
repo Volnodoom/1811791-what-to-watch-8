@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FilmsData } from '../../components/types/state';
-import { loadCommentsToMovie, loadMovies, loadPromoMovie } from '../action';
+import { loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadPromoMovie } from '../action';
 
 const initialState: FilmsData = {
   films: [],
   promoFilm: undefined,
   comments: [],
   isDataLoaded: false,
+  myFavoriteMovies: [],
 };
 
 const filmsData = createReducer(initialState, (builder) => {
@@ -23,6 +24,10 @@ const filmsData = createReducer(initialState, (builder) => {
     .addCase(loadCommentsToMovie, (state, action) => {
       const {comments} = action.payload;
       state.comments = comments;
+    })
+    .addCase(loadMyFavoriteMovies, (state, action) => {
+      const {myFavoriteMovies} = action.payload;
+      state.myFavoriteMovies = myFavoriteMovies;
     });
 });
 

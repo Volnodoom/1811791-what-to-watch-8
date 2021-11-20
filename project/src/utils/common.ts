@@ -54,7 +54,7 @@ export const getTimeForPlayer = (total: number, current: number): string => {
   const leftTime = total - current;
   let duration = '';
 
-  const properFormat = (value: number): string => value > TEN ? `${value}` : `0${value}`;
+  const properFormat = (value: number): string => value >= TEN ? `${value}` : `0${value}`;
 
   switch (true) {
     case timeConditions[0]:

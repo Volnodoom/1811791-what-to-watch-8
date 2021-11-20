@@ -1,4 +1,3 @@
-
 import { MovieInfo } from '../types/types';
 import Header from '../general/header';
 import MoviePlayButton from '../general/movie-play-button';
@@ -46,7 +45,7 @@ function MainMovieFrame(props: MainMovieFrameProps): JSX.Element {
             </p>
             <div className="film-card__buttons">
               <MoviePlayButton filmId={id} onPlayFilm={onPlayFilm}/>
-              <MovieAddInListButtons filmId={Number(id)}/>
+              <MovieAddInListButtons filmId={id}/>
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ export const AppRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
+  Error404: '/error404',
   Movie: (id: string | number = ':id') => `/films/${id}`,
   Details: (id: string | number = ':id') => `/films/${id}/details`,
   Reviews: (id: string | number = ':id') => `/films/${id}/reviews`,
@@ -38,8 +39,9 @@ export const APIRoute = {
   Login: '/login',
   Logout: '/logout',
   Promo: '/promo',
-  CommentsGet: (filmId: number) => `/comments/${filmId}`,
+  CommentsGet: (filmId: number | string) => `/comments/${filmId}`,
   MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
+  MyFavoriteGet: '/favorite',
 } as const;
 
 export enum TimeDifferentiation {

@@ -5,31 +5,24 @@ import { Comment, MovieInfo } from '../components/types/types';
 import { AuthorizationStatus } from '../components/const/const';
 import { NameSpace } from './root-reducer';
 
-export const getFilms = (state: State): MovieInfo[] => state[NameSpace.data].films;
-export const getPromoFilm = (state: State): MovieInfo | undefined => state[NameSpace.data].promoFilm;
+export const getMovies = (state: State): MovieInfo[] => state[NameSpace.data].films;
+export const getPromoMovies = (state: State): MovieInfo | undefined => state[NameSpace.data].promoFilm;
+export const getMyFavoriteMovies = (state: State): MovieInfo[] | [] => state[NameSpace.data].myFavoriteMovies;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].comments;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
 
-export const getFilmById = (id: string | number) =>
-  createSelector([getFilms], (films: MovieInfo[]): MovieInfo => {
+export const getMovieById = createSelector(
+  [
+    getMovies,
+    (state: State, id: number | string) => id,
+  ],
+  (films, id): MovieInfo | undefined => {
     const result = films.find((filmCard) => filmCard.id === Number(id));
-    if (result === undefined) {
-      throw Error('Your dataBase does not contain film with such id');
-    }
     return result;
   });
 
-export const getFlagFavorite = (id: string | number) =>
-  createSelector([getFilmById(id)], (film: MovieInfo): boolean => {
-    const result = film.isFavorite;
-    if (result === undefined) {
-      throw Error('Your dataBase does not contain film with such id');
-    }
-    return result;
-  });
-
-export const getGenreList = createSelector([getFilms], (films: MovieInfo[]): string[] => {
+export const getGenreList = createSelector([getMovies], (films: MovieInfo[]): string[] => {
   const uniqueGenreList: Set <string> = new Set();
   uniqueGenreList.add(ALL_GENRES);
   films.forEach((film) => uniqueGenreList.add(film.genre));
@@ -39,7 +32,7 @@ export const getGenreList = createSelector([getFilms], (films: MovieInfo[]): str
 
 export const makeSelectFilmsByGenre  = (genreKind: string) =>
   createSelector(
-    [getFilms],
+    [getMovies],
     (films: MovieInfo[]): MovieInfo[] => {
       if (genreKind === ALL_GENRES || undefined) {
         return films;

@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 
 type MoviePlayButtonProps = {
-  filmId: number,
+  filmId: string | number,
   onPlayFilm: (id: string | number) => void,
 }
 

@@ -7,6 +7,7 @@ import {toast} from 'react-toastify';
 import {
   loadCommentsToMovie,
   loadMovies,
+  loadMyFavoriteMovies,
   loadPromoMovie,
   redirectToRout,
   requireAuthorization,
@@ -66,11 +67,18 @@ export const fetchLogout = (): ThunkActionResult =>
     dispatch(requireLogout());
   };
 
-export const postMyFavorite = (id: number, actionToFilm: number): ThunkActionResult =>
+export const postMyFavorite = (id: number | string, actionToFilm: number): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
       await api.post<PostMyListData>(APIRoute.MyFavoritePost({id,actionToFilm}));
     } catch {
       dispatch(redirectToRout(AppRoute.SignIn));
     }
+  };
+
+export const fetchMyFavorite = (): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const {data} = await api.get<RawFilm[]>(APIRoute.MyFavoriteGet);
+    const adaptedData = data.map((arrayData) => adaptMovieToClient(arrayData));
+    dispatch(loadMyFavoriteMovies(adaptedData));
   };

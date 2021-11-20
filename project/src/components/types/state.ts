@@ -9,6 +9,7 @@ export type FilmsData = {
   promoFilm?: MovieInfo,
   comments: Comment[] | [],
   isDataLoaded: boolean,
+  myFavoriteMovies: MovieInfo[] | [],
 }
 
 export type UserProcess = {
