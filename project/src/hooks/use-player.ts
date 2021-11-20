@@ -1,4 +1,4 @@
-import { MouseEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { IdParam } from '../components/types/types';
 import { getProgress } from '../utils/common';
@@ -13,7 +13,6 @@ type UserPlayHook = {
   movieProgress: number,
   isLoading: boolean,
   isPlayButton: boolean,
-  handleManualChangeVideoProgress: (evt: MouseEvent<HTMLProgressElement>) => void,
 }
 
 const START_TIME = 0;
@@ -69,20 +68,6 @@ export const usePlayer = (): UserPlayHook => {
     setMovieProgress(getProgress(totalTime, currentTime));
   };
 
-  const handleManualChangeVideoProgress = (evt: MouseEvent<HTMLProgressElement>) => {
-    if (!playerRef.current) {
-      return;
-    }
-    // const target = evt.currentTarget.value
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const BBB = (evt.target as HTMLProgressElement).value;
-    // const manualChange = target.
-    // eslint-disable-next-line no-debugger
-    debugger;
-    setCurrentTime(Number((evt.target as HTMLProgressElement).value));
-    setMovieProgress(getProgress(totalTime, currentTime));
-  };
-
   return {
     playerRef,
     handleTogglePlayPause,
@@ -93,6 +78,5 @@ export const usePlayer = (): UserPlayHook => {
     movieProgress,
     isLoading,
     isPlayButton,
-    handleManualChangeVideoProgress,
   };
 };

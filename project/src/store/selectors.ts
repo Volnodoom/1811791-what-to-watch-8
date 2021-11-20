@@ -11,9 +11,18 @@ export const getComments = (state: State): Comment[] => state[NameSpace.data].co
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
 
-export const getFilmById = (id: string) =>
+export const getFilmById = (id: string | number) =>
   createSelector([getFilms], (films: MovieInfo[]): MovieInfo => {
     const result = films.find((filmCard) => filmCard.id === Number(id));
+    if (result === undefined) {
+      throw Error('Your dataBase does not contain film with such id');
+    }
+    return result;
+  });
+
+export const getFlagFavorite = (id: string | number) =>
+  createSelector([getFilmById(id)], (film: MovieInfo): boolean => {
+    const result = film.isFavorite;
     if (result === undefined) {
       throw Error('Your dataBase does not contain film with such id');
     }

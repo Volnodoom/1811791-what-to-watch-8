@@ -29,3 +29,8 @@ export const redirectToRout = createAction (
   ActionType.RedirectToRoute,
   (url: ValuesOfAppRoute) => ({payload: url}),
 );
+
+export const updateMyFavoriteMovies = createAction (
+  ActionType.UpdateMyFavoriteMovies,
+  (filmId: number, actionToFilm: number) => ({payload: filmId, actionToFilm}),
+);

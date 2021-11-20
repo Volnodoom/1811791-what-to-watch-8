@@ -64,6 +64,11 @@ export type AuthData = {
   password: string,
 };
 
+export type PostMyListData = {
+  id: number,
+  actionToFilm: number,
+};
+
 type KeysOfAppRoute = keyof typeof AppRoute;
 export type ValuesOfAppRoute = typeof AppRoute[KeysOfAppRoute]
 

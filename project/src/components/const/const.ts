@@ -1,11 +1,8 @@
+import { PostMyListData } from '../types/types';
+
 export const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const ALL_GENRES = 'All genres';
-
-export const KindOfButton = {
-  AddToMyList: 'AddToMyList',
-  InMyList: 'InMyList',
-}as const;
 
 export const AppRoute = {
   Main: '/',
@@ -42,6 +39,7 @@ export const APIRoute = {
   Logout: '/logout',
   Promo: '/promo',
   CommentsGet: (filmId: number) => `/comments/${filmId}`,
+  MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
 } as const;
 
 export enum TimeDifferentiation {

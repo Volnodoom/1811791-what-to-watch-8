@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
-import { KindOfButton, AppRoute, CardState, MatchingComponent } from '../const/const';
+import { AppRoute, CardState, MatchingComponent } from '../const/const';
 import { IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 import MoviePlayButton from '../general/movie-play-button';
 import MovieAddInListButtons from '../general/movie-add-in-list-buttons';
+import { useSelector } from 'react-redux';
+import * as selectors from '../../store/selectors';
 
 type MovieCardProps = {
   movieList:MovieInfo[],
@@ -24,7 +26,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   const {cardTab} = props;
   const onPlayFilm = props.onPlayVideoClick;
   const { id } = useParams<IdParam>();
-  const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
+  const film = useSelector(selectors.getFilmById(id));
 
   if (!film) {
     return (
@@ -32,7 +34,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
     );
   }
 
-  const {backgroundImg, poster, title, isFavorite} = film;
+  const {backgroundImg, poster, title} = film;
 
   return(
     <>
@@ -49,9 +51,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
               <BasicDescriptionPoster  film= {film}/>
               <div className="film-card__buttons">
                 <MoviePlayButton filmId={Number(id)} onPlayFilm={onPlayFilm} />
-                {isFavorite
-                  ? <MovieAddInListButtons buttonKind= {KindOfButton.InMyList}/>
-                  : <MovieAddInListButtons buttonKind= {KindOfButton.AddToMyList}/>}
+                <MovieAddInListButtons filmId={Number(id)}/>
                 <Link to={AppRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
               </div>
             </div>

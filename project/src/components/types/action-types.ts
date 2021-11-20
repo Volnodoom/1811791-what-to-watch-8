@@ -10,7 +10,8 @@ export enum ActionType {
   LoadMovies = 'data/loadMovies',
   LoadPromoMovie = 'data/loadPromoMovie',
   LoadCommentsToMovie = 'data/commentsToMovie',
-  RedirectToRoute = 'signIn/redirectToRoute'
+  RedirectToRoute = 'signIn/redirectToRoute',
+  UpdateMyFavoriteMovies = 'data/updateMylist',
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;

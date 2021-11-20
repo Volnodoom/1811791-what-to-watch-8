@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
-
 import * as selectors from '../../store/selectors';
 
 const AvatarAdjustment = {

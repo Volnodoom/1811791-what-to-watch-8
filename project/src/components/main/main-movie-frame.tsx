@@ -1,4 +1,4 @@
-import { KindOfButton } from '../const/const';
+
 import { MovieInfo } from '../types/types';
 import Header from '../general/header';
 import MoviePlayButton from '../general/movie-play-button';
@@ -23,7 +23,6 @@ function MainMovieFrame(props: MainMovieFrameProps): JSX.Element {
     title,
     genre,
     year,
-    isFavorite,
   } = props.promoFilm;
 
   const {onPlayFilm} = props;
@@ -47,9 +46,7 @@ function MainMovieFrame(props: MainMovieFrameProps): JSX.Element {
             </p>
             <div className="film-card__buttons">
               <MoviePlayButton filmId={id} onPlayFilm={onPlayFilm}/>
-              {isFavorite
-                ? <MovieAddInListButtons buttonKind={KindOfButton.InMyList} />
-                : <MovieAddInListButtons buttonKind={KindOfButton.AddToMyList} />}
+              <MovieAddInListButtons filmId={Number(id)}/>
             </div>
           </div>
         </div>

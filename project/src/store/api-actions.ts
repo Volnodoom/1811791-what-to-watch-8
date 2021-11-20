@@ -1,6 +1,6 @@
 import { APIRoute, AppRoute, AuthorizationStatus } from '../components/const/const';
 import { ThunkActionResult } from '../components/types/action-types';
-import { AuthData, Comment, RawFilm } from '../components/types/types';
+import { AuthData, Comment, PostMyListData, RawFilm } from '../components/types/types';
 import { adaptMovieToClient } from '../services/adapter';
 import { dropToken, saveToken, Token } from '../services/token';
 import {toast} from 'react-toastify';
@@ -64,4 +64,13 @@ export const fetchLogout = (): ThunkActionResult =>
     api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireLogout());
+  };
+
+export const postMyFavorite = (id: number, actionToFilm: number): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    try {
+      await api.post<PostMyListData>(APIRoute.MyFavoritePost({id,actionToFilm}));
+    } catch {
+      dispatch(redirectToRout(AppRoute.SignIn));
+    }
   };
