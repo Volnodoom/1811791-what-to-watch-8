@@ -32,14 +32,14 @@ const filmsData = createReducer(initialState, (builder) => {
       state.myFavoriteMovies = myFavoriteMovies;
     })
     .addCase(updateMyFavoriteMovies, (state, action) => {
+      // eslint-disable-next-line no-debugger
+      debugger;
       const updatedFilm = action.payload.myFavoriteMovies;
-      const id = updatedFilm.id;
-      updateArrowData(state, {id, updatedFilm}, LineOfUpdate.MyFavorite);
+      updateArrowData(state, updatedFilm, LineOfUpdate.MyFavorite);
     })
     .addCase(updateFilmsByFavoriteMovie, (state, action) => {
       const updatedFilm = action.payload.film;
-      const id = updatedFilm.id;
-      updateArrowData(state, {id, updatedFilm}, LineOfUpdate.Films);
+      updateArrowData(state, updatedFilm, LineOfUpdate.Films);
     });
 });
 

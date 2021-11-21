@@ -5,11 +5,11 @@ import { Comment, MovieInfo } from './types';
 export type State = RootState;
 
 export type FilmsData = {
-  films: MovieInfo[] | [],
+  films: MovieInfo[],
   promoFilm?: MovieInfo,
-  comments: Comment[] | [],
+  comments: Comment[],
   isDataLoaded: boolean,
-  myFavoriteMovies: MovieInfo[] | [],
+  myFavoriteMovies: MovieInfo[],
 }
 
 export type UserProcess = {
