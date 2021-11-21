@@ -75,8 +75,6 @@ export const getProgress = (total: number, current: number): number => (current/
 
 export const updateArrowData = (stateData: FilmsData, updatedFilm: MovieInfo, lineOfUpdate: LineOfUpdate): void => {
   const id = updatedFilm.id;
-  // eslint-disable-next-line no-debugger
-  debugger;
 
   if (lineOfUpdate === LineOfUpdate.Films) {
 
@@ -96,47 +94,3 @@ export const updateArrowData = (stateData: FilmsData, updatedFilm: MovieInfo, li
     }
   }
 };
-
-// export const updateArrowData = (stateData: FilmsData, updatedFilm: MovieInfo, lineOfUpdate: LineOfUpdate): void => {
-//   const id = updatedFilm.id;
-//   // eslint-disable-next-line no-debugger
-//   debugger;
-
-//   if (lineOfUpdate === LineOfUpdate.Films) {
-
-//     let films = stateData.films;
-//     const index: number = films.findIndex((film) => film.id === id);
-//     if (index === -1) {
-//       throw new Error('Can\'t update unexisting film');
-//     }
-
-//     films = [
-//       ...films.slice(0, index),
-//       updatedFilm,
-//       ...films.slice(index + 1),
-//     ];
-
-//   } else if (lineOfUpdate === LineOfUpdate.MyFavorite) {
-
-//     let myFavorite = stateData.myFavoriteMovies;
-//     const index: number = myFavorite.findIndex((film) => film.id === id);
-
-//     if (index === -1) {
-//       if (myFavorite.length === 0) {
-//         myFavorite = [updatedFilm];
-//       } else {
-//         myFavorite = [
-//           ...myFavorite,
-//           updatedFilm,
-//         ];
-//       }
-//     } else {
-
-//       myFavorite = [
-//         ...myFavorite.slice(0, index),
-//         updatedFilm,
-//         ...myFavorite.slice(index + 1),
-//       ];
-//     }
-//   }
-//

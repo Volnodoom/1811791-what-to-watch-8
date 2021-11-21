@@ -32,8 +32,6 @@ const filmsData = createReducer(initialState, (builder) => {
       state.myFavoriteMovies = myFavoriteMovies;
     })
     .addCase(updateMyFavoriteMovies, (state, action) => {
-      // eslint-disable-next-line no-debugger
-      debugger;
       const updatedFilm = action.payload.myFavoriteMovies;
       updateArrowData(state, updatedFilm, LineOfUpdate.MyFavorite);
     })
