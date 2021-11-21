@@ -11,6 +11,8 @@ export enum ActionType {
   LoadMovies = 'data/loadMovies',
   LoadPromoMovie = 'data/loadPromoMovie',
   LoadCommentsToMovie = 'data/commentsToMovie',
+  UpdateCommentsData = 'data/comments/updateCommentsData',
+  CheckCommentsUpdateStatus = 'data/comments/Status',
   LoadMyFavoriteMovies = 'data/loadMyFavoriteMovies',
   UpdateMyFavoriteMovies = 'data/myFavorite/updateMylist',
   UpdateFilmsByFavoriteMovie = 'data/films/updateFilmsWithFavoriteMovie',

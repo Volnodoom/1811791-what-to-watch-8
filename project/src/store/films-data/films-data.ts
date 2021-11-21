@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { LineOfUpdate } from '../../components/const/const';
+import { CommentsStatus, LineOfUpdate } from '../../components/const/const';
 import { FilmsData } from '../../components/types/state';
 import { updateArrowData } from '../../utils/common';
-import { loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadPromoMovie, updateFilmsByFavoriteMovie, updateMyFavoriteMovies } from '../action';
+import { checkCommentsUpdateStatus, loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadPromoMovie, updateCommentsData, updateFilmsByFavoriteMovie, updateMyFavoriteMovies } from '../action';
 
 const initialState: FilmsData = {
   films: [],
@@ -10,6 +10,7 @@ const initialState: FilmsData = {
   comments: [],
   isDataLoaded: false,
   myFavoriteMovies: [],
+  commentStatus: CommentsStatus.NotProceeded,
 };
 
 const filmsData = createReducer(initialState, (builder) => {
@@ -26,6 +27,14 @@ const filmsData = createReducer(initialState, (builder) => {
     .addCase(loadCommentsToMovie, (state, action) => {
       const {comments} = action.payload;
       state.comments = comments;
+    })
+    .addCase(updateCommentsData, (state, action) => {
+      const {comments} = action.payload;
+      state.comments = comments;
+    })
+    .addCase(checkCommentsUpdateStatus, (state, action) => {
+      const {commentStatus} = action.payload;
+      state.commentStatus = commentStatus;
     })
     .addCase(loadMyFavoriteMovies, (state, action) => {
       const {myFavoriteMovies} = action.payload;

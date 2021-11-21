@@ -1,10 +1,11 @@
-import { APIRoute, AppRoute, AuthorizationStatus } from '../components/const/const';
+import { APIRoute, AppRoute, AuthorizationStatus, CommentsStatus } from '../components/const/const';
 import { ThunkActionResult } from '../components/types/action-types';
-import { AuthData, Comment, RawFilm } from '../components/types/types';
+import { AuthData, Comment, CommentToServer, RawFilm } from '../components/types/types';
 import { adaptMovieToClient } from '../services/adapter';
 import { dropToken, saveToken, Token } from '../services/token';
 import {toast} from 'react-toastify';
 import {
+  checkCommentsUpdateStatus,
   loadCommentsToMovie,
   loadMovies,
   loadMyFavoriteMovies,
@@ -12,11 +13,13 @@ import {
   redirectToRout,
   requireAuthorization,
   requireLogout,
+  updateCommentsData,
   updateFilmsByFavoriteMovie,
   updateMyFavoriteMovies
 } from './action';
 
 const AUTH_FAIL_MESSAGE = 'Assess to some pages on the web-site has only authorized users';
+const POST_MESSAGE_FAIL = 'We faced some troubles updating your feedback, please retry or repeat it later';
 const TOAST_CLOSE = 5000;
 const TOAST_THEME = 'colored';
 
@@ -36,8 +39,24 @@ export const fetchPromoMovie = (): ThunkActionResult =>
 
 export const fetchCommentsToMovie = (filmId: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<Comment[]>(APIRoute.CommentsGet(filmId));
+    const {data} = await api.get<Comment[]>(APIRoute.CommentsGetPost(filmId));
     dispatch(loadCommentsToMovie(data));
+  };
+
+export const postComments= (id: number | string, commentData: CommentToServer): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    try {
+      const {data} = await api.post<Comment[]>(APIRoute.CommentsGetPost(id), commentData);
+      dispatch(updateCommentsData(data));
+      dispatch(checkCommentsUpdateStatus(CommentsStatus.Success));
+    } catch {
+      toast.error(POST_MESSAGE_FAIL, {
+        autoClose: TOAST_CLOSE,
+        theme: TOAST_THEME,
+        position: toast.POSITION.TOP_CENTER,
+      });
+      dispatch(checkCommentsUpdateStatus(CommentsStatus.Failed));
+    }
   };
 
 export const fetchCheckAuth = (): ThunkActionResult =>

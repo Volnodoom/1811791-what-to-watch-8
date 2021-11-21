@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { ALL_GENRES } from '../components/const/const';
+import { ALL_GENRES, CommentsStatus } from '../components/const/const';
 import { State } from '../components/types/state';
 import { Comment, MovieInfo } from '../components/types/types';
 import { AuthorizationStatus } from '../components/const/const';
@@ -9,6 +9,7 @@ export const getMovies = (state: State): MovieInfo[] => state[NameSpace.data].fi
 export const getPromoMovies = (state: State): MovieInfo | undefined => state[NameSpace.data].promoFilm;
 export const getMyFavoriteMovies = (state: State): MovieInfo[] | [] => state[NameSpace.data].myFavoriteMovies;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].comments;
+export const getCommentsStatus = (state: State): CommentsStatus => state[NameSpace.data].commentStatus;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
 

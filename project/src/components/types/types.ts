@@ -55,7 +55,7 @@ export type Comment = {
 }
 
 export type CommentToServer = {
-  rating: number,
+  rating: string | number,
   comment: string,
 };
 

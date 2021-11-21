@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
-import { AppRoute, CardState, MatchingComponent } from '../const/const';
+import { AppRoute, AuthorizationStatus, CardState, MatchingComponent } from '../const/const';
 import { IdParam, MovieInfo } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -28,6 +28,16 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   const onPlayFilm = props.onPlayVideoClick;
   const { id } = useParams<IdParam>();
   const film = useSelector((state:State) => selectors.getMovieById(state, id));
+  const userStatus = useSelector(selectors.getAuthorizationStatus);
+
+  const authStatus = () => {
+    if (userStatus === AuthorizationStatus.NoAuth) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
 
   if (!film) {
     return (
@@ -53,7 +63,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
               <div className="film-card__buttons">
                 <MoviePlayButton filmId={id} onPlayFilm={onPlayFilm} />
                 <MovieAddInListButtons filmId={id}/>
-                <Link to={AppRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>
+                {authStatus() && <Link to={AppRoute.AddReview(film.id)} className="btn film-card__button">Add review</Link>}
               </div>
             </div>
           </div>

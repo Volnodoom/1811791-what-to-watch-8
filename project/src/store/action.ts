@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../components/const/const';
+import { AuthorizationStatus, CommentsStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
 import { Comment, MovieInfo, ValuesOfAppRoute } from '../components/types/types';
 
@@ -18,6 +18,16 @@ export const loadPromoMovie = createAction (
 export const loadCommentsToMovie = createAction (
   ActionType.LoadCommentsToMovie,
   (comments: Comment[]) => ({payload: {comments}}),
+);
+
+export const updateCommentsData = createAction (
+  ActionType.UpdateCommentsData,
+  (comments: Comment[]) => ({payload: {comments}}),
+);
+
+export const checkCommentsUpdateStatus = createAction (
+  ActionType.CheckCommentsUpdateStatus,
+  (commentStatus: CommentsStatus) => ({payload: {commentStatus}}),
 );
 
 export const loadMyFavoriteMovies = createAction (

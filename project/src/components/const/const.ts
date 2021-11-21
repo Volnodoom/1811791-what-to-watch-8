@@ -39,7 +39,7 @@ export const APIRoute = {
   Login: '/login',
   Logout: '/logout',
   Promo: '/promo',
-  CommentsGet: (filmId: number | string) => `/comments/${filmId}`,
+  CommentsGetPost: (filmId: number | string) => `/comments/${filmId}`,
   MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
   MyFavoriteGet: '/favorite',
 } as const;
@@ -52,4 +52,10 @@ export enum TimeDifferentiation {
 export enum LineOfUpdate {
   Films = 'films',
   MyFavorite = 'myFavoriteMovies',
+}
+
+export enum CommentsStatus {
+  Success = 'success',
+  Failed = 'failed',
+  NotProceeded  = 'not in the process',
 }

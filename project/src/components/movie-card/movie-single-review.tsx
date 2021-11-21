@@ -2,7 +2,7 @@ import { Comment } from '../types/types';
 
 const getDateMMDDYY = (dateTime: string) => {
   const month = new Date(dateTime).toLocaleDateString('default', {month: 'long'});
-  const day = new Date(dateTime).getDay();
+  const day = new Date(dateTime).getDate();
   const year = new Date(dateTime).getFullYear();
 
   return `${month} ${day}, ${year}`;
