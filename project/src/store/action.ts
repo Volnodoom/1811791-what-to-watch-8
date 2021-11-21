@@ -37,5 +37,10 @@ export const redirectToRout = createAction (
 
 export const updateMyFavoriteMovies = createAction (
   ActionType.UpdateMyFavoriteMovies,
-  (filmId: number, actionToFilm: number) => ({payload: filmId, actionToFilm}),
+  (myFavoriteMovies: MovieInfo) => ({payload: {myFavoriteMovies}}),
+);
+
+export const updateFilmsByFavoriteMovie = createAction (
+  ActionType.UpdateFilmsByFavoriteMovie,
+  (film: MovieInfo) => ({payload: {film}}),
 );

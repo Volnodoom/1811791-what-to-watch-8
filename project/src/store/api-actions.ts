@@ -1,6 +1,6 @@
 import { APIRoute, AppRoute, AuthorizationStatus } from '../components/const/const';
 import { ThunkActionResult } from '../components/types/action-types';
-import { AuthData, Comment, PostMyListData, RawFilm } from '../components/types/types';
+import { AuthData, Comment, RawFilm } from '../components/types/types';
 import { adaptMovieToClient } from '../services/adapter';
 import { dropToken, saveToken, Token } from '../services/token';
 import {toast} from 'react-toastify';
@@ -11,7 +11,9 @@ import {
   loadPromoMovie,
   redirectToRout,
   requireAuthorization,
-  requireLogout
+  requireLogout,
+  updateFilmsByFavoriteMovie,
+  updateMyFavoriteMovies
 } from './action';
 
 const AUTH_FAIL_MESSAGE = 'Assess to some pages on the web-site has only authorized users';
@@ -70,7 +72,10 @@ export const fetchLogout = (): ThunkActionResult =>
 export const postMyFavorite = (id: number | string, actionToFilm: number): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      await api.post<PostMyListData>(APIRoute.MyFavoritePost({id,actionToFilm}));
+      const {data} = await api.post<RawFilm>(APIRoute.MyFavoritePost({id,actionToFilm}));
+      const adaptedData = adaptMovieToClient(data);
+      dispatch(updateMyFavoriteMovies(adaptedData));
+      dispatch(updateFilmsByFavoriteMovie(adaptedData));
     } catch {
       dispatch(redirectToRout(AppRoute.SignIn));
     }

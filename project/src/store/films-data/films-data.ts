@@ -1,6 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
+import { LineOfUpdate } from '../../components/const/const';
 import { FilmsData } from '../../components/types/state';
-import { loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadPromoMovie } from '../action';
+import { updateArrowData } from '../../utils/common';
+import { loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadPromoMovie, updateFilmsByFavoriteMovie, updateMyFavoriteMovies } from '../action';
 
 const initialState: FilmsData = {
   films: [],
@@ -28,6 +30,16 @@ const filmsData = createReducer(initialState, (builder) => {
     .addCase(loadMyFavoriteMovies, (state, action) => {
       const {myFavoriteMovies} = action.payload;
       state.myFavoriteMovies = myFavoriteMovies;
+    })
+    .addCase(updateMyFavoriteMovies, (state, action) => {
+      const updatedFilm = action.payload.myFavoriteMovies;
+      const id = updatedFilm.id;
+      updateArrowData(state, {id, updatedFilm}, LineOfUpdate.MyFavorite);
+    })
+    .addCase(updateFilmsByFavoriteMovie, (state, action) => {
+      const updatedFilm = action.payload.film;
+      const id = updatedFilm.id;
+      updateArrowData(state, {id, updatedFilm}, LineOfUpdate.Films);
     });
 });
 

@@ -5,14 +5,15 @@ import { State } from './state';
 
 export enum ActionType {
   FiltrateMovies = 'filter/filtrateMovies',
+  RedirectToRoute = 'signIn/redirectToRoute',
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   LoadMovies = 'data/loadMovies',
   LoadPromoMovie = 'data/loadPromoMovie',
   LoadCommentsToMovie = 'data/commentsToMovie',
   LoadMyFavoriteMovies = 'data/loadMyFavoriteMovies',
-  RedirectToRoute = 'signIn/redirectToRoute',
-  UpdateMyFavoriteMovies = 'data/updateMylist',
+  UpdateMyFavoriteMovies = 'data/myFavorite/updateMylist',
+  UpdateFilmsByFavoriteMovie = 'data/films/updateFilmsWithFavoriteMovie',
 }
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
