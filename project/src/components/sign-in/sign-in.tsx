@@ -1,9 +1,12 @@
 import { FormEvent, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 import {toast} from 'react-toastify';
 import { fetchLogin } from '../../store/api-actions';
+import * as selectors from '../../store/selectors';
+import { AppRoute, AuthorizationStatus } from '../const/const';
+import { useHistory } from 'react-router';
 
 const TOAST_CLOSE = 10000;
 const TOAST_THEME = 'colored';
@@ -26,6 +29,13 @@ const showSignInProblem = (message: string) => {
 
 function SignIn(): JSX.Element {
   const dispatch = useDispatch();
+  const authStatus = useSelector(selectors.getAuthorizationStatus);
+
+  const history = useHistory();
+
+  if(authStatus === AuthorizationStatus.Auth) {
+    history.push(AppRoute.Main);
+  }
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
