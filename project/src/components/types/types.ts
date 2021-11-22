@@ -10,7 +10,7 @@ export type MovieInfo = {
   srcVideo: string,
   scrPreviewVideo: string,
   description: string,
-  ratingAbsolute: number | string,
+  ratingAbsolute: number,
   ratingCount: number,
   director: string,
   actors: string[],

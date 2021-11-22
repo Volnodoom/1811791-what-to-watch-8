@@ -60,3 +60,26 @@ export enum CommentsStatus {
   Failed = 'failed',
   NotProceeded  = 'not in the process',
 }
+
+export const StringMovieRating = [
+  {
+    value: 0,
+    stringValue: 'Bad',
+  },
+  {
+    value: 3,
+    stringValue: 'Normal',
+  },
+  {
+    value: 5,
+    stringValue: 'Good',
+  },
+  {
+    value: 8,
+    stringValue: 'Very good',
+  },
+  {
+    value: 10,
+    stringValue: 'Awesome',
+  },
+] as const;

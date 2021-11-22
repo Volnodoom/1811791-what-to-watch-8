@@ -1,4 +1,4 @@
-import { LineOfUpdate } from '../components/const/const';
+import { LineOfUpdate, StringMovieRating } from '../components/const/const';
 import { FilmsData } from '../components/types/state';
 import { MovieInfo } from '../components/types/types';
 
@@ -102,4 +102,9 @@ export const prepareSimilarMovies = (array: MovieInfo[], id: number | string): M
   const result = array.slice();
   result.splice(index, REMOVE);
   return result.slice(0,4);
+};
+
+export const getStringLikeRating = (value:number): string => {
+  const index = StringMovieRating.slice().reverse().findIndex((description) => value >= description.value);
+  return StringMovieRating.slice().reverse()[index].stringValue;
 };
