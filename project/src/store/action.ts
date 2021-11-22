@@ -20,6 +20,16 @@ export const loadCommentsToMovie = createAction (
   (comments: Comment[]) => ({payload: {comments}}),
 );
 
+export const loadMyFavoriteMovies = createAction (
+  ActionType.LoadMyFavoriteMovies,
+  (myFavoriteMovies: MovieInfo[]) => ({payload: {myFavoriteMovies}}),
+);
+
+export const loadSimilarMovies = createAction (
+  ActionType.LoadSimilarMovie,
+  (similarMovies: MovieInfo[]) => ({payload: {similarMovies}}),
+);
+
 export const updateCommentsData = createAction (
   ActionType.UpdateCommentsData,
   (comments: Comment[]) => ({payload: {comments}}),
@@ -28,11 +38,6 @@ export const updateCommentsData = createAction (
 export const checkCommentsUpdateStatus = createAction (
   ActionType.CheckCommentsUpdateStatus,
   (commentStatus: CommentsStatus) => ({payload: {commentStatus}}),
-);
-
-export const loadMyFavoriteMovies = createAction (
-  ActionType.LoadMyFavoriteMovies,
-  (myFavoriteMovies: MovieInfo[]) => ({payload: {myFavoriteMovies}}),
 );
 
 export const requireAuthorization = createAction (

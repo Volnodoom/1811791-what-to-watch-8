@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import Error404 from '../routing/Error404';
 import { AppRoute, AuthorizationStatus, CardState, MatchingComponent } from '../const/const';
-import { IdParam, MovieInfo } from '../types/types';
+import { IdParam } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
 import Header from '../general/header';
@@ -13,12 +13,14 @@ import { Link } from 'react-router-dom';
 import CatalogMovieThumbnails from '../general/catalog-movie-thumbnails';
 import MoviePlayButton from '../general/movie-play-button';
 import MovieAddInListButtons from '../general/movie-add-in-list-buttons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as selectors from '../../store/selectors';
 import { State } from '../types/state';
+import { fetchSimilarMovie } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { prepareSimilarMovies } from '../../utils/common';
 
 type MovieCardProps = {
-  movieList:MovieInfo[],
   cardTab: string,
   onPlayVideoClick: (id: string | number) => void,
 }
@@ -27,8 +29,18 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   const {cardTab} = props;
   const onPlayFilm = props.onPlayVideoClick;
   const { id } = useParams<IdParam>();
+
   const film = useSelector((state:State) => selectors.getMovieById(state, id));
   const userStatus = useSelector(selectors.getAuthorizationStatus);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (film) { dispatch(fetchSimilarMovie(id));}
+  }, [dispatch, film, id]);
+
+  const similarFilms = useSelector(selectors.getSimilarMovies);
+  const treatedSimilarList = prepareSimilarMovies(similarFilms, id);
 
   const authStatus = () => {
     if (userStatus === AuthorizationStatus.NoAuth) {
@@ -85,7 +97,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
       </section>
 
       <div className="page-content">
-        <CatalogMovieThumbnails movieList={props.movieList} componentEqual={MatchingComponent.MovieCard}/>
+        <CatalogMovieThumbnails movieList={treatedSimilarList} componentEqual={MatchingComponent.MovieCard}/>
         <Footer />
       </div>
     </>

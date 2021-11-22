@@ -8,6 +8,7 @@ import { NameSpace } from './root-reducer';
 export const getMovies = (state: State): MovieInfo[] => state[NameSpace.data].films;
 export const getPromoMovies = (state: State): MovieInfo | undefined => state[NameSpace.data].promoFilm;
 export const getMyFavoriteMovies = (state: State): MovieInfo[] | [] => state[NameSpace.data].myFavoriteMovies;
+export const getSimilarMovies = (state: State): MovieInfo[] | [] => state[NameSpace.data].similarMovies;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].comments;
 export const getCommentsStatus = (state: State): CommentsStatus => state[NameSpace.data].commentStatus;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;

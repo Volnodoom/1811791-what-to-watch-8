@@ -6,6 +6,7 @@ const MINUTES = 60;
 const SEC_IN_MINUTE = 60;
 const SEC_IN_HOUR = 3600;
 const TEN = 10;
+const REMOVE = 1;
 
 export const getRandomInteger = (a = 0, b = 1): number => {
   const lower = Math.ceil(Math.min(a, b));
@@ -93,4 +94,12 @@ export const updateArrowData = (stateData: FilmsData, updatedFilm: MovieInfo, li
       myFavorite[index] = updatedFilm;
     }
   }
+};
+
+export const prepareSimilarMovies = (array: MovieInfo[], id: number | string): MovieInfo[] => {
+  if (array.length === 0) {return [];}
+  const index = array.findIndex((film) => film.id === Number(id));
+  const result = array.slice();
+  result.splice(index, REMOVE);
+  return result.slice(0,4);
 };

@@ -10,6 +10,7 @@ import {
   loadMovies,
   loadMyFavoriteMovies,
   loadPromoMovie,
+  loadSimilarMovies,
   redirectToRout,
   requireAuthorization,
   requireLogout,
@@ -105,4 +106,11 @@ export const fetchMyFavorite = (): ThunkActionResult =>
     const {data} = await api.get<RawFilm[]>(APIRoute.MyFavoriteGet);
     const adaptedData = data.map((arrayData) => adaptMovieToClient(arrayData));
     dispatch(loadMyFavoriteMovies(adaptedData));
+  };
+
+export const fetchSimilarMovie = (id: number | string): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    const {data} = await api.get<RawFilm[]>(APIRoute.SimilarMovies(id));
+    const adaptedData = data.map((arrayData) => adaptMovieToClient(arrayData));
+    dispatch(loadSimilarMovies(adaptedData));
   };

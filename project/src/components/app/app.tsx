@@ -51,7 +51,6 @@ function App(): JSX.Element {
           render={({history}) => (
             <MovieCard
               cardTab={CardState.Overview}
-              movieList={films}
               onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
             />
           )}
@@ -62,7 +61,6 @@ function App(): JSX.Element {
           render={({history}) => (
             <MovieCard
               cardTab={CardState.Details}
-              movieList={films}
               onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
             />
           )}
@@ -73,7 +71,6 @@ function App(): JSX.Element {
           render={({history}) => (
             <MovieCard
               cardTab={CardState.Reviews}
-              movieList={films}
               onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
             />
           )}

@@ -11,6 +11,7 @@ export type FilmsData = {
   isDataLoaded: boolean,
   myFavoriteMovies: MovieInfo[],
   commentStatus: CommentsStatus,
+  similarMovies: MovieInfo[],
 }
 
 export type UserProcess = {

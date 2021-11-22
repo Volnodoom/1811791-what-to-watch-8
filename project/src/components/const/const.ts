@@ -42,6 +42,7 @@ export const APIRoute = {
   CommentsGetPost: (filmId: number | string) => `/comments/${filmId}`,
   MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
   MyFavoriteGet: '/favorite',
+  SimilarMovies: (filmId: number | string) => `/films/${filmId}/similar`,
 } as const;
 
 export enum TimeDifferentiation {
