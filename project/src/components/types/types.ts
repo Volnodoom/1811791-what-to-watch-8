@@ -55,13 +55,18 @@ export type Comment = {
 }
 
 export type CommentToServer = {
-  rating: number,
+  rating: string | number,
   comment: string,
 };
 
 export type AuthData = {
   login: string,
   password: string,
+};
+
+export type PostMyListData = {
+  id: number | string,
+  actionToFilm: number,
 };
 
 type KeysOfAppRoute = keyof typeof AppRoute;

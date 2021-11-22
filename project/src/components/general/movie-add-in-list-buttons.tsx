@@ -1,54 +1,59 @@
-import { KindOfButton } from '../const/const';
+import { useDispatch, useSelector } from 'react-redux';
+import { postMyFavorite } from '../../store/api-actions';
+import * as selectors from '../../store/selectors';
+import Error404 from '../routing/Error404';
+import { State } from '../types/state';
 
-const KindOfMovieCardButtons = {
-  AddToMyList: {
-    'className': 'btn btn--list film-card__button',
-    'viewBox': '0 0 19 20',
-    'use': '#add',
-    'snap': 'My list',
-    'width': 19,
-    'height': 20,
-  },
-  InMyList: {
-    'className': 'btn btn--play film-card__button',
-    'viewBox': '0 0 18 14',
-    'use': '#in-list',
-    'snap': 'My list',
-    'width': 18,
-    'height': 14,
-  },
-} as const;
+const MOVIE_ADDED_TO_MYLIST = 1;
+const MOVIE_REMOVED_FROM_MYLIST = 0;
 
-type MovieAddInListButtonsProps = {
-  buttonKind: string,
-}
+function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
+  const {filmId} = props;
+  const film = useSelector((state: State) => selectors.getMovieById(state, filmId));
+  const dispatch = useDispatch();
 
-function MovieAddInListButtons(props: MovieAddInListButtonsProps): JSX.Element {
-  const {buttonKind} = props;
-
-  function buttonsTemplate(className:string, viewBox:string, use:string, snap:string, width:number, height: number) {
-    return (
-      <button className={className} type="button" >
-        <svg viewBox={viewBox}  width={width}  height={height} >
-          <use xlinkHref= {use}></use>
-        </svg>
-        <span>{snap}</span>
-      </button>);
+  if(typeof film === 'undefined') {
+    return <Error404 />;
   }
 
-  switch (buttonKind) {
-    case KindOfButton.AddToMyList: {
-      const {className, viewBox, use, snap, width, height} = KindOfMovieCardButtons.AddToMyList;
-      return buttonsTemplate(className, viewBox, use, snap, width, height);
+  const isFavorite = film.isFavorite;
+
+  const kindOfMovieCardButton = () => {
+    if (isFavorite) {
+      return {
+        className: 'btn btn--play film-card__button',
+        viewBox: '0 0 18 14',
+        use: '#in-list',
+        snap: 'My list',
+        width: 18,
+        height: 14,
+      };
     }
-    case KindOfButton.InMyList: {
-      const {className, viewBox, use, snap, width, height} = KindOfMovieCardButtons.InMyList;
-      return buttonsTemplate(className, viewBox, use, snap, width, height);
-    }
-    default: {
-      throw Error ('It is not possible to find this kind of Button in const');
-    }
-  }
+
+    return {
+      className: 'btn btn--list film-card__button',
+      viewBox: '0 0 19 20',
+      use: '#add',
+      snap: 'My list',
+      width: 19,
+      height: 20,
+    };
+  };
+
+  const handleMyFavoriteFunctionality = () => {
+    dispatch(postMyFavorite(filmId, isFavorite ? MOVIE_REMOVED_FROM_MYLIST : MOVIE_ADDED_TO_MYLIST));
+  };
+
+  const {className, viewBox, use, snap, width, height} = kindOfMovieCardButton();
+
+  return (
+    <button className={className} type="button" onClick={handleMyFavoriteFunctionality}>
+      <svg viewBox={viewBox}  width={width}  height={height}>
+        <use xlinkHref= {use}></use>
+      </svg>
+      <span>{snap}</span>
+    </button>
+  );
 }
 
 export default MovieAddInListButtons;

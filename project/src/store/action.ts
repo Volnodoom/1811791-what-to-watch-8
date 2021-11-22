@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../components/const/const';
+import { AuthorizationStatus, CommentsStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
 import { Comment, MovieInfo, ValuesOfAppRoute } from '../components/types/types';
 
@@ -20,6 +20,21 @@ export const loadCommentsToMovie = createAction (
   (comments: Comment[]) => ({payload: {comments}}),
 );
 
+export const updateCommentsData = createAction (
+  ActionType.UpdateCommentsData,
+  (comments: Comment[]) => ({payload: {comments}}),
+);
+
+export const checkCommentsUpdateStatus = createAction (
+  ActionType.CheckCommentsUpdateStatus,
+  (commentStatus: CommentsStatus) => ({payload: {commentStatus}}),
+);
+
+export const loadMyFavoriteMovies = createAction (
+  ActionType.LoadMyFavoriteMovies,
+  (myFavoriteMovies: MovieInfo[]) => ({payload: {myFavoriteMovies}}),
+);
+
 export const requireAuthorization = createAction (
   ActionType.RequireAuthorization,
   (authStatus: AuthorizationStatus) => ({payload: authStatus}),
@@ -28,4 +43,14 @@ export const requireAuthorization = createAction (
 export const redirectToRout = createAction (
   ActionType.RedirectToRoute,
   (url: ValuesOfAppRoute) => ({payload: url}),
+);
+
+export const updateMyFavoriteMovies = createAction (
+  ActionType.UpdateMyFavoriteMovies,
+  (myFavoriteMovies: MovieInfo) => ({payload: {myFavoriteMovies}}),
+);
+
+export const updateFilmsByFavoriteMovie = createAction (
+  ActionType.UpdateFilmsByFavoriteMovie,
+  (film: MovieInfo) => ({payload: {film}}),
 );

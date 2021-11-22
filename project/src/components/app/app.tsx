@@ -15,11 +15,9 @@ import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
 
 function App(): JSX.Element {
-  const films = useSelector(selectors.getFilms);
+  const films = useSelector(selectors.getMovies);
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
   const isDataLoaded = useSelector(selectors.getLoadedDataStatus);
-
-  const getMyMovies = films.filter((film) => film.isFavorite);
 
   if (isAuthUnKnown(authorizationStatus) || !isDataLoaded) {
     return (
@@ -45,9 +43,7 @@ function App(): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => (
-            <Mylist
-              movieList={getMyMovies}
-            />)}
+            <Mylist />)}
         />
         <Route
           exact
@@ -89,8 +85,7 @@ function App(): JSX.Element {
             <AddReview
               movieList={films}
             />)}
-        >
-        </PrivateRoute>
+        />
         <Route
           exact
           path={AppRoute.Player()}
@@ -100,9 +95,13 @@ function App(): JSX.Element {
             />
           )}
         />
-        <Route>
-          <Error404/>
-        </Route>
+        <Route
+          exact
+          path={AppRoute.Error404}
+          render={() => (
+            <Error404/>
+          )}
+        />
       </Switch>
     </BrowserRouter>
   );

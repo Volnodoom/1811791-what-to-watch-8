@@ -1,16 +1,14 @@
+import { PostMyListData } from '../types/types';
+
 export const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const ALL_GENRES = 'All genres';
-
-export const KindOfButton = {
-  AddToMyList: 'AddToMyList',
-  InMyList: 'InMyList',
-}as const;
 
 export const AppRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
+  Error404: '/error404',
   Movie: (id: string | number = ':id') => `/films/${id}`,
   Details: (id: string | number = ':id') => `/films/${id}/details`,
   Reviews: (id: string | number = ':id') => `/films/${id}/reviews`,
@@ -41,10 +39,23 @@ export const APIRoute = {
   Login: '/login',
   Logout: '/logout',
   Promo: '/promo',
-  CommentsGet: (filmId: number) => `/comments/${filmId}`,
+  CommentsGetPost: (filmId: number | string) => `/comments/${filmId}`,
+  MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
+  MyFavoriteGet: '/favorite',
 } as const;
 
 export enum TimeDifferentiation {
   Total = 'Total time',
   LeftTime = 'Time left to watch',
+}
+
+export enum LineOfUpdate {
+  Films = 'films',
+  MyFavorite = 'myFavoriteMovies',
+}
+
+export enum CommentsStatus {
+  Success = 'success',
+  Failed = 'failed',
+  NotProceeded  = 'not in the process',
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import VideoPlayer from '../player/video';
 import { MovieInfo } from '../types/types';
+import {useHistory} from 'react-router-dom';
 
 function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
   const {
@@ -11,6 +12,8 @@ function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
     id,
     scrPreviewVideo,
   } = props.film;
+
+  const history = useHistory();
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -23,7 +26,12 @@ function MovieThumbnails(props:{film:MovieInfo}): JSX.Element {
   };
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOut}>
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseEnter={handleMouseOn}
+      onMouseLeave={handleMouseOut}
+      onClick={() => history.push(AppRoute.Movie(id))}
+    >
       <div className="small-film-card__image">
         <VideoPlayer
           scrPreviewVideo={scrPreviewVideo}

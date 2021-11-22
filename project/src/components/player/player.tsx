@@ -6,6 +6,7 @@ import Error404 from '../routing/Error404';
 import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { State } from '../types/state';
 
 const ONE_HUNDRED_PERCENT = 100;
 
@@ -16,7 +17,7 @@ type PlayerProps = {
 function Player(props: PlayerProps):JSX.Element {
   const {onExitClick} = props;
   const { id } = useParams<IdParam>();
-  const film = useSelector(selectors.getFilmById(id));
+  const film = useSelector((state:State) => selectors.getMovieById(state, id));
 
   const {
     playerRef,
@@ -28,7 +29,6 @@ function Player(props: PlayerProps):JSX.Element {
     movieProgress,
     isLoading,
     isPlayButton,
-    handleManualChangeVideoProgress,
   } = usePlayer();
 
   if (!film) {
@@ -66,7 +66,6 @@ function Player(props: PlayerProps):JSX.Element {
               className="player__progress"
               value={movieProgress}
               max="100"
-              onClick={handleManualChangeVideoProgress}
             >
             </progress>
 

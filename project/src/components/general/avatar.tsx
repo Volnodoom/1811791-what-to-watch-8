@@ -1,9 +1,9 @@
 import { MouseEvent } from 'react';
+import {useHistory} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
-
 import * as selectors from '../../store/selectors';
 
 const AvatarAdjustment = {
@@ -14,7 +14,7 @@ const AvatarAdjustment = {
 function Avatar(): JSX.Element {
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
   const dispatch = useDispatch();
-
+  const history = useHistory();
 
   const logoutHandle = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
@@ -27,7 +27,13 @@ function Avatar(): JSX.Element {
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src={AvatarAdjustment.Img} alt={AvatarAdjustment.AltImg}  width="63"  height="63"  />
+              <img
+                src={AvatarAdjustment.Img}
+                alt={AvatarAdjustment.AltImg}
+                width="63"
+                height="63"
+                onClick={()=> history.push(AppRoute.MyList)}
+              />
             </div>
           </li>
           <li className="user-block__item">

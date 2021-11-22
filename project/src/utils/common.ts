@@ -1,3 +1,7 @@
+import { LineOfUpdate } from '../components/const/const';
+import { FilmsData } from '../components/types/state';
+import { MovieInfo } from '../components/types/types';
+
 const MINUTES = 60;
 const SEC_IN_MINUTE = 60;
 const SEC_IN_HOUR = 3600;
@@ -54,7 +58,7 @@ export const getTimeForPlayer = (total: number, current: number): string => {
   const leftTime = total - current;
   let duration = '';
 
-  const properFormat = (value: number): string => value > TEN ? `${value}` : `0${value}`;
+  const properFormat = (value: number): string => value >= TEN ? `${value}` : `0${value}`;
 
   switch (true) {
     case timeConditions[0]:
@@ -68,3 +72,25 @@ export const getTimeForPlayer = (total: number, current: number): string => {
 };
 
 export const getProgress = (total: number, current: number): number => (current/total)*100;
+
+export const updateArrowData = (stateData: FilmsData, updatedFilm: MovieInfo, lineOfUpdate: LineOfUpdate): void => {
+  const id = updatedFilm.id;
+
+  if (lineOfUpdate === LineOfUpdate.Films) {
+
+    const films = stateData.films;
+    const index: number = films.findIndex((film) => film.id === id);
+    films[index] = updatedFilm;
+
+  } else if (lineOfUpdate === LineOfUpdate.MyFavorite) {
+
+    const myFavorite = stateData.myFavoriteMovies;
+    const index: number = myFavorite.findIndex((film) => film.id === id);
+
+    if (index === -1) {
+      myFavorite.push(updatedFilm);
+    } else {
+      myFavorite[index] = updatedFilm;
+    }
+  }
+};
