@@ -1,16 +1,21 @@
 import { MouseEvent } from 'react';
 import {useHistory} from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchLogout } from '../../store/api-actions';
+import { fetchLogout, fetchMovie } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import * as selectors from '../../store/selectors';
+import { IdParam } from '../types/types';
 
 
 function Avatar(): JSX.Element {
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
   const userImg = useSelector(selectors.getUserAvatar);
   const userName = useSelector(selectors.getUserName);
+  const idPromo = useSelector(selectors.getPromoMovie)?.id;
+
+  const {id} = useParams<IdParam>();
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,6 +23,14 @@ function Avatar(): JSX.Element {
   const handleLogoutClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(fetchLogout());
+
+    if (id) {
+      dispatch(fetchMovie(Number(id)));
+    }
+
+    if (idPromo) {
+      dispatch(fetchMovie(Number(idPromo)));
+    }
   };
 
   return (

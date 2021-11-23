@@ -35,13 +35,14 @@ export const MatchingComponent = {
 } as const;
 
 export const APIRoute = {
-  Films: '/films',
+  Movies: '/films',
   Login: '/login',
   Logout: '/logout',
   Promo: '/promo',
   CommentsGetPost: (filmId: number | string) => `/comments/${filmId}`,
   MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
   MyFavoriteGet: '/favorite',
+  OneMovie: (filmId: number | string) => `/films/${filmId}`,
   SimilarMovies: (filmId: number | string) => `/films/${filmId}/similar`,
 } as const;
 
@@ -61,7 +62,7 @@ export enum CommentsStatus {
   NotProceeded  = 'not in the process',
 }
 
-export const StringMovieRating = [
+export const STRING_MOVIE_RATING = [
   {
     value: 0,
     stringValue: 'Bad',

@@ -16,6 +16,11 @@ export const loadPromoMovie = createAction (
   (promoFilm: MovieInfo) => ({payload: {promoFilm}}),
 );
 
+export const loadOneMovie = createAction (
+  ActionType.LoadOneMovie,
+  (oneFilm: MovieInfo) => ({payload: {oneFilm}}),
+);
+
 export const loadCommentsToMovie = createAction (
   ActionType.LoadCommentsToMovie,
   (comments: Comment[]) => ({payload: {comments}}),

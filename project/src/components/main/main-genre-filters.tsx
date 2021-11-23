@@ -6,10 +6,10 @@ import MovieThumbnails from '../general/movie-thumbnails';
 import * as selectors from '../../store/selectors';
 import MainShowMoreButton from './main-show-more-button';
 
-const GenreState = {
-  Active: 'catalog__genres-item catalog__genres-item--active',
-  NonActive: 'catalog__genres-item',
-};
+const enum GenreState {
+  Active = 'catalog__genres-item catalog__genres-item--active',
+  NonActive = 'catalog__genres-item',
+}
 
 const MOVIES_NUMBER_AT_START = 8;
 const MOVIE_STEP = 8;

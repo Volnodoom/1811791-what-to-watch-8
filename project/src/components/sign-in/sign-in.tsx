@@ -1,9 +1,9 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 import {toast} from 'react-toastify';
-import { fetchLogin } from '../../store/api-actions';
+import { fetchLogin, fetchMovies } from '../../store/api-actions';
 import * as selectors from '../../store/selectors';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import { useHistory } from 'react-router';
@@ -33,9 +33,12 @@ function SignIn(): JSX.Element {
 
   const history = useHistory();
 
-  if(authStatus === AuthorizationStatus.Auth) {
-    history.push(AppRoute.Main);
-  }
+  useEffect(() => {
+    if(authStatus === AuthorizationStatus.Auth) {
+      history.push(AppRoute.Main);
+      dispatch(fetchMovies());
+    }
+  });
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -68,10 +71,12 @@ function SignIn(): JSX.Element {
           return showSignInProblem(WaringMessage.TextPassword);
         case inputErrors.containMinimumLoginText:
           return showSignInProblem(WaringMessage.TextPassword);
-        default:  return dispatch(fetchLogin({
-          login: loginRef.current.value,
-          password: passwordRef.current.value,
-        }));
+        default:  return dispatch(
+          fetchLogin({
+            login: loginRef.current.value,
+            password: passwordRef.current.value,
+          }),
+        );
       }
     }
   };

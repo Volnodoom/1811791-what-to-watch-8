@@ -9,6 +9,7 @@ import {
   loadCommentsToMovie,
   loadMovies,
   loadMyFavoriteMovies,
+  loadOneMovie,
   loadPromoMovie,
   loadSimilarMovies,
   loadUserInfo,
@@ -26,9 +27,16 @@ const TOAST_THEME = 'colored';
 
 export const fetchMovies = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const {data} = await api.get<RawFilm[]>(APIRoute.Films);
+    const {data} = await api.get<RawFilm[]>(APIRoute.Movies);
     const adaptedData = data.map((arrayData) => adaptMovieToClient(arrayData));
     dispatch(loadMovies(adaptedData));
+  };
+
+export const fetchMovie = (filmId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<RawFilm>(APIRoute.OneMovie(filmId));
+    const adaptedData = adaptMovieToClient(data);
+    dispatch(loadOneMovie(adaptedData));
   };
 
 export const fetchPromoMovie = (): ThunkActionResult =>

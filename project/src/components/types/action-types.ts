@@ -9,6 +9,7 @@ export enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   RequireLogout = 'user/requireLogout',
   LoadMovies = 'data/loadMovies',
+  LoadOneMovie = 'data/loadOneMovie',
   LoadPromoMovie = 'data/loadPromoMovie',
   LoadCommentsToMovie = 'data/commentsToMovie',
   LoadSimilarMovie = 'data/similarMovie',

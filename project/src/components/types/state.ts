@@ -18,7 +18,7 @@ export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
 }
 
-export type UserData= {
+export type UserData = {
   userName: string,
   userAvatar: string,
 }

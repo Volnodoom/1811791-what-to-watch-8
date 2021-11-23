@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CommentsStatus, LineOfUpdate } from '../../components/const/const';
 import { FilmsData } from '../../components/types/state';
-import { updateArrowData } from '../../utils/common';
-import { checkCommentsUpdateStatus, loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadPromoMovie, loadSimilarMovies, updateCommentsData, updateFilmsByFavoriteMovie, updateMyFavoriteMovies } from '../action';
+import { findMovieIndexInArray, updateArrowData } from '../../utils/common';
+import { checkCommentsUpdateStatus, loadCommentsToMovie, loadMovies, loadMyFavoriteMovies, loadOneMovie, loadPromoMovie, loadSimilarMovies, updateCommentsData, updateFilmsByFavoriteMovie, updateMyFavoriteMovies } from '../action';
 
 const initialState: FilmsData = {
   films: [],
@@ -20,6 +20,11 @@ const filmsData = createReducer(initialState, (builder) => {
       const {films} = action.payload;
       state.films = films;
       state.isDataLoaded = true;
+    })
+    .addCase(loadOneMovie, (state, action) => {
+      const film = action.payload.oneFilm;
+      const id = film.id;
+      state.films[findMovieIndexInArray(state.films, id)] = film;
     })
     .addCase(loadPromoMovie, (state, action) => {
       const promoFilm = action.payload.promoFilm;

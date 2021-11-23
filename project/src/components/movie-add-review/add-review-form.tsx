@@ -60,16 +60,15 @@ function AddReviewForm ():JSX.Element {
     };
 
     setIsFormBlocked(true);
-
     dispatch(postComments(id,result));
-
-    if (commentsStatusState === CommentsStatus.Success) {
-      setIsFormBlocked(false);
-      history.push(AppRoute.Reviews(id));
-    } else {
-      setIsFormBlocked(false);
-    }
   };
+
+  if (commentsStatusState === CommentsStatus.Success) {
+    setIsFormBlocked(false);
+    history.push(AppRoute.Reviews(id));
+  } else {
+    setIsFormBlocked(false);
+  }
 
   return (
     <div className="add-review">
