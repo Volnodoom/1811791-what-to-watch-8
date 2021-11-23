@@ -19,6 +19,7 @@ import {
   updateFilmsByFavoriteMovie,
   updateMyFavoriteMovies
 } from './action';
+import { dropAvatarImg, dropAvatarName, saveAvatarImg, saveAvatarName } from '../services/avatar-data';
 
 
 const AUTH_FAIL_MESSAGE = 'Assess to some pages on the web-site has only authorized users';
@@ -81,7 +82,11 @@ export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResul
     const {data} = await api.post<RawUserInfo>(APIRoute.Login, {email, password});
     saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+
     const adaptedData = adaptUserInfoToClient(data);
+    saveAvatarImg(adaptedData.userAvatar);
+    saveAvatarName(adaptedData.userName);
+
     dispatch(loadUserInfo(adaptedData));
     dispatch(redirectToRout(AppRoute.Main));
   };
@@ -90,6 +95,8 @@ export const fetchLogout = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     api.delete(APIRoute.Logout);
     dropToken();
+    dropAvatarImg();
+    dropAvatarName();
     dispatch(requireLogout());
   };
 

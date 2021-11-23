@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import * as selectors from '../../store/selectors';
+import { getAvatarImg, getAvatarName } from '../../services/avatar-data';
 
 function Avatar(): JSX.Element {
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
-  const userImg = useSelector(selectors.getUserAvatar);
-  const userName = useSelector(selectors.getUserName);
+  const userImg = getAvatarImg();
+  const userName = getAvatarName();
   const dispatch = useDispatch();
   const history = useHistory();
 
