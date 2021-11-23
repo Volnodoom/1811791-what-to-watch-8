@@ -8,7 +8,7 @@ import * as selectors from '../../store/selectors';
 
 const InitialState = {
   Comment: '',
-  Rating: '0',
+  Rating: '8',
 };
 
 const MINIMAL_LENGTH = 50;
