@@ -20,7 +20,6 @@ import {
   updateMyFavoriteMovies
 } from './action';
 
-const AUTH_FAIL_MESSAGE = 'Assess to some pages on the web-site has only authorized users';
 const POST_MESSAGE_FAIL = 'We faced some troubles updating your feedback, please retry or repeat it later';
 const TOAST_CLOSE = 5000;
 const TOAST_THEME = 'colored';
@@ -63,18 +62,10 @@ export const postComments= (id: number | string, commentData: CommentToServer): 
 
 export const fetchCheckAuth = (): ThunkActionResult =>
   async (dispatch, _getSate, api) => {
-    try {
-      const {data} = await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-      const adaptedData = adaptUserInfoToClient(data);
-      dispatch(loadUserInfo(adaptedData));
-    } catch {
-      toast.info(AUTH_FAIL_MESSAGE, {
-        autoClose: TOAST_CLOSE,
-        theme: TOAST_THEME,
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
+    const {data} = await api.get(APIRoute.Login);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    const adaptedData = adaptUserInfoToClient(data);
+    dispatch(loadUserInfo(adaptedData));
   };
 
 export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResult =>
