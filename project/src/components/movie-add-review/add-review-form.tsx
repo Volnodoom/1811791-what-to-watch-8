@@ -18,16 +18,24 @@ const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => 
 const numeration: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse()!;
 
 function AddReviewForm ():JSX.Element {
+
   const [feedback, setFeedback] = useState(InitialState.Comment);
   const [ratingValue, setRating] = useState(InitialState.Rating);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
-  const [isFormBlocked, setIsFormBlocked] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
 
   const dispatch = useDispatch();
   const {id} = useParams<IdParam>();
   const history = useHistory();
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const commentsStatusState = useSelector(selectors.getCommentsStatus);
+
+  useEffect(() => {
+    if (commentsStatusState === CommentsStatus.Success) {
+      setIsFormLoading(true);
+      history.push(AppRoute.Reviews(id));
+    }
+  }, [commentsStatusState]);
 
   useEffect(() => {Number(ratingValue) === 0 || feedback.length < MINIMAL_LENGTH || feedback.length > MAX_LENGTH
     ? setIsButtonDisabled((prevState)=> true)
@@ -59,16 +67,8 @@ function AddReviewForm ():JSX.Element {
       comment: feedback,
     };
 
-    setIsFormBlocked(true);
     dispatch(postComments(id,result));
   };
-
-  if (commentsStatusState === CommentsStatus.Success) {
-    setIsFormBlocked(false);
-    history.push(AppRoute.Reviews(id));
-  } else {
-    setIsFormBlocked(false);
-  }
 
   return (
     <div className="add-review">
@@ -88,6 +88,7 @@ function AddReviewForm ():JSX.Element {
                     name="rating"
                     value={numberValue}
                     checked={numberValue === Number(ratingValue)}
+                    disabled={isFormLoading}
                   />
                   <label className="rating__label" htmlFor={`star-rating-${numberValue}`} >Rating {numberValue}</label>
                 </Fragment>
@@ -108,14 +109,14 @@ function AddReviewForm ():JSX.Element {
             minLength={MINIMAL_LENGTH}
             maxLength={MAX_LENGTH}
             onInput={handleOnInputText}
-            disabled={isFormBlocked}
+            disabled={isFormLoading}
           />
 
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
-              disabled={isButtonDisabled}
+              disabled={isButtonDisabled || isFormLoading}
             >Post
             </button>
           </div>

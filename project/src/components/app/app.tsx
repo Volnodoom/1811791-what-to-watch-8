@@ -92,13 +92,9 @@ function App(): JSX.Element {
             />
           )}
         />
-        <Route
-          exact
-          path={AppRoute.Error404}
-          render={() => (
-            <Error404/>
-          )}
-        />
+        <Route>
+          <Error404/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

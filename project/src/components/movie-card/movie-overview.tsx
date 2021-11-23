@@ -22,7 +22,7 @@ function MovieOverview(props: {film: MovieInfo}):JSX.Element {
   return(
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{ratingAbsolute}</div>
+        <div className="film-rating__score">{ratingAbsolute.toString().length === 1 ? `${ratingAbsolute}.0` : ratingAbsolute}</div>
         <p className="film-rating__meta">
           <span className="film-rating__level">{getStringLikeRating(ratingAbsolute)}</span>
           <span className="film-rating__count"> {ratingCount} ratings</span>
