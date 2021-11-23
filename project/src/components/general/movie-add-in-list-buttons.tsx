@@ -40,14 +40,14 @@ function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
     };
   };
 
-  const handleMyFavoriteFunctionality = () => {
+  const handleMyFavoriteButtClick = () => {
     dispatch(postMyFavorite(filmId, isFavorite ? MOVIE_REMOVED_FROM_MYLIST : MOVIE_ADDED_TO_MYLIST));
   };
 
   const {className, viewBox, use, snap, width, height} = kindOfMovieCardButton();
 
   return (
-    <button className={className} type="button" onClick={handleMyFavoriteFunctionality}>
+    <button className={className} type="button" onClick={handleMyFavoriteButtClick}>
       <svg viewBox={viewBox}  width={width}  height={height}>
         <use xlinkHref= {use}></use>
       </svg>

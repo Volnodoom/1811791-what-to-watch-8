@@ -40,7 +40,7 @@ function SignIn(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const submitHandle = (evt: FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if(loginRef.current === null && passwordRef.current === null) {
@@ -87,7 +87,7 @@ function SignIn(): JSX.Element {
         <form
           action="#"
           className="sign-in__form"
-          onSubmit={submitHandle}
+          onSubmit={handleOnSubmit}
         >
           <div className="sign-in__fields">
             <div className="sign-in__field">

@@ -8,7 +8,7 @@ type MoviePlayButtonProps = {
 function MoviePlayButton(props: MoviePlayButtonProps): JSX.Element {
   const {onPlayFilm, filmId} = props;
 
-  const moviePlayHandler = (evt: MouseEvent<HTMLElement>) => {
+  const handleButtonPlay = (evt: MouseEvent<HTMLElement>) => {
     onPlayFilm(filmId);
   };
 
@@ -16,7 +16,7 @@ function MoviePlayButton(props: MoviePlayButtonProps): JSX.Element {
     <button
       className="btn btn--play film-card__button"
       type="button"
-      onClick={moviePlayHandler}
+      onClick={handleButtonPlay}
     >
       <svg viewBox="0 0 19 19" width="19" height="19">
         <use xlinkHref="#play-s"></use>

@@ -24,7 +24,7 @@ function MainGenreFilters():JSX.Element {
   const selectFilmsByGenre = useMemo(() => selectors.makeSelectFilmsByGenre(activeGenre), [activeGenre]);
   const filmsByGenre = useSelector((state:State) => selectFilmsByGenre(state));
 
-  const activeGenreHandler = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
+  const handleActiveGenreClick = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     setActiveGenre (genre);
   };
@@ -40,7 +40,7 @@ function MainGenreFilters():JSX.Element {
             <li
               className={genre === activeGenre ? GenreState.Active : GenreState.NonActive}
               key={genre}
-              onClick={activeGenreHandler(genre)}
+              onClick={handleActiveGenreClick(genre)}
             >
               <a href="#url" className="catalog__genres-link">{genre}</a>
             </li>

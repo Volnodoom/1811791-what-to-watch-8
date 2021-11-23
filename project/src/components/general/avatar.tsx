@@ -5,16 +5,17 @@ import { Link } from 'react-router-dom';
 import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import * as selectors from '../../store/selectors';
-import { getAvatarImg, getAvatarName } from '../../services/avatar-data';
+
 
 function Avatar(): JSX.Element {
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
-  const userImg = getAvatarImg();
-  const userName = getAvatarName();
+  const userImg = useSelector(selectors.getUserAvatar);
+  const userName = useSelector(selectors.getUserName);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const logoutHandle = (evt: MouseEvent<HTMLElement>) => {
+  const handleLogoutClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(fetchLogout());
   };
@@ -38,7 +39,7 @@ function Avatar(): JSX.Element {
             <Link
               to={AppRoute.Main}
               className="user-block__link"
-              onClick={logoutHandle}
+              onClick={handleLogoutClick}
             >
               Sign out
             </Link>
