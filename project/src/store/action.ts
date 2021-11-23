@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus, CommentsStatus } from '../components/const/const';
 import { ActionType } from '../components/types/action-types';
+import { UserData } from '../components/types/state';
 import { Comment, MovieInfo, ValuesOfAppRoute } from '../components/types/types';
 
 export const requireLogout = createAction (ActionType.RequireLogout);
@@ -28,6 +29,11 @@ export const loadMyFavoriteMovies = createAction (
 export const loadSimilarMovies = createAction (
   ActionType.LoadSimilarMovie,
   (similarMovies: MovieInfo[]) => ({payload: {similarMovies}}),
+);
+
+export const loadUserInfo = createAction (
+  ActionType.LoadUserInfo,
+  (userInfo: UserData) => ({payload: {userInfo}}),
 );
 
 export const updateCommentsData = createAction (

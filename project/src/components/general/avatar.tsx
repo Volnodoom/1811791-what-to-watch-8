@@ -6,13 +6,10 @@ import { fetchLogout } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import * as selectors from '../../store/selectors';
 
-const AvatarAdjustment = {
-  Img: 'img/avatar.jpg',
-  AltImg: 'User avatar',
-} as const;
-
 function Avatar(): JSX.Element {
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
+  const userImg = useSelector(selectors.getUserAvatar);
+  const userName = useSelector(selectors.getUserName);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,8 +25,8 @@ function Avatar(): JSX.Element {
           <li className="user-block__item">
             <div className="user-block__avatar">
               <img
-                src={AvatarAdjustment.Img}
-                alt={AvatarAdjustment.AltImg}
+                src={userImg}
+                alt={userName}
                 width="63"
                 height="63"
                 onClick={()=> history.push(AppRoute.MyList)}

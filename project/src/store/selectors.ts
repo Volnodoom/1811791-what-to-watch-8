@@ -13,6 +13,8 @@ export const getComments = (state: State): Comment[] => state[NameSpace.data].co
 export const getCommentsStatus = (state: State): CommentsStatus => state[NameSpace.data].commentStatus;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
+export const getUserAvatar = (state: State): string => state[NameSpace.user].userAvatar;
+export const getUserName = (state: State): string => state[NameSpace.user].userName;
 
 export const getMovieById = createSelector(
   [

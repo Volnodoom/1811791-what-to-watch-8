@@ -1,8 +1,8 @@
 import { APIRoute, AppRoute, AuthorizationStatus, CommentsStatus } from '../components/const/const';
 import { ThunkActionResult } from '../components/types/action-types';
-import { AuthData, Comment, CommentToServer, RawFilm } from '../components/types/types';
-import { adaptMovieToClient } from '../services/adapter';
-import { dropToken, saveToken, Token } from '../services/token';
+import { AuthData, Comment, CommentToServer, RawFilm, RawUserInfo } from '../components/types/types';
+import { adaptMovieToClient, adaptUserInfoToClient } from '../services/adapter';
+import { dropToken, saveToken } from '../services/token';
 import {toast} from 'react-toastify';
 import {
   checkCommentsUpdateStatus,
@@ -11,6 +11,7 @@ import {
   loadMyFavoriteMovies,
   loadPromoMovie,
   loadSimilarMovies,
+  loadUserInfo,
   redirectToRout,
   requireAuthorization,
   requireLogout,
@@ -18,6 +19,7 @@ import {
   updateFilmsByFavoriteMovie,
   updateMyFavoriteMovies
 } from './action';
+
 
 const AUTH_FAIL_MESSAGE = 'Assess to some pages on the web-site has only authorized users';
 const POST_MESSAGE_FAIL = 'We faced some troubles updating your feedback, please retry or repeat it later';
@@ -76,9 +78,11 @@ export const fetchCheckAuth = (): ThunkActionResult =>
 
 export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    const {data: {token}} = await api.post<{token: Token}>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<RawUserInfo>(APIRoute.Login, {email, password});
+    saveToken(data.token);
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    const adaptedData = adaptUserInfoToClient(data);
+    dispatch(loadUserInfo(adaptedData));
     dispatch(redirectToRout(AppRoute.Main));
   };
 

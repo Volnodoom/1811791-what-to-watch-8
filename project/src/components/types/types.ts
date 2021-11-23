@@ -41,6 +41,14 @@ export type RawFilm = {
   released: number,
 };
 
+export type RawUserInfo = {
+  id: number,
+  email: string,
+  name: string,
+  ['avatar_url']: string,
+  token: string,
+}
+
 export type IdParam = {id: string};
 
 export type Comment = {
