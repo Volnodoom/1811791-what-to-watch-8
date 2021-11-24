@@ -109,7 +109,6 @@ function AddReviewForm ():JSX.Element {
             ref={textAreaRef}
             minLength={MINIMAL_LENGTH}
             maxLength={MAX_LENGTH}
-            // onInput={handleOnInputText}
             disabled={isFormLoading}
           />
 
