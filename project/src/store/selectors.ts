@@ -34,14 +34,16 @@ export const getGenreList = createSelector([getMovies], (films: MovieInfo[]): st
   return Array.from(uniqueGenreList).slice(0,8);
 });
 
-export const makeSelectFilmsByGenre  = (genreKind: string) =>
-  createSelector(
-    [getMovies],
-    (films: MovieInfo[]): MovieInfo[] => {
-      if (genreKind === ALL_GENRES || undefined) {
-        return films;
-      }
-      const filtratedData = films.filter((film: MovieInfo) => film.genre === genreKind);
-      return filtratedData;
-    },
-  );
+export const getFilmsByGenre  = createSelector(
+  [
+    getMovies,
+    (state: State, genreKind: string) => genreKind,
+  ],
+  (films: MovieInfo[], genreKind): MovieInfo[] => {
+    if (genreKind === ALL_GENRES || undefined) {
+      return films;
+    }
+    const filtratedData = films.filter((film: MovieInfo) => film.genre === genreKind);
+    return filtratedData;
+  },
+);

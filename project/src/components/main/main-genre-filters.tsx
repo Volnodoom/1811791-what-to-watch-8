@@ -1,4 +1,4 @@
-import { MouseEvent, useMemo, useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { useSelector} from 'react-redux';
 import { State } from '../types/state';
 import { ALL_GENRES } from '../const/const';
@@ -21,8 +21,7 @@ function MainGenreFilters():JSX.Element {
   const [activeGenre, setActiveGenre] = useState(ALL_GENRES);
   const [showMore, setShowMore] = useState(MOVIES_NUMBER_AT_START);
 
-  const selectFilmsByGenre = useMemo(() => selectors.makeSelectFilmsByGenre(activeGenre), [activeGenre]);
-  const filmsByGenre = useSelector((state:State) => selectFilmsByGenre(state));
+  const filmsByGenre = useSelector((state:State) => selectors.getFilmsByGenre(state, activeGenre));
 
   const handleActiveGenreClick = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();

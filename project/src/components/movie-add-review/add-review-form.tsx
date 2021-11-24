@@ -14,8 +14,8 @@ const InitialState = {
 const MINIMAL_LENGTH = 50;
 const MAX_LENGTH = 400;
 
-const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse()!;
-const numeration: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse()!;
+const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse();
+const numeration: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse();
 
 function AddReviewForm ():JSX.Element {
 
@@ -35,7 +35,7 @@ function AddReviewForm ():JSX.Element {
       setIsFormLoading(true);
       history.push(AppRoute.Reviews(id));
     }
-  }, [commentsStatusState]);
+  }, [commentsStatusState, history, id]);
 
   useEffect(() => {Number(ratingValue) === 0 || feedback.length < MINIMAL_LENGTH || feedback.length > MAX_LENGTH
     ? setIsButtonDisabled((prevState)=> true)
