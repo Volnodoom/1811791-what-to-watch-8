@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import Error404 from '../routing/error-404';
+import PageIsNotAvailable from '../routing/page-is-not-available';
 import { IdParam, MovieInfo } from '../types/types';
 import AddReviewForm from './add-review-form';
 import AddReviewHeader from './add-review-header';
@@ -9,7 +9,7 @@ function AddReview(props: {movieList:MovieInfo[]}):JSX.Element {
   const film = props.movieList.find((filmCard) => filmCard.id === Number(id));
   if (!film) {
     return (
-      <Error404 />
+      <PageIsNotAvailable />
     );
   }
   const {backgroundImg, title, poster} = film;

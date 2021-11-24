@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { IdParam } from '../types/types';
 import * as selectors from '../../store/selectors';
 import { useParams } from 'react-router';
-import Error404 from '../routing/error-404';
+import PageIsNotAvailable from '../routing/page-is-not-available';
 import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -33,7 +33,7 @@ function Player(props: PlayerProps):JSX.Element {
 
   if (!film) {
     return (
-      <Error404 />
+      <PageIsNotAvailable />
     );
   }
 

@@ -8,7 +8,7 @@ export const AppRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
-  Error404: '/error404',
+  PageIsNotAvailable: '/PageIsNotAvailable',
   Movie: (id: string | number = ':id') => `/films/${id}`,
   Details: (id: string | number = ':id') => `/films/${id}/details`,
   Reviews: (id: string | number = ':id') => `/films/${id}/reviews`,

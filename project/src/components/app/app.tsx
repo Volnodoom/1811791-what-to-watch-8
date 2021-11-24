@@ -12,7 +12,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
-import Error404 from '../routing/error-404';
+import PageIsNotAvailable from '../routing/page-is-not-available';
 
 function App(): JSX.Element {
   const films = useSelector(selectors.getMovies);
@@ -93,7 +93,7 @@ function App(): JSX.Element {
           )}
         />
         <Route>
-          <Error404/>
+          <PageIsNotAvailable/>
         </Route>
       </Switch>
     </BrowserRouter>

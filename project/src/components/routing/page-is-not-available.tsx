@@ -27,7 +27,7 @@ const loadingLink: CSSProperties = {
   fontWeight: 'bold',
 };
 
-function Error404():JSX.Element {
+function PageIsNotAvailable():JSX.Element {
   return (
     <div style={loadingDiv}>
       <h1 style={loadingText}>
@@ -41,4 +41,4 @@ function Error404():JSX.Element {
   );
 }
 
-export default Error404;
+export default PageIsNotAvailable;
