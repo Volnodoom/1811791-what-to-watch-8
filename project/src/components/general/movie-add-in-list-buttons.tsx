@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { postMyFavorite } from '../../store/api-actions';
 import * as selectors from '../../store/selectors';
-import Error404 from '../routing/Error-404';
+import Error404 from '../routing/error-404';
 import { State } from '../types/state';
 
 const MOVIE_ADDED_TO_MYLIST = 1;
@@ -18,7 +18,7 @@ function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
 
   const isFavorite = film.isFavorite;
 
-  const getkindOfMovieCardButton = () => {
+  const getKindOfMovieCardButton = () => {
     if (isFavorite) {
       return {
         className: 'btn btn--play film-card__button',
@@ -44,7 +44,7 @@ function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
     dispatch(postMyFavorite(filmId, isFavorite ? MOVIE_REMOVED_FROM_MYLIST : MOVIE_ADDED_TO_MYLIST));
   };
 
-  const {className, viewBox, use, snap, width, height} = getkindOfMovieCardButton();
+  const {className, viewBox, use, snap, width, height} = getKindOfMovieCardButton();
 
   return (
     <button className={className} type="button" onClick={handleMyFavoriteButtClick}>

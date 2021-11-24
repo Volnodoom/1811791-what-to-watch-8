@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { IdParam } from '../types/types';
 import * as selectors from '../../store/selectors';
 import { useParams } from 'react-router';
-import Error404 from '../routing/Error-404';
+import Error404 from '../routing/error-404';
 import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
