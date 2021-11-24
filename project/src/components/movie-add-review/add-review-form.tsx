@@ -8,7 +8,7 @@ import * as selectors from '../../store/selectors';
 
 const InitialState = {
   Comment: '',
-  Rating: '8',
+  Rating: '0',
 };
 
 const MINIMAL_LENGTH = 50;
@@ -37,9 +37,20 @@ function AddReviewForm ():JSX.Element {
     }
   }, [commentsStatusState, history, id]);
 
-  useEffect(() => {Number(ratingValue) === 0 || feedback.length < MINIMAL_LENGTH || feedback.length > MAX_LENGTH
-    ? setIsButtonDisabled(true)
-    : setIsButtonDisabled(false);}, [ratingValue, feedback]);
+  useEffect(() => {
+    setIsButtonDisabled(true);
+
+    if(feedback.length < MINIMAL_LENGTH) {
+      textAreaRef.current?.setCustomValidity(`Your comments should be at least 50 symbols in length, please add ${MINIMAL_LENGTH - feedback.length} more symbols`);
+    } else if (Number(ratingValue) === 0) {
+      textAreaRef.current?.setCustomValidity('Please, evaluate your impression from the movie with number of stars');
+    } else {
+      setIsButtonDisabled(false);
+      textAreaRef.current?.setCustomValidity('');
+    }
+
+    textAreaRef.current?.reportValidity();
+  }, [ratingValue, feedback]);
 
   const handleOnTextChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
     setFeedback(target.value);
@@ -47,16 +58,6 @@ function AddReviewForm ():JSX.Element {
 
   const handleOnRatingChange= ({target}: ChangeEvent<HTMLInputElement>) => {
     setRating(() => target.value);
-  };
-
-  const handleOnInputText = () => {
-    if(feedback.length < MINIMAL_LENGTH) {
-      textAreaRef.current?.setCustomValidity(`Your comments should be at least 50 symbols in length, please add ${MINIMAL_LENGTH - feedback.length} more symbols`);
-    } else {
-      textAreaRef.current?.setCustomValidity('');
-    }
-
-    textAreaRef.current?.reportValidity();
   };
 
   const handleOnSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -108,7 +109,7 @@ function AddReviewForm ():JSX.Element {
             ref={textAreaRef}
             minLength={MINIMAL_LENGTH}
             maxLength={MAX_LENGTH}
-            onInput={handleOnInputText}
+            // onInput={handleOnInputText}
             disabled={isFormLoading}
           />
 

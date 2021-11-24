@@ -6,7 +6,7 @@ export type MovieInfo = {
   poster: string,
   previewImg: string,
   backgroundImg: string,
-  backgroundColor: string,
+  colorOfBackground: string,
   srcVideo: string,
   scrPreviewVideo: string,
   description: string,

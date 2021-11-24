@@ -7,7 +7,7 @@ export const adaptMovieToClient = (film: RawFilm): MovieInfo => ({
   poster: film['poster_image'],
   previewImg: film['preview_image'],
   backgroundImg: film['background_image'],
-  backgroundColor: film['background_color'],
+  colorOfBackground: film['background_color'],
   srcVideo: film['video_link'],
   scrPreviewVideo: film['preview_video_link'],
   description: film['description'],

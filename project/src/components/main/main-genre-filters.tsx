@@ -26,6 +26,7 @@ function MainGenreFilters():JSX.Element {
   const handleActiveGenreClick = (genre: string) => (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     setActiveGenre (genre);
+    setShowMore(MOVIES_NUMBER_AT_START);
   };
 
   const arrayWithStep = filmsByGenre.slice(START_OF_COPING, showMore);
