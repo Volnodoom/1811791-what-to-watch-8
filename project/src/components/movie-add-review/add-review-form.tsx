@@ -14,8 +14,8 @@ const InitialState = {
 const MINIMAL_LENGTH = 50;
 const MAX_LENGTH = 400;
 
-const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse();
-const numeration: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse();
+const ratingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse();
+const starsNumbers: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse();
 
 function AddReviewForm ():JSX.Element {
 
@@ -77,9 +77,9 @@ function AddReviewForm ():JSX.Element {
         <div className="rating">
           <div className="rating__stars">
 
-            {AddReviewRatingStars.map((numberValue, index) =>
+            {ratingStars.map((numberValue, index) =>
               (
-                <Fragment key={`itemStarRating-${numeration[index]}`}>
+                <Fragment key={`itemStarRating-${starsNumbers[index]}`}>
                   <input
                     onChange={handleOnRatingChange}
                     className="rating__input"

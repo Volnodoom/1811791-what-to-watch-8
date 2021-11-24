@@ -6,7 +6,7 @@ import { getProgress } from '../utils/common';
 type UserPlayHook = {
   playerRef: MutableRefObject<HTMLVideoElement | null>,
   handleTogglePlayPause: () => void,
-  fullScreen: () => void,
+  handleFullScreen: () => void,
   totalTime: number,
   currentTime: number,
   handleTimeUpdate: () => void,
@@ -52,7 +52,7 @@ export const usePlayer = (): UserPlayHook => {
     playerRef.current.pause();
   }, [isPlaying, playerRef, currentTime]);
 
-  const fullScreen = () => {
+  const handleFullScreen = () => {
     if (!playerRef.current) {
       return;
     }
@@ -71,7 +71,7 @@ export const usePlayer = (): UserPlayHook => {
   return {
     playerRef,
     handleTogglePlayPause,
-    fullScreen,
+    handleFullScreen,
     totalTime,
     currentTime,
     handleTimeUpdate,

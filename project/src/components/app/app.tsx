@@ -1,6 +1,6 @@
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import Main from '../main/main';
-import Error404 from '../routing/Error404';
+import Error404 from '../routing/Error-404';
 import Player from '../player/player';
 import AddReview from '../movie-add-review/add-review';
 import MovieCard from '../movie-card/movie-card';

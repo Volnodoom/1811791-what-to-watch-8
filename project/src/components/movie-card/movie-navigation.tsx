@@ -1,19 +1,37 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import { IdParam } from '../types/types';
 
 const INACTIVE_STATE = 'film-nav__item';
 const ACTIVE_STATE = 'film-nav__item film-nav__item--active';
+const DETAILS = 'details';
+const REVIEWS ='reviews';
+
 
 function MovieNavigation():JSX.Element {
   const{id} = useParams() as IdParam;
+  const pathName = useLocation().pathname;
+
   const initialState = {
-    overview: true,
+    overview: false,
     details: false,
     reviews: false,
   };
+
   const [toggleHighlight, setToggleHighlight] = useState(initialState);
+
+  switch (true) {
+    case pathName.includes(DETAILS):
+      initialState.details = true;
+      break;
+    case pathName.includes(REVIEWS):
+      initialState.reviews = true;
+      break;
+    default:
+      initialState.overview = true;
+      break;
+  }
 
   return (
     <nav className="film-nav film-card__nav">

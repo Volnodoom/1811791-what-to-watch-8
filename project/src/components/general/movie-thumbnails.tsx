@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../const/const';
-import VideoPlayer from '../player/video';
+import VideoPlayer from '../player/video-player';
 import { MovieInfo } from '../types/types';
 import {useHistory} from 'react-router-dom';
 

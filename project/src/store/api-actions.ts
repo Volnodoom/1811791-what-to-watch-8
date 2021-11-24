@@ -5,7 +5,6 @@ import { adaptMovieToClient, adaptUserInfoToClient } from '../services/adapter';
 import { dropToken, saveToken } from '../services/token';
 import {toast} from 'react-toastify';
 import {
-  checkCommentsUpdateStatus,
   loadCommentsToMovie,
   loadMovies,
   loadMyFavoriteMovies,
@@ -17,6 +16,7 @@ import {
   requireAuthorization,
   requireLogout,
   updateCommentsData,
+  updateCommentsStatus,
   updateFilmsByFavoriteMovie,
   updateMyFavoriteMovies
 } from './action';
@@ -57,14 +57,14 @@ export const postComments= (id: number | string, commentData: CommentToServer): 
     try {
       const {data} = await api.post<Comment[]>(APIRoute.CommentsGetPost(id), commentData);
       dispatch(updateCommentsData(data));
-      dispatch(checkCommentsUpdateStatus(CommentsStatus.Success));
+      dispatch(updateCommentsStatus(CommentsStatus.Success));
     } catch {
       toast.error(POST_MESSAGE_FAIL, {
         autoClose: TOAST_CLOSE,
         theme: TOAST_THEME,
         position: toast.POSITION.TOP_CENTER,
       });
-      dispatch(checkCommentsUpdateStatus(CommentsStatus.Failed));
+      dispatch(updateCommentsStatus(CommentsStatus.Failed));
     }
   };
 

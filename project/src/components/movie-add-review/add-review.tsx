@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import Error404 from '../routing/Error404';
+import Error404 from '../routing/Error-404';
 import { IdParam, MovieInfo } from '../types/types';
 import AddReviewForm from './add-review-form';
 import AddReviewHeader from './add-review-header';

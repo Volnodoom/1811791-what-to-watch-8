@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
-import Error404 from '../routing/Error404';
-import { AppRoute, AuthorizationStatus, CardState, MatchingComponent } from '../const/const';
+import Error404 from '../routing/Error-404';
+import { AppRoute, AuthorizationStatus, CardState, CommentsStatus, MatchingComponent } from '../const/const';
 import { IdParam } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
 import Footer from '../general/footer';
@@ -19,6 +19,7 @@ import { State } from '../types/state';
 import { fetchSimilarMovie } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { prepareSimilarMovies } from '../../utils/common';
+import { updateCommentsStatus } from '../../store/action';
 
 type MovieCardProps = {
   cardTab: string,
@@ -34,6 +35,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
   const userStatus = useSelector(selectors.getAuthorizationStatus);
 
   const dispatch = useDispatch();
+  dispatch(updateCommentsStatus(CommentsStatus.NotProceeded));
 
   useEffect(() => {
     if (film) { dispatch(fetchSimilarMovie(id));}

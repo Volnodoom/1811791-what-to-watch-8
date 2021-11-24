@@ -46,8 +46,8 @@ export const updateCommentsData = createAction (
   (comments: Comment[]) => ({payload: {comments}}),
 );
 
-export const checkCommentsUpdateStatus = createAction (
-  ActionType.CheckCommentsUpdateStatus,
+export const updateCommentsStatus = createAction (
+  ActionType.UpdateCommentsStatus,
   (commentStatus: CommentsStatus) => ({payload: {commentStatus}}),
 );
 

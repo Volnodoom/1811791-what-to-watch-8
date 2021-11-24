@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { IdParam } from '../types/types';
 import * as selectors from '../../store/selectors';
 import { useParams } from 'react-router';
-import Error404 from '../routing/Error404';
+import Error404 from '../routing/Error-404';
 import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -22,7 +22,7 @@ function Player(props: PlayerProps):JSX.Element {
   const {
     playerRef,
     handleTogglePlayPause,
-    fullScreen,
+    handleFullScreen,
     totalTime,
     currentTime,
     handleTimeUpdate,
@@ -106,7 +106,7 @@ function Player(props: PlayerProps):JSX.Element {
           <button
             type="button"
             className="player__full-screen"
-            onClick={fullScreen}
+            onClick={handleFullScreen}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
