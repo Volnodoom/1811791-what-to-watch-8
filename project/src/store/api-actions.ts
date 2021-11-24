@@ -70,10 +70,14 @@ export const postComments= (id: number | string, commentData: CommentToServer): 
 
 export const fetchCheckAuth = (): ThunkActionResult =>
   async (dispatch, _getSate, api) => {
-    const {data} = await api.get(APIRoute.Login);
-    dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    const adaptedData = adaptUserInfoToClient(data);
-    dispatch(loadUserInfo(adaptedData));
+    try {
+      const {data} = await api.get(APIRoute.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const adaptedData = adaptUserInfoToClient(data);
+      dispatch(loadUserInfo(adaptedData));
+    } catch {
+      new Array(7).fill('');
+    }
   };
 
 export const fetchLogin = ({login: email, password}: AuthData): ThunkActionResult =>
