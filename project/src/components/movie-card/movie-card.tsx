@@ -56,11 +56,11 @@ function MovieCard(props: MovieCardProps):JSX.Element {
     return <Redirect to={AppRoute.PageIsNotAvailable}/>;
   }
 
-  const {backgroundImg, poster, title} = film;
+  const {backgroundImg, poster, title, colorOfBackground} = film;
 
   return(
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{backgroundColor: colorOfBackground}} >
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={backgroundImg} alt={title} />
