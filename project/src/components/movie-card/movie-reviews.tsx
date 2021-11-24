@@ -15,8 +15,8 @@ function MovieReviews():JSX.Element {
     dispatch(fetchCommentsToMovie(Number(id)));
   }, [id, dispatch]);
 
-  const firstContainer: Comment[] = [];
-  const secondContainer: Comment[] = [];
+  const firstContainerComments: Comment[] = [];
+  const secondContainerComments: Comment[] = [];
 
   if (comments.length === 0) {
     return (
@@ -28,20 +28,20 @@ function MovieReviews():JSX.Element {
 
   comments.map((oneMessage, index) => {
     if(index%2 === 0) {
-      return firstContainer.push(oneMessage);
+      return firstContainerComments.push(oneMessage);
     } else {
-      return secondContainer.push(oneMessage);
+      return secondContainerComments.push(oneMessage);
     }
   });
 
   return(
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {firstContainer.map((comment) => <MovieSingleReview feedback={comment} key={comment.id}/>)}
+        {firstContainerComments.map((comment) => <MovieSingleReview feedback={comment} key={comment.id}/>)}
       </div>
 
       <div className="film-card__reviews-col">
-        {secondContainer.map((comment) => <MovieSingleReview feedback={comment} key={comment.id}/>)}
+        {secondContainerComments.map((comment) => <MovieSingleReview feedback={comment} key={comment.id}/>)}
       </div>
     </div>
 

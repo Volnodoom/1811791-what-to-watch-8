@@ -6,12 +6,15 @@ import { AuthorizationStatus } from '../components/const/const';
 import { NameSpace } from './root-reducer';
 
 export const getMovies = (state: State): MovieInfo[] => state[NameSpace.data].films;
-export const getPromoMovies = (state: State): MovieInfo | undefined => state[NameSpace.data].promoFilm;
+export const getPromoMovie = (state: State): MovieInfo | undefined => state[NameSpace.data].promoFilm;
 export const getMyFavoriteMovies = (state: State): MovieInfo[] | [] => state[NameSpace.data].myFavoriteMovies;
+export const getSimilarMovies = (state: State): MovieInfo[] | [] => state[NameSpace.data].similarMovies;
 export const getComments = (state: State): Comment[] => state[NameSpace.data].comments;
 export const getCommentsStatus = (state: State): CommentsStatus => state[NameSpace.data].commentStatus;
 export const getLoadedDataStatus = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 export const getAuthorizationStatus = (state: State): AuthorizationStatus => state[NameSpace.user].authorizationStatus;
+export const getUserAvatar = (state: State): string => state[NameSpace.user].userAvatar;
+export const getUserName = (state: State): string => state[NameSpace.user].userName;
 
 export const getMovieById = createSelector(
   [
@@ -31,14 +34,16 @@ export const getGenreList = createSelector([getMovies], (films: MovieInfo[]): st
   return Array.from(uniqueGenreList).slice(0,8);
 });
 
-export const makeSelectFilmsByGenre  = (genreKind: string) =>
-  createSelector(
-    [getMovies],
-    (films: MovieInfo[]): MovieInfo[] => {
-      if (genreKind === ALL_GENRES || undefined) {
-        return films;
-      }
-      const filtratedData = films.filter((film: MovieInfo) => film.genre === genreKind);
-      return filtratedData;
-    },
-  );
+export const getFilmsByGenre  = createSelector(
+  [
+    getMovies,
+    (state: State, genreKind: string) => genreKind,
+  ],
+  (films: MovieInfo[], genreKind): MovieInfo[] => {
+    if (genreKind === ALL_GENRES || undefined) {
+      return films;
+    }
+    const filtratedData = films.filter((film: MovieInfo) => film.genre === genreKind);
+    return filtratedData;
+  },
+);

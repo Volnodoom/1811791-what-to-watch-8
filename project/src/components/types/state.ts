@@ -11,8 +11,14 @@ export type FilmsData = {
   isDataLoaded: boolean,
   myFavoriteMovies: MovieInfo[],
   commentStatus: CommentsStatus,
+  similarMovies: MovieInfo[],
 }
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
+}
+
+export type UserData = {
+  userName: string,
+  userAvatar: string,
 }

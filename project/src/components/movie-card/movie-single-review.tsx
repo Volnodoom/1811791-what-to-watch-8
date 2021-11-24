@@ -31,7 +31,7 @@ function MovieSingleReview(props: {feedback:Comment}):JSX.Element {
         </footer>
       </blockquote>
 
-      <div className="review__rating">{rating}</div>
+      <div className="review__rating">{rating.toString().length === 1 ? `${rating}.0` : rating}</div>
     </div>
   );
 

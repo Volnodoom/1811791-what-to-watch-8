@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 import { IdParam } from '../types/types';
 import * as selectors from '../../store/selectors';
-import { useParams } from 'react-router';
-import Error404 from '../routing/Error404';
+import { Redirect, useParams } from 'react-router';
 import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { State } from '../types/state';
+import { AppRoute } from '../const/const';
 
 const ONE_HUNDRED_PERCENT = 100;
 
@@ -22,7 +22,7 @@ function Player(props: PlayerProps):JSX.Element {
   const {
     playerRef,
     handleTogglePlayPause,
-    fullScreen,
+    handleFullScreen,
     totalTime,
     currentTime,
     handleTimeUpdate,
@@ -32,9 +32,7 @@ function Player(props: PlayerProps):JSX.Element {
   } = usePlayer();
 
   if (!film) {
-    return (
-      <Error404 />
-    );
+    return <Redirect to={AppRoute.PageIsNotAvailable}/>;
   }
 
   const {srcVideo, backgroundImg } = film;
@@ -106,7 +104,7 @@ function Player(props: PlayerProps):JSX.Element {
           <button
             type="button"
             className="player__full-screen"
-            onClick={fullScreen}
+            onClick={handleFullScreen}
           >
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>

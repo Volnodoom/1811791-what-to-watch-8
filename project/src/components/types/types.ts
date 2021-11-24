@@ -10,7 +10,7 @@ export type MovieInfo = {
   srcVideo: string,
   scrPreviewVideo: string,
   description: string,
-  ratingAbsolute: number | string,
+  ratingAbsolute: number,
   ratingCount: number,
   director: string,
   actors: string[],
@@ -40,6 +40,14 @@ export type RawFilm = {
   starring: string[],
   released: number,
 };
+
+export type RawUserInfo = {
+  id: number,
+  email: string,
+  name: string,
+  ['avatar_url']: string,
+  token: string,
+}
 
 export type IdParam = {id: string};
 

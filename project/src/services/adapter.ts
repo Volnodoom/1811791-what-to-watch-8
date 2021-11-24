@@ -1,4 +1,5 @@
-import { MovieInfo, RawFilm } from '../components/types/types';
+import { UserData } from '../components/types/state';
+import { MovieInfo, RawFilm, RawUserInfo } from '../components/types/types';
 
 export const adaptMovieToClient = (film: RawFilm): MovieInfo => ({
   id: film['id'],
@@ -18,4 +19,9 @@ export const adaptMovieToClient = (film: RawFilm): MovieInfo => ({
   genre: film['genre'],
   year: film['released'],
   isFavorite: film['is_favorite'],
+});
+
+export const adaptUserInfoToClient = (user: RawUserInfo): UserData => ({
+  userName: user.name,
+  userAvatar: user['avatar_url'],
 });

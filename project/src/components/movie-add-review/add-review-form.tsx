@@ -14,14 +14,15 @@ const InitialState = {
 const MINIMAL_LENGTH = 50;
 const MAX_LENGTH = 400;
 
-const AddReviewRatingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse()!;
-const numeration: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse()!;
+const ratingStars: number[] = new Array(10).fill('').map((_, index) => index+1).reverse();
+const starsNumbers: number[] = new Array(10).fill('').map((line, index) => line = index+1).reverse();
 
 function AddReviewForm ():JSX.Element {
+
   const [feedback, setFeedback] = useState(InitialState.Comment);
   const [ratingValue, setRating] = useState(InitialState.Rating);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
-  const [isFormBlocked, setIsFormBlocked] = useState(false);
+  const [isFormLoading, setIsFormLoading] = useState(false);
 
   const dispatch = useDispatch();
   const {id} = useParams<IdParam>();
@@ -29,9 +30,16 @@ function AddReviewForm ():JSX.Element {
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const commentsStatusState = useSelector(selectors.getCommentsStatus);
 
+  useEffect(() => {
+    if (commentsStatusState === CommentsStatus.Success) {
+      setIsFormLoading(true);
+      history.push(AppRoute.Reviews(id));
+    }
+  }, [commentsStatusState, history, id]);
+
   useEffect(() => {Number(ratingValue) === 0 || feedback.length < MINIMAL_LENGTH || feedback.length > MAX_LENGTH
-    ? setIsButtonDisabled((prevState)=> true)
-    : setIsButtonDisabled((prevState)=> false);}, [ratingValue, feedback]);
+    ? setIsButtonDisabled(true)
+    : setIsButtonDisabled(false);}, [ratingValue, feedback]);
 
   const handleOnTextChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
     setFeedback(target.value);
@@ -59,16 +67,7 @@ function AddReviewForm ():JSX.Element {
       comment: feedback,
     };
 
-    setIsFormBlocked(true);
-
     dispatch(postComments(id,result));
-
-    if (commentsStatusState === CommentsStatus.Success) {
-      setIsFormBlocked(false);
-      history.push(AppRoute.Reviews(id));
-    } else {
-      setIsFormBlocked(false);
-    }
   };
 
   return (
@@ -78,9 +77,9 @@ function AddReviewForm ():JSX.Element {
         <div className="rating">
           <div className="rating__stars">
 
-            {AddReviewRatingStars.map((numberValue, index) =>
+            {ratingStars.map((numberValue, index) =>
               (
-                <Fragment key={`itemStarRating-${numeration[index]}`}>
+                <Fragment key={`itemStarRating-${starsNumbers[index]}`}>
                   <input
                     onChange={handleOnRatingChange}
                     className="rating__input"
@@ -89,6 +88,7 @@ function AddReviewForm ():JSX.Element {
                     name="rating"
                     value={numberValue}
                     checked={numberValue === Number(ratingValue)}
+                    disabled={isFormLoading}
                   />
                   <label className="rating__label" htmlFor={`star-rating-${numberValue}`} >Rating {numberValue}</label>
                 </Fragment>
@@ -109,14 +109,14 @@ function AddReviewForm ():JSX.Element {
             minLength={MINIMAL_LENGTH}
             maxLength={MAX_LENGTH}
             onInput={handleOnInputText}
-            disabled={isFormBlocked}
+            disabled={isFormLoading}
           />
 
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
-              disabled={isButtonDisabled}
+              disabled={isButtonDisabled || isFormLoading}
             >Post
             </button>
           </div>

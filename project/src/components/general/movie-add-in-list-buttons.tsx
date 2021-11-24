@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import { postMyFavorite } from '../../store/api-actions';
 import * as selectors from '../../store/selectors';
-import Error404 from '../routing/Error404';
+import { AppRoute } from '../const/const';
 import { State } from '../types/state';
 
 const MOVIE_ADDED_TO_MYLIST = 1;
@@ -13,12 +14,12 @@ function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
   const dispatch = useDispatch();
 
   if(typeof film === 'undefined') {
-    return <Error404 />;
+    return <Redirect to={AppRoute.PageIsNotAvailable}/>;
   }
 
   const isFavorite = film.isFavorite;
 
-  const kindOfMovieCardButton = () => {
+  const getKindOfMovieCardButton = () => {
     if (isFavorite) {
       return {
         className: 'btn btn--play film-card__button',
@@ -40,14 +41,14 @@ function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
     };
   };
 
-  const handleMyFavoriteFunctionality = () => {
+  const handleMyFavoriteButtClick = () => {
     dispatch(postMyFavorite(filmId, isFavorite ? MOVIE_REMOVED_FROM_MYLIST : MOVIE_ADDED_TO_MYLIST));
   };
 
-  const {className, viewBox, use, snap, width, height} = kindOfMovieCardButton();
+  const {className, viewBox, use, snap, width, height} = getKindOfMovieCardButton();
 
   return (
-    <button className={className} type="button" onClick={handleMyFavoriteFunctionality}>
+    <button className={className} type="button" onClick={handleMyFavoriteButtClick}>
       <svg viewBox={viewBox}  width={width}  height={height}>
         <use xlinkHref= {use}></use>
       </svg>

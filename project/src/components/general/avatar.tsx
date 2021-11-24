@@ -1,24 +1,36 @@
 import { MouseEvent } from 'react';
 import {useHistory} from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchLogout } from '../../store/api-actions';
+import { fetchLogout, fetchMovie } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const/const';
 import * as selectors from '../../store/selectors';
+import { IdParam } from '../types/types';
 
-const AvatarAdjustment = {
-  Img: 'img/avatar.jpg',
-  AltImg: 'User avatar',
-} as const;
 
 function Avatar(): JSX.Element {
   const authorizationStatus = useSelector(selectors.getAuthorizationStatus);
+  const userImg = useSelector(selectors.getUserAvatar);
+  const userName = useSelector(selectors.getUserName);
+  const idPromo = useSelector(selectors.getPromoMovie)?.id;
+
+  const {id} = useParams<IdParam>();
+
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const logoutHandle = (evt: MouseEvent<HTMLElement>) => {
+  const handleLogoutClick = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(fetchLogout());
+
+    if (id) {
+      dispatch(fetchMovie(Number(id)));
+    }
+
+    if (idPromo) {
+      dispatch(fetchMovie(Number(idPromo)));
+    }
   };
 
   return (
@@ -28,8 +40,8 @@ function Avatar(): JSX.Element {
           <li className="user-block__item">
             <div className="user-block__avatar">
               <img
-                src={AvatarAdjustment.Img}
-                alt={AvatarAdjustment.AltImg}
+                src={userImg}
+                alt={userName}
                 width="63"
                 height="63"
                 onClick={()=> history.push(AppRoute.MyList)}
@@ -40,7 +52,7 @@ function Avatar(): JSX.Element {
             <Link
               to={AppRoute.Main}
               className="user-block__link"
-              onClick={logoutHandle}
+              onClick={handleLogoutClick}
             >
               Sign out
             </Link>

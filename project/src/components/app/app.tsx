@@ -1,6 +1,5 @@
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import Main from '../main/main';
-import Error404 from '../routing/Error404';
 import Player from '../player/player';
 import AddReview from '../movie-add-review/add-review';
 import MovieCard from '../movie-card/movie-card';
@@ -13,6 +12,8 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
+import PageIsNotAvailable from '../routing/page-is-not-available';
+import { Redirect } from 'react-router';
 
 function App(): JSX.Element {
   const films = useSelector(selectors.getMovies);
@@ -51,7 +52,6 @@ function App(): JSX.Element {
           render={({history}) => (
             <MovieCard
               cardTab={CardState.Overview}
-              movieList={films}
               onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
             />
           )}
@@ -62,7 +62,6 @@ function App(): JSX.Element {
           render={({history}) => (
             <MovieCard
               cardTab={CardState.Details}
-              movieList={films}
               onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
             />
           )}
@@ -73,7 +72,6 @@ function App(): JSX.Element {
           render={({history}) => (
             <MovieCard
               cardTab={CardState.Reviews}
-              movieList={films}
               onPlayVideoClick={(id: string|number) => history.push(AppRoute.Player(id))}
             />
           )}
@@ -97,11 +95,13 @@ function App(): JSX.Element {
         />
         <Route
           exact
-          path={AppRoute.Error404}
-          render={() => (
-            <Error404/>
-          )}
-        />
+          path={AppRoute.PageIsNotAvailable}
+        >
+          <PageIsNotAvailable/>
+        </Route>
+        <Route>
+          <Redirect to={AppRoute.PageIsNotAvailable}/>
+        </Route>
       </Switch>
     </BrowserRouter>
   );

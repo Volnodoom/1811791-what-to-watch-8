@@ -1,9 +1,12 @@
-import { FormEvent, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { FormEvent, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../general/footer';
 import Logo from '../general/logo';
 import {toast} from 'react-toastify';
-import { fetchLogin } from '../../store/api-actions';
+import { fetchLogin, fetchMovies } from '../../store/api-actions';
+import * as selectors from '../../store/selectors';
+import { AppRoute, AuthorizationStatus } from '../const/const';
+import { useHistory } from 'react-router';
 
 const TOAST_CLOSE = 10000;
 const TOAST_THEME = 'colored';
@@ -26,11 +29,21 @@ const showSignInProblem = (message: string) => {
 
 function SignIn(): JSX.Element {
   const dispatch = useDispatch();
+  const authStatus = useSelector(selectors.getAuthorizationStatus);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if(authStatus === AuthorizationStatus.Auth) {
+      history.push(AppRoute.Main);
+      dispatch(fetchMovies());
+    }
+  });
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const submitHandle = (evt: FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if(loginRef.current === null && passwordRef.current === null) {
@@ -58,10 +71,12 @@ function SignIn(): JSX.Element {
           return showSignInProblem(WaringMessage.TextPassword);
         case inputErrors.containMinimumLoginText:
           return showSignInProblem(WaringMessage.TextPassword);
-        default:  return dispatch(fetchLogin({
-          login: loginRef.current.value,
-          password: passwordRef.current.value,
-        }));
+        default:  return dispatch(
+          fetchLogin({
+            login: loginRef.current.value,
+            password: passwordRef.current.value,
+          }),
+        );
       }
     }
   };
@@ -77,7 +92,7 @@ function SignIn(): JSX.Element {
         <form
           action="#"
           className="sign-in__form"
-          onSubmit={submitHandle}
+          onSubmit={handleOnSubmit}
         >
           <div className="sign-in__fields">
             <div className="sign-in__field">

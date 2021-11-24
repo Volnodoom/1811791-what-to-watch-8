@@ -1,6 +1,5 @@
+import { getStringLikeRating } from '../../utils/common';
 import { MovieInfo } from '../types/types';
-
-const SHOW_ACTORS_NUMBER = 4;
 
 function MovieOverview(props: {film: MovieInfo}):JSX.Element {
   const {
@@ -11,19 +10,12 @@ function MovieOverview(props: {film: MovieInfo}):JSX.Element {
     actors,
   } = props.film;
 
-  const actorOutput = () => {
-    if (actors.length >= SHOW_ACTORS_NUMBER) {
-      return (`${actors.slice(0,4).join(', ')}  and other`);
-    }
-    return actors.join(', ');
-  };
-
   return(
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{ratingAbsolute}</div>
+        <div className="film-rating__score">{ratingAbsolute.toString().length === 1 ? `${ratingAbsolute}.0` : ratingAbsolute}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">{'Very good'}</span>
+          <span className="film-rating__level">{getStringLikeRating(ratingAbsolute)}</span>
           <span className="film-rating__count"> {ratingCount} ratings</span>
         </p>
       </div>
@@ -31,7 +23,7 @@ function MovieOverview(props: {film: MovieInfo}):JSX.Element {
       <div className="film-card__text">
         <p>{description}</p>
         <p className="film-card__director"><strong>Director: {director}</strong></p>
-        <p className="film-card__starring"><strong>Starring: {actorOutput()}</strong></p>
+        <p className="film-card__starring"><strong>Starring: {actors.join(', ')}</strong></p>
       </div>
     </>
   );

@@ -8,7 +8,7 @@ export const AppRoute = {
   Main: '/',
   SignIn: '/login',
   MyList: '/mylist',
-  Error404: '/error404',
+  PageIsNotAvailable: '/PageIsNotAvailable',
   Movie: (id: string | number = ':id') => `/films/${id}`,
   Details: (id: string | number = ':id') => `/films/${id}/details`,
   Reviews: (id: string | number = ':id') => `/films/${id}/reviews`,
@@ -35,13 +35,15 @@ export const MatchingComponent = {
 } as const;
 
 export const APIRoute = {
-  Films: '/films',
+  Movies: '/films',
   Login: '/login',
   Logout: '/logout',
   Promo: '/promo',
   CommentsGetPost: (filmId: number | string) => `/comments/${filmId}`,
   MyFavoritePost: ({id: filmId, actionToFilm}: PostMyListData ) => `/favorite/${filmId}/${actionToFilm}`,
   MyFavoriteGet: '/favorite',
+  OneMovie: (filmId: number | string) => `/films/${filmId}`,
+  SimilarMovies: (filmId: number | string) => `/films/${filmId}/similar`,
 } as const;
 
 export enum TimeDifferentiation {
@@ -59,3 +61,26 @@ export enum CommentsStatus {
   Failed = 'failed',
   NotProceeded  = 'not in the process',
 }
+
+export const STRING_MOVIE_RATING = [
+  {
+    value: 0,
+    stringValue: 'Bad',
+  },
+  {
+    value: 3,
+    stringValue: 'Normal',
+  },
+  {
+    value: 5,
+    stringValue: 'Good',
+  },
+  {
+    value: 8,
+    stringValue: 'Very good',
+  },
+  {
+    value: 10,
+    stringValue: 'Awesome',
+  },
+] as const;

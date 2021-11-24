@@ -1,4 +1,4 @@
-import { LineOfUpdate } from '../components/const/const';
+import { LineOfUpdate, STRING_MOVIE_RATING } from '../components/const/const';
 import { FilmsData } from '../components/types/state';
 import { MovieInfo } from '../components/types/types';
 
@@ -6,6 +6,9 @@ const MINUTES = 60;
 const SEC_IN_MINUTE = 60;
 const SEC_IN_HOUR = 3600;
 const TEN = 10;
+const START_OF_COPING = 0;
+const SHOW_SPECIFIC_NUMBER_OF_THUMBNAILS = 4;
+const EMPTY_ARRAY = 0;
 
 export const getRandomInteger = (a = 0, b = 1): number => {
   const lower = Math.ceil(Math.min(a, b));
@@ -94,3 +97,17 @@ export const updateArrowData = (stateData: FilmsData, updatedFilm: MovieInfo, li
     }
   }
 };
+
+export const prepareSimilarMovies = (array: MovieInfo[], id: number | string): MovieInfo[] => {
+  if (array.length === EMPTY_ARRAY) {return [];}
+  return array
+    .filter((film) => film.id !== Number(id))
+    .slice(START_OF_COPING,SHOW_SPECIFIC_NUMBER_OF_THUMBNAILS);
+};
+
+export const getStringLikeRating = (value:number): string => {
+  const index = STRING_MOVIE_RATING.slice().reverse().findIndex((description) => value >= description.value);
+  return STRING_MOVIE_RATING.slice().reverse()[index].stringValue;
+};
+
+export const findMovieIndexInArray = (array: MovieInfo[], filmId: number): number => array.findIndex((film) => film.id === filmId);
