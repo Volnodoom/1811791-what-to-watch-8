@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
 import { IdParam } from '../types/types';
 import * as selectors from '../../store/selectors';
-import { useParams } from 'react-router';
-import PageIsNotAvailable from '../routing/page-is-not-available';
+import { Redirect, useParams } from 'react-router';
 import { usePlayer } from '../../hooks/use-player';
 import { getTimeForPlayer } from '../../utils/common';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { State } from '../types/state';
+import { AppRoute } from '../const/const';
 
 const ONE_HUNDRED_PERCENT = 100;
 
@@ -32,9 +32,7 @@ function Player(props: PlayerProps):JSX.Element {
   } = usePlayer();
 
   if (!film) {
-    return (
-      <PageIsNotAvailable />
-    );
+    return <Redirect to={AppRoute.PageIsNotAvailable}/>;
   }
 
   const {srcVideo, backgroundImg } = film;

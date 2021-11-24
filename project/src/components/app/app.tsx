@@ -13,6 +13,7 @@ import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
 import PageIsNotAvailable from '../routing/page-is-not-available';
+import { Redirect } from 'react-router';
 
 function App(): JSX.Element {
   const films = useSelector(selectors.getMovies);
@@ -92,8 +93,14 @@ function App(): JSX.Element {
             />
           )}
         />
-        <Route>
+        <Route
+          exact
+          path={AppRoute.PageIsNotAvailable}
+        >
           <PageIsNotAvailable/>
+        </Route>
+        <Route>
+          <Redirect to={AppRoute.PageIsNotAvailable}/>
         </Route>
       </Switch>
     </BrowserRouter>

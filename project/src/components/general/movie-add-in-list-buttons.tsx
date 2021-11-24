@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import { postMyFavorite } from '../../store/api-actions';
 import * as selectors from '../../store/selectors';
-import PageIsNotAvailable from '../routing/page-is-not-available';
-
+import { AppRoute } from '../const/const';
 import { State } from '../types/state';
 
 const MOVIE_ADDED_TO_MYLIST = 1;
@@ -14,7 +14,7 @@ function MovieAddInListButtons(props: {filmId: number | string}): JSX.Element {
   const dispatch = useDispatch();
 
   if(typeof film === 'undefined') {
-    return <PageIsNotAvailable />;
+    return <Redirect to={AppRoute.PageIsNotAvailable}/>;
   }
 
   const isFavorite = film.isFavorite;

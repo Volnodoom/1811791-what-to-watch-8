@@ -1,5 +1,4 @@
-import { useParams } from 'react-router';
-import PageIsNotAvailable from '../routing/page-is-not-available';
+import { Redirect, useParams } from 'react-router';
 import { AppRoute, AuthorizationStatus, CardState, CommentsStatus, MatchingComponent } from '../const/const';
 import { IdParam } from '../types/types';
 import BasicDescriptionPoster from '../general/basic-description-poster';
@@ -54,9 +53,7 @@ function MovieCard(props: MovieCardProps):JSX.Element {
 
 
   if (!film) {
-    return (
-      <PageIsNotAvailable />
-    );
+    return <Redirect to={AppRoute.PageIsNotAvailable}/>;
   }
 
   const {backgroundImg, poster, title} = film;
