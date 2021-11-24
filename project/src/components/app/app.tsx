@@ -1,6 +1,5 @@
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import Main from '../main/main';
-import Error404 from '../routing/error-404';
 import Player from '../player/player';
 import AddReview from '../movie-add-review/add-review';
 import MovieCard from '../movie-card/movie-card';
@@ -13,6 +12,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import { isAuthUnKnown } from '../../utils/site-flags';
 import browserHistory from '../routing/browser-history';
 import * as selectors from '../../store/selectors';
+import Error404 from '../routing/error-404';
 
 function App(): JSX.Element {
   const films = useSelector(selectors.getMovies);
