@@ -38,8 +38,8 @@ function AddReviewForm ():JSX.Element {
   }, [commentsStatusState, history, id]);
 
   useEffect(() => {Number(ratingValue) === 0 || feedback.length < MINIMAL_LENGTH || feedback.length > MAX_LENGTH
-    ? setIsButtonDisabled((prevState)=> true)
-    : setIsButtonDisabled((prevState)=> false);}, [ratingValue, feedback]);
+    ? setIsButtonDisabled(true)
+    : setIsButtonDisabled(false);}, [ratingValue, feedback]);
 
   const handleOnTextChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
     setFeedback(target.value);
