@@ -9,7 +9,7 @@ import { fetchMyFavorite } from '../../store/api-actions';
 import { useEffect } from 'react';
 
 
-function Mylist(): JSX.Element {
+function MyList(): JSX.Element {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,4 +30,4 @@ function Mylist(): JSX.Element {
   );
 }
 
-export default Mylist;
+export default MyList;

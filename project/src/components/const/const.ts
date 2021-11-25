@@ -46,11 +46,6 @@ export const APIRoute = {
   SimilarMovies: (filmId: number | string) => `/films/${filmId}/similar`,
 } as const;
 
-export enum TimeDifferentiation {
-  Total = 'Total time',
-  LeftTime = 'Time left to watch',
-}
-
 export enum LineOfUpdate {
   Films = 'films',
   MyFavorite = 'myFavoriteMovies',

@@ -3,7 +3,7 @@ import Main from '../main/main';
 import Player from '../player/player';
 import AddReview from '../movie-add-review/add-review';
 import MovieCard from '../movie-card/movie-card';
-import Mylist from '../mylist/mylist';
+import MyList from '../mylist/my-list';
 import SignIn from '../sign-in/sign-in';
 import { AppRoute, CardState } from '../const/const';
 import PrivateRoute from '../routing/private-route';
@@ -44,7 +44,7 @@ function App(): JSX.Element {
           exact
           path={AppRoute.MyList}
           render={() => (
-            <Mylist />)}
+            <MyList />)}
         />
         <Route
           exact
