@@ -1,6 +1,6 @@
 import { PostMyListData } from '../types/types';
 
-export const BACKEND_URL = 'https://10.react.pages.academy/wtw';
+export const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 export const REQUEST_TIMEOUT = 5000;
 export const ALL_GENRES = 'All genres';
 
